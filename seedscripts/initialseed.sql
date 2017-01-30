@@ -1,2 +1,2 @@
 USE hatebook;
-CREATE TABLE 
+CREATE TABLE "users";
