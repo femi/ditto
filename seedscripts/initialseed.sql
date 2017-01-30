@@ -1,0 +1,2 @@
+USE hatebook;
+CREATE TABLE 
