@@ -1,3 +1,124 @@
+-- Remove old database if it exists and rebuild
+CREATE DATABASE hatebook;
 USE hatebook;
-CREATE TABLE "users";
-CREATE TABLE "alpha";
+
+-- Create tables
+CREATE TABLE users (
+userId INT AUTO_INCREMENT,
+fName VARCHAR(20) NOT NULL,
+lName VARCHAR(20) NOT NULL,
+dob DATE NOT NULL,
+city VARCHAR(20),
+lang VARCHAR(20),
+mobileNumber VARCHAR(15) NOT NULL UNIQUE,
+email VARCHAR(100) NOT NULL UNIQUE,
+hashedPassword VARCHAR(100) NOT NULL,
+maritalStatus VARCHAR(25),
+sex VARCHAR (10),
+description VARCHAR(1000),
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (userId)
+);
+
+CREATE TABLE blogs (
+blogId INT AUTO_INCREMENT,
+content VARCHAR(10000) NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (blogId)
+);
+
+CREATE TABLE photos (
+photoId INT AUTO_INCREMENT,
+albumId INT,
+caption VARCHAR(1000),
+filename VARCHAR(500),
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (photoId),
+FOREIGN KEY (albumId) REFERENCES albums(albumId)
+);
+
+CREATE TABLE albums (
+albumId INT AUTO_INCREMENT,
+userId INT NOT NULL,
+name VARCHAR(200),
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (albumId),
+FOREIGN KEY userId REFERENCES users(userId),
+FOREIGN KEY dislikeId REFERENCES dislikes(dislikeId)
+);
+
+CREATE TABLE comments (
+commentId INT AUTO_INCREMENT,
+text VARCHAR(1000) NOT NULL,
+userId INT NOT NULL,
+photoId INT,
+albumId INT,
+blogId INT,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(commentId),
+FOREIGN KEY userId REFERENCES users(userId),
+FOREIGN KEY photoId REFERENCES photos(photoId),
+FOREIGN KEY albumId REFERENCES albums(albumId),
+FOREIGN KEY blogId REFERENCES blogs(blogId)
+);
+
+CREATE TABLE dislikes (
+dislikeId INT AUTO_INCREMENT,
+userId INT,
+blogId INT,
+photoId INT,
+albumId INT,
+commentId INT,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(dislikeId),
+FOREIGN KEY userId REFERENCES users(userId),
+FOREIGN KEY blogId REFERENCES blogs(blogId),
+FOREIGN KEY photoId REFERENCES photos(photoId),
+FOREIGN KEY albumId REFERENCES albums(albumId),
+FOREIGN KEY commentId REFERENCES comments(commentId)
+);
+
+CREATE TABLE friendcircles (
+circleId INT AUTO_INCREMENT,
+userId INT,
+name VARCHAR(100),
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(circleId),
+FOREIGN KEY userId REFERENCES users(userId)
+);
+
+CREATE TABLE friendcircle_users (
+circleId INT NOT NULL,
+userId INT NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY circleId REFERENCES friendcircles(circleId),
+FOREIGN KEY userId REFERENCES users(userId),
+PRIMARY KEY(circleId, userId)
+);
+
+CREATE TABLE album_friendcircles (
+albumId INT NOT NULL,
+circleId INT NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY albumId REFERENCES albums(albumId),
+FOREIGN KEY circleId REFERENCES circles(circleId),
+PRIMARY KEY (albumId, circleId)
+);
+CREATE TABLE album_users (
+albumId INT NOT NULL,
+userId INT NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY albumId REFERENCES albums(albumId),
+FOREIGN KEY circleId REFERENCES circles(circleId),
+PRIMARY KEY (albumId, userId)
+);
