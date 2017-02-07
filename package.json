@@ -1,0 +1,29 @@
+{
+    "author": "",
+    "babel": {
+    	"plugins": ["transform-react-jsx", "babel-preset-react", "babel-preset-es2015"],
+	"ignore": []
+    },
+    "bugs": {
+        "url": "https://github.com/FemiAw/hatebook/issues"
+    },
+    "dependencies": {
+        "history": "^4.5.1"
+    },
+    "description": "Hatebook",
+    "devDependencies": {
+	    "bower": "^1.8.0"
+    },
+    "homepage": "https://github.com/FemiAw/hatebook#readme",
+    "license": "UNLICENSED",
+    "main": "index.js",
+    "name": "hatebook",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/FemiAw/hatebook.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "version": "0.0.1"
+}
