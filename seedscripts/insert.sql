@@ -69,9 +69,7 @@ INSERT INTO album_users (albumId, userId) VALUES (6, 3);
 INSERT INTO album_users (albumId, userId) VALUES (7, 3);
 INSERT INTO album_users (albumId, userId) VALUES (8, 3);
 
---1
 INSERT INTO friendcircles (userId, name) VALUES (1, 'everyone');
---2
 INSERT INTO friendcircles (userId, name) VALUES (2, '2Face++');
 INSERT INTO friendcircles (userId, name) VALUES (2, 'Colleagues');
 INSERT INTO friendcircles (userId, name) VALUES (3, 'Clowns');
@@ -108,4 +106,44 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (2,9);
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,10);
 
 -- 3. 
-INSERT INTO friendcircle_users (circleId, userId) VALUES (2,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (3,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (3,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (3,4);
+
+-- 4. for friends circle 'everyone' contains every other user
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,3);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,5);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,6);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,7);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,8);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,9);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,10);
+-- 5. for friends circle 'everyone' contains every other user
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,3);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,4);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,6);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,7);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,8);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,9);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,10);
+-- 6. for friends circle 'everyone' contains every other user
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,3);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,4);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,5);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,7);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,8);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,9);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,10);
+-- 7. has no friends
+-- 8. has no friends
+-- 9. has no friends
+-- 10. has no friends
+-- 11. has no friends
+
+
