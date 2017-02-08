@@ -1,3 +1,4 @@
+-- seed users
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
       VALUES ('Pete', 'Meltzer', '12/12/88', 'London', '07842173569', 'pete@meltzer.com', PASSWORD('pasSVSFSDAVAG343532424sword'), 'single', 'M', 'Lover of fresh air.');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
@@ -19,28 +20,54 @@ INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword,
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
       VALUES ('Femi', 'Bants', '12/10/92', 'London', '07999367384', 'femi@bants.com', PASSWORD('passwo234rd'), 'single', 'M', 'Fucking legend.');
 
-INSERT INTO albums (userId, albumName) VALUES (4, "boom");
-INSERT INTO album_users (albumId, userId) VALUES (1, 1);
+-- seed albums
+INSERT INTO albums (userId, albumName) VALUES (1, "Pete's album");
+INSERT INTO albums (userId, albumName) VALUES (1, "Pete's second album")
+INSERT INTO albums (userId, albumName) VALUES (2, "Beth's album");
+INSERT INTO albums (userId, albumName) VALUES (3, "Isabel's album");
+INSERT INTO albums (userId, albumName) VALUES (4, "Thomas's album");
+INSERT INTO albums (userId, albumName) VALUES (5, "David's album");
+INSERT INTO albums (userId, albumName) VALUES (6, "Esther's album");
+INSERT INTO albums (userId, albumName) VALUES (7, "Kevin's album");
+INSERT INTO albums (userId, albumName) VALUES (8, "Gandalf's album");
+INSERT INTO albums (userId, albumName) VALUES (9, "Ovid's album");
+INSERT INTO albums (userId, albumName) VALUES (10, "Femi's album");
+
+-- seed photos
+INSERT INTO photos (albumId, caption) VALUES (1, "Pete's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (2, "Beth's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (3, "Isabel's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (4, "Thomas's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (5, "David's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (6, "Esther's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (7, "Kevin's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (8, "Gandalf's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (9, "Ovid's profile pic");
+INSERT INTO photos (albumId, caption) VALUES (10, "Femi's profile pic");
+
+-- seed blogs
+INSERT INTO blogs (userId, content) VALUES (1, "Pete's first blog");
+INSERT INTO blogs (userId, content) VALUES (2, "Beth's first blog");
+INSERT INTO blogs (userId, content) VALUES (3, "Isabel's first blog");
+INSERT INTO blogs (userId, content) VALUES (4, "Thomas's first blog");
+INSERT INTO blogs (userId, content) VALUES (5, "David's first blog");
+INSERT INTO blogs (userId, content) VALUES (6, "Esther's first blog");
+INSERT INTO blogs (userId, content) VALUES (7, "Kevin's first blog");
+INSERT INTO blogs (userId, content) VALUES (8, "Gandalf's first blog");
+INSERT INTO blogs (userId, content) VALUES (9, "Ovid's first blog");
+INSERT INTO blogs (userId, content) VALUES (10, "Femi's first blog");
+
+-- seed album users (deprecated)
 INSERT INTO album_users (albumId, userId) VALUES (1, 2);
 INSERT INTO album_users (albumId, userId) VALUES (1, 3);
-
-
-DELETE FROM albums
-WHERE albumId = 1; 
-
-SELECT * FROM album_users;
-
-
--- INSERT INTO albums (userId, albumName) VALUES (14, "awesome");
-
-
-
--- (userId, fName, lName, dob, city, lang, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-
-
--- UPDATE users
--- SET sex='F'
--- WHERE userId=1;
+INSERT INTO album_users (albumId, userId) VALUES (1, 4);
+INSERT INTO album_users (albumId, userId) VALUES (2, 1);
+INSERT INTO album_users (albumId, userId) VALUES (3, 4);
+INSERT INTO album_users (albumId, userId) VALUES (4, 3);
+INSERT INTO album_users (albumId, userId) VALUES (5, 3);
+INSERT INTO album_users (albumId, userId) VALUES (6, 3);
+INSERT INTO album_users (albumId, userId) VALUES (7, 3);
+INSERT INTO album_users (albumId, userId) VALUES (8, 3);
 
 --1
 INSERT INTO friendcircles (userId, name) VALUES (1, 'everyone');
