@@ -69,6 +69,7 @@ updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (commentId)
 );
 
+
 CREATE TABLE friendcircles (
 circleId INT(10) AUTO_INCREMENT,
 userId INT(10),
@@ -99,8 +100,8 @@ PRIMARY KEY (albumId, circleId)
 
 
 CREATE TABLE dislikes (
-dislikeId INT(10) AUTO_INCREMENT,
-userId INT(10),
+dislikeId INT(10) NOT NULL AUTO_INCREMENT,
+userId INT(10) NOT NULL,
 blogId INT(10),
 photoId INT(10),
 albumId INT(10),
@@ -142,5 +143,26 @@ ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleI
 -- ALTER TABLE albums ADD FOREIGN KEY (dislikeId) REFERENCES dislikes(dislikeId);
 -- ALTER TABLE album_users ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
 
-CREATE ASSERTION DISLIKES_ONLY_ONE_NOT_NULL
-	CHECK ()
+
+-- ============= create custom constraints ====================
+
+-- A dislike shouldn't have more than one foreign key reference to a blog, photo, album, or comment.
+CREATE ASSERTION dislikesOnlyOneNotNull
+	CHECK ((blogId IS NOT NULL AND photoId IS NULL AND albumId IS NULL AND commentId IS NULL)
+		OR (blogId IS NULL AND photoId IS NOT NULL AND albumId IS NULL AND commentId IS NULL)
+		OR (blogId IS NULL AND photoId IS NULL AND albumId IS NOT NULL AND commentId IS NULL)
+		OR (blogId IS NULL AND photoId IS NULL AND albumId IS NULL AND commentId IS NOT NULL));
+-- A comment shouldn't have more than one foreign key references to a photo, album or blog.
+CREATE ASSERTION commentsOnlyOneNotNull; 
+	CHECK ((photoId IS NOT NULL AND albumId IS NULL AND blogId IS NULL)
+		OR (photoId IS NULL AND albumId IS NOT NULL AND blogId IS NULL)
+		OR (photoId IS NULL AND albumId IS NULL AND blogId IS NULL));
+-- A message is either to an individual or a friend circle - it can't be both. 
+CREATE ASSERTION messagesBothNotNull;
+	CHECK ((receiverId IS NOT NULL AND circleId IS NULL)
+		OR (receiverId IS NULL AND circleId IS NOT NULL));
+
+-- Apply these contraints
+ALTER TABLE dislikes ADD CONSTRAINT dislikesOnlyOneNotNull;
+ALTER TABLE comments ADD CONSTRAINT commentsOnlyOneNotNull;
+ALTER TABLE messages ADD CONSTRAINT messagesBothNotNull;
