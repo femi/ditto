@@ -41,3 +41,44 @@ SELECT * FROM album_users;
 -- UPDATE users
 -- SET sex='F'
 -- WHERE userId=1;
+
+--1
+INSERT INTO friendcircles (userId, name) VALUES (1, 'everyone');
+--2
+INSERT INTO friendcircles (userId, name) VALUES (2, '2Face++');
+INSERT INTO friendcircles (userId, name) VALUES (2, 'Colleagues');
+INSERT INTO friendcircles (userId, name) VALUES (3, 'Clowns');
+INSERT INTO friendcircles (userId, name) VALUES (4, 'Pears');
+INSERT INTO friendcircles (userId, name) VALUES (5, 'Crabby');
+INSERT INTO friendcircles (userId, name) VALUES (6, 'LobSTARRY');
+INSERT INTO friendcircles (userId, name) VALUES (7, 'Fwends');
+INSERT INTO friendcircles (userId, name) VALUES (10, 'BanterBus');
+INSERT INTO friendcircles (userId, name) VALUES (10, 'Hoes');
+INSERT INTO friendcircles (userId, name) VALUES (1, 'Alpha');
+
+
+-- 1. for friends circle 'everyone' contains every other user
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,3);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,4);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,5);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,6);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,7);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,8);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,9);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,10);
+
+-- 2. everyone including self
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,1);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,2);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,3);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,4);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,5);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,6);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,7);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,8);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,9);
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,10);
+
+-- 3. 
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,1);
