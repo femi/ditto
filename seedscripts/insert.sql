@@ -81,6 +81,17 @@ INSERT INTO friendcircles (userId, name) VALUES (10, 'BanterBus');
 INSERT INTO friendcircles (userId, name) VALUES (10, 'Hoes');
 INSERT INTO friendcircles (userId, name) VALUES (1, 'Alpha');
 
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (1, 1);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (2, 1);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (3, 1);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (4, 1);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (5, 1);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (6, 4);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (7, 3);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (8, 9);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (9, 3);
+INSERT INTO album_friendcircles (albumId, circleId) VALUES (2, 2);
+
 
 -- 1. for friends circle 'everyone' contains every other user
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,2);
@@ -145,5 +156,4 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (6,10);
 -- 9. has no friends
 -- 10. has no friends
 -- 11. has no friends
-
 

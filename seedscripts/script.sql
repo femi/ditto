@@ -110,6 +110,18 @@ updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (dislikeId)
 );
 
+CREATE TABLE messages (
+messageId INT(10) AUTO_INCREMENT,
+senderId INT(10) NOT NULL,
+receiverId INT(10,
+circleId INT(10),
+messageDate DATE,
+content VARCHAR(10000),
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+PRIMARY KEY (messageId)
+);
+
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (albumId) REFERENCES albums(albumId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE albums ADD FOREIGN KEY (userId) REFERENCES users(userId);
@@ -123,6 +135,12 @@ ALTER TABLE dislikes ADD FOREIGN KEY (blogId) REFERENCES blogs(blogId);
 ALTER TABLE dislikes ADD FOREIGN KEY (photoId) REFERENCES photos(photoId);
 ALTER TABLE dislikes ADD FOREIGN KEY (albumId) REFERENCES albums(albumId);
 ALTER TABLE dislikes ADD FOREIGN KEY (commentId) REFERENCES comments(commentId);
+ALTER TABLE messages ADD FOREIGN KEY (senderId) REFERENCES users(userId);
+ALTER TABLE messages ADD FOREIGN KEY (receiverId) REFERENCES users(userId);
+ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
 
 -- ALTER TABLE albums ADD FOREIGN KEY (dislikeId) REFERENCES dislikes(dislikeId);
 -- ALTER TABLE album_users ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
+
+CREATE ASSERTION DISLIKES_ONLY_ONE_NOT_NULL
+	CHECK ()
