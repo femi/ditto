@@ -1,28 +1,28 @@
 -- seed users
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Pete', 'Meltzer', '12/12/88', 'London', '07842173569', 'pete@meltzer.com', PASSWORD('pasSVSFSDAVAG343532424sword'), 'single', 'M', 'Lover of fresh air.');
+      VALUES ('Pete', 'Meltzer', '1988/12/12', 'London', '07842173569', 'pete@meltzer.com', PASSWORD('pasSVSFSDAVAG343532424sword'), 'single', 'M', 'Lover of fresh air.');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Beth', 'Meltzer', '10/11/91', 'London', '07777777777', 'beth2@meltzer.com', PASSWORD('pass2386792384756word'), 'single', 'F', 'Pete\'s sista!');
+      VALUES ('Beth', 'Meltzer', '1991/11/10', 'London', '07777777777', 'beth2@meltzer.com', PASSWORD('pass2386792384756word'), 'single', 'F', 'Pete\'s sista!');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Isabel', 'Rosina', '20/03/86', 'London', '0788888888', 'isabel@rosina.com', PASSWORD('p981624g2assword'), 'married', 'F', 'hai');
+      VALUES ('Isabel', 'Rosina', '1986/03/20', 'London', '0788888888', 'isabel@rosina.com', PASSWORD('p981624g2assword'), 'married', 'F', 'hai');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Thomas', 'Meltzer', '12/10/92', 'London', '07867665384', 'thomas@meltzer.com', PASSWORD('passwor1923846d'), 'single', 'M', 'PhD!');
+      VALUES ('Thomas', 'Meltzer', '1992/10/12', 'London', '07867665384', 'thomas@meltzer.com', PASSWORD('passwor1923846d'), 'single', 'M', 'PhD!');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('David', 'Blaine', '12/10/92', 'London', '07999665384', 'david@blaine.com', PASSWORD('passwo7541098rd'), 'single', 'M', 'Creepy fucker');
+      VALUES ('David', 'Blaine', '1992/10/13', 'London', '07999665384', 'david@blaine.com', PASSWORD('passwo7541098rd'), 'single', 'M', 'Creepy fucker');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Esther', 'Lol', '10/10/92', 'London', '07867667334', 'esther@lol.com', PASSWORD('pa3728497ssword'), 'single', 'F', 'Queen of the nigt');
+      VALUES ('Esther', 'Lol', '1992/10/10', 'London', '07867667334', 'esther@lol.com', PASSWORD('pa3728497ssword'), 'single', 'F', 'Queen of the nigt');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description) 
-      VALUES ('Kevin', 'Bryson', '12/10/92', 'London', '07867660384', 'kevin@bryson.com', PASSWORD('pass9871324word'), 'married', 'M', 'Oh noooooooooo!');
+      VALUES ('Kevin', 'Bryson', '1992/06/05', 'London', '07867660384', 'kevin@bryson.com', PASSWORD('pass9871324word'), 'married', 'M', 'Oh noooooooooo!');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description) 
-      VALUES ('Gandalf', 'Grey', '12/10/92', 'London', '07867467384', 'gandalf@grey.com', PASSWORD('passw928374ord'), 'divorced', 'M', 'He\'s a wizard, Harry.');
+      VALUES ('Gandalf', 'Grey', '1977/03/04', 'London', '07867467384', 'gandalf@grey.com', PASSWORD('passw928374ord'), 'divorced', 'M', 'He\'s a wizard, Harry.');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description) 
-      VALUES ('Colonel', 'Ovid', '12/10/92', 'London', '07867567384', 'colonel@ovid.com', PASSWORD('passwo987rd'), 'married', 'M', 'Serious');
+      VALUES ('Colonel', 'Ovid', '1988/12/25', 'London', '07867567384', 'colonel@ovid.com', PASSWORD('passwo987rd'), 'married', 'M', 'Serious');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Femi', 'Bants', '12/10/92', 'London', '07999367384', 'femi@bants.com', PASSWORD('passwo234rd'), 'single', 'M', 'Fucking legend.');
+      VALUES ('Femi', 'Bants', '1989/09/09', 'London', '07999367384', 'femi@bants.com', PASSWORD('passwo234rd'), 'single', 'M', 'Fucking legend.');
 
 -- seed albums
 INSERT INTO albums (userId, albumName) VALUES (1, "Pete's album");
-INSERT INTO albums (userId, albumName) VALUES (1, "Pete's second album")
+INSERT INTO albums (userId, albumName) VALUES (1, "Pete's second album");
 INSERT INTO albums (userId, albumName) VALUES (2, "Beth's album");
 INSERT INTO albums (userId, albumName) VALUES (3, "Isabel's album");
 INSERT INTO albums (userId, albumName) VALUES (4, "Thomas's album");
@@ -58,16 +58,6 @@ INSERT INTO blogs (userId, content) VALUES (9, "Ovid's first blog");
 INSERT INTO blogs (userId, content) VALUES (10, "Femi's first blog");
 
 -- seed album users (deprecated)
-INSERT INTO album_users (albumId, userId) VALUES (1, 2);
-INSERT INTO album_users (albumId, userId) VALUES (1, 3);
-INSERT INTO album_users (albumId, userId) VALUES (1, 4);
-INSERT INTO album_users (albumId, userId) VALUES (2, 1);
-INSERT INTO album_users (albumId, userId) VALUES (3, 4);
-INSERT INTO album_users (albumId, userId) VALUES (4, 3);
-INSERT INTO album_users (albumId, userId) VALUES (5, 3);
-INSERT INTO album_users (albumId, userId) VALUES (6, 3);
-INSERT INTO album_users (albumId, userId) VALUES (7, 3);
-INSERT INTO album_users (albumId, userId) VALUES (8, 3);
 
 INSERT INTO friendcircles (userId, name) VALUES (1, 'everyone');
 INSERT INTO friendcircles (userId, name) VALUES (2, '2Face++');
