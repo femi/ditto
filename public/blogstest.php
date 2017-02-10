@@ -29,44 +29,6 @@ what next?
 
 <?php
 
-// stolen from https://www.binpress.com/tutorial/using-php-with-mysql-the-right-way/17
-function db_connect() {
-
-    // Define connection as a static variable, to avoid connecting more than once
-    static $connection;
-
-    // Try and connect to the database, if a connection has not been established yet
-    if(!isset($connection)) {
-         // Load configuration as an array. Use the actual location of your configuration file
-        $config = parse_ini_file('config.ini');
-        $connection = mysqli_connect('localhost',$config['username'],$config['password'],$config['dbname']);
-    }
-
-    // If connection was not successful, handle the error
-    if($connection === false) {
-        // Handle error - notify administrator, log to a file, show an error screen, etc.
-        return mysqli_connect_error();
-    }
-    return $connection;
-}
-
-
-function db_query($query) {
-    // Connect to the database
-    $connection = db_connect();
-
-    // Query the database
-    $result = mysqli_query($connection,$query);
-
-    return $result;
-}
-
-// escapes the user input so no SQL injection possible
-function db_quote($value) {
-    $connection = db_connect();
-    return "'" . mysqli_real_escape_string($connection,$value) . "'";
-}
-
 // An insertion query. $result will be `true` if successful
 //$result = db_query("INSERT INTO `users` (`name`,`email`) VALUES ('John Doe','john.doe@gmail.com')");
 
@@ -91,6 +53,7 @@ function db_quote($value) {
 
 function retrieve_all_blogs() {
     // Retrieve blogs data query
+    include 'db_query.php';
     $result = db_query("SELECT * FROM blogs");
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -103,6 +66,7 @@ function retrieve_all_blogs() {
 function insert_blog($content) {
     // Insert content into blogs table
     // TODO check for SQL injection
+    include 'db_query.php';
     $result = db_query("INSERT INTO blogs (content) VALUES ('" . $content . "')");
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -115,6 +79,7 @@ function insert_blog($content) {
 function update_blog($blogId, $content) {
     // Update a blog with new content
     // TODO check for SQL injection
+    include 'db_query.php';
     $result = db_query("UPDATE blogs SET content = '" . $content . "' WHERE blogId = " . $blogId);
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -129,8 +94,10 @@ function update_blog($blogId, $content) {
 function delete_blog($blogId) {
     // Delete a blog from the table by blogId
     // TODO check for SQL injection
+    include 'db_query.php';
     $result = db_query("DELETE FROM blogs WHERE blogId = " . $blogId );
     if($result === false) {
+	include 'db_connect.php';
         echo mysqli_error(db_connect());
     } else {
         echo "<br>success<br>";
