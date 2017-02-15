@@ -32,7 +32,8 @@ Issues
 
 function retrieve_all_blogs() {
     // Retrieve blogs data query
-    include 'db_query.php';
+	//
+    require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
     $result = db_query("SELECT * FROM blogs");
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -52,7 +53,7 @@ function print_blog1() {
 
 function retrieve_blog_content($blogId) {
     // Retrieve blogs data query
-    include 'db_query.php';
+    require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
     $result = db_query("SELECT * FROM blogs WHERE blogID = ". $blogId);
     if($result === false) {
         echo mysqli_error(db_connect());

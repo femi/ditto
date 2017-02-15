@@ -1,9 +1,10 @@
 <?php
 
 // REQUIRE THE DATABASE FUNCTIONS
-require 'db_connect.php';
-require 'db_query.php';
-require 'db_quote.php';
+
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 $connection = db_connect(); // the db connection
 

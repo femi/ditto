@@ -12,6 +12,7 @@ done:
 - insert blog
 - update blog
 - delete blog
+- make 1st form linked to functions
 
 functions to:
 
@@ -21,7 +22,7 @@ functions to:
 what next?
 
 - SQL injection
-- make form linked to functions
+
 
 
 
@@ -29,31 +30,12 @@ what next?
 
 <?php
 
-// An insertion query. $result will be `true` if successful
-//$result = db_query("INSERT INTO `users` (`name`,`email`) VALUES ('John Doe','john.doe@gmail.com')");
-
-// // Retrieve users data query
-// $result = db_query("SELECT * FROM users");
-// if($result === false) {
-//     // Handle failure - log the error, notify administrator, etc.
-// } else {
-//     // We successfully inserted a row into the database
-// }
-//
-// echo 'Database before insert: <br>';
-// echo '<table>';
-// while($row = $result->fetch_assoc()){
-//     echo '<tr><td> '.$row['fName'].' '.$row['lName'].' '.$row['email'] .'</td></tr>';
-// }
-// echo '</table>'
-
-
 // ---------------------------------------------------------------------------
 // FUNCTIONS
 
 function retrieve_all_blogs() {
     // Retrieve blogs data query
-    include 'db_query.php';
+    require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
     $result = db_query("SELECT * FROM blogs");
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -66,9 +48,10 @@ function retrieve_all_blogs() {
 function insert_blog($content) {
     // Insert content into blogs table
     // TODO check for SQL injection
-    include 'db_query.php';
+    include '../../../resources/db/db_query.php';
     $result = db_query("INSERT INTO blogs (content) VALUES ('" . $content . "')");
     if($result === false) {
+	include '../../..resources/db/db_connect.php';
         echo mysqli_error(db_connect());
     } else {
         echo "<br>success<br>";
@@ -79,9 +62,10 @@ function insert_blog($content) {
 function update_blog($blogId, $content) {
     // Update a blog with new content
     // TODO check for SQL injection
-    include 'db_query.php';
+    include '../../../resources/db/db_query.php';
     $result = db_query("UPDATE blogs SET content = '" . $content . "' WHERE blogId = " . $blogId);
     if($result === false) {
+	include '../../../resources/db/db_connect.php';
         echo mysqli_error(db_connect());
     } else {
         echo "<br>success<br>";
@@ -89,15 +73,13 @@ function update_blog($blogId, $content) {
 
 }
 
-
-
 function delete_blog($blogId) {
     // Delete a blog from the table by blogId
     // TODO check for SQL injection
-    include 'db_query.php';
+    include '../../../resources/db/db_query.php';
     $result = db_query("DELETE FROM blogs WHERE blogId = " . $blogId );
     if($result === false) {
-	include 'db_connect.php';
+	include '../../../resources/db/db_connect';
         echo mysqli_error(db_connect());
     } else {
         echo "<br>success<br>";
@@ -126,20 +108,8 @@ print_blogs();
 
 
 // inserting a blog
-//echo "INSERTING A NEW BLOG";
-//insert_blog("some new content");
-//print_blogs();
-
-
-// deleting a blog, this does work!
-//echo "DELETING FIRST BLOG";
-//delete_blog(1);
-//print_blogs();
-
-// update a blog
-// echo "UPDATING BLOG 3";
-// update_blog(3, "updated content");
-// print_blogs();
-
+echo "INSERTING A NEW BLOG FROM FORM";
+insert_blog($_POST['blogentry']);
+print_blogs();
 
 ?>

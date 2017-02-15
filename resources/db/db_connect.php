@@ -1,6 +1,7 @@
 <?php
 
 // stolen from https://www.binpress.com/tutorial/using-php-with-mysql-the-right-way/17
+
 function db_connect() {
 
     // Define connection as a static variable, to avoid connecting more than once
@@ -9,7 +10,7 @@ function db_connect() {
     // Try and connect to the database, if a connection has not been established yet
     if(!isset($connection)) {
          // Load configuration as an array. Use the actual location of your configuration file
-        $config = parse_ini_file('../resources/config.ini');
+        $config = parse_ini_file(realpath(dirname(__FILE__)) . "../../config.ini");
         $connection = mysqli_connect('localhost',$config['username'],$config['password'],$config['dbname']);
     }
 
