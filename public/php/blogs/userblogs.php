@@ -8,41 +8,37 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 
 $connection = db_connect(); // the db connection
 
-// -----------------------------------------------------------------------------
-
-
 
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
 
-// Returns all the blogs from db.
-// Probably not a good idea when this is massive!
-function retrieve_all_blogs() {
-    $result = db_query("SELECT * FROM blogs");
+// Retrieve all blogs for a given userId
+function retrieve_blog_content($userId) {
+    $result = db_query("SELECT * FROM blogs WHERE userId = ". $userId);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-        // retrieval was successful
+        // nada
     }
     return $result;
 }
 
-// Prints all the blogs in table, format:
-// blogId, content, createdAt, updatedAt
-function print_blogs() {
+
+// Print all a user's blogs given a userId
+function print_users_blogs($userId) {
     echo 'Blog table: <br>';
     echo '<table>';
-    $blogs = retrieve_all_blogs();
-    while($row = $blogs->fetch_assoc()){
+    $usersblogs = retrieve_blog_content(db_quote($userId));
+    while($row = $usersblogs->fetch_assoc()){
         echo '<tr><td> '.$row['blogId'].' '.$row['content'].' '.$row['createdAt'] .' '.$row['updatedAt'].'</td></tr>';
     }
     echo '</table>';
-    echo '<br><br>';
 }
 
 
-print_blogs();
-
-
+// retrieving a user's blogs
+echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
+echo '<br>';
+print_users_blogs($_POST['userId']);
 
 ?>
