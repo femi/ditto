@@ -1,12 +1,12 @@
 <!--
+DONE:
+create form for the blog
 retrieve a users blogs
 test the sql injection proofing
     where to insert in code?
-
-
-create form for the blog
 insert a blog entry
-update an existing entry in format
+delete a blog entry
+update an existing entry in form
 -->
 
 <?php
@@ -43,7 +43,20 @@ $connection = db_connect(); // the db connection
 
 <h2>Update an existing blog entry for a user: </h2>
 
+<!-- update an existing blog given a userId and a blogId -->
+<form action="userblogupdate.php" method="post">
+    <input type="text" value="Enter a userId" name="userId" style="width:300px" ></input><br>
+    <input type="text" value="Enter a blogId" name="blogId" style="width:300px" ></input><br>
+    <input type="submit" value="View and update">
+</form>
 
 
 
 <h2>Delete an existing blog entry for a user: </h2>
+
+<!-- insert a new blog for a user -->
+<form action="userblogdelete.php" method="post">
+    <input type="text" value="Enter a userId" name="userId" style="width:300px" ></input><br>
+    <input type="text" value="Enter a blogId" name="blogId" style="width:300px" ></input><br>
+    <input type="submit" value="Erase those painful memories">
+</form>
