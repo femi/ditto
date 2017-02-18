@@ -9,16 +9,17 @@
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == XMLHttpRequest.DONE) {
             if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
-              var resultObject = JSON.parse(this.responseText);// receives an array of json objects
-              document.getElementById("ajaxResult").innerHTML = resultObject;
-              // Build up thumbnail thing - TODO encapsulate into JS function
-              var testArray = "";
-              for (var index in resultObject) {
-                // create a 150 x 150 thumbnail
-                var thumbnail = '<div class="thumbnail"><img src="../../img/invalid.png" class="thumbnail-img"><p class="thumbnail-title">' + resultObject[index].albumName + '</p></div>';
-                testArray += thumbnail;
-              }
-              document.getElementById("ajaxResult").innerHTML = testArray;
+              // var resultObject = JSON.parse(this.responseText);// receives an array of json objects
+              // document.getElementById("ajaxResult").innerHTML = resultObject;
+              // // Build up thumbnail thing - TODO encapsulate into JS function
+              // var testArray = "";
+              // for (var index in resultObject) {
+              //   // create a 150 x 150 thumbnail
+              //   var thumbnail = '<div class="thumbnail"><img src="../../img/invalid.png" class="thumbnail-img"><p class="thumbnail-title">' + resultObject[index].albumName + '</p></div>';
+              //   testArray += thumbnail;
+              // }
+              // document.getElementById("ajaxResult").innerHTML = testArray;
+              document.getElementById("ajaxResult").innerHTML = this.responseText;
             } else if (this.status == 400) {
               document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
             } else {
@@ -35,6 +36,7 @@
   </head>
   <body>
     <p>Type a userId to list their current albums</p>
+    <p>This will try and load up a random picture from inside the album as a thumbnail - note that the seeder has not created real photos though so some photos will not display.</p>
     <form>
       <input type="text" onkeyup="retrieveUserAlbums(this.value)">
     </form>

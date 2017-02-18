@@ -5,6 +5,7 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once(realpath(dirname(__FILE__)) . "../../photos/get_album_photo.php");
 
 function retrieve_user_albums() {
 	$connection = db_connect(); // Try and connect to the database
@@ -47,18 +48,27 @@ function retrieve_user_albums() {
 	if ($qry_result === false) {
 		echo mysqli_error(db_connect());
 	}
-	$json = Array();
-	while($row = $qry_result->fetch_assoc()){
-		$json[] = array(
-			'albumId' => $row['albumId'],
-			'userId' => $row['userId'],
-			'albumName' => $row['albumName'], 
-			'createdAt' => $row['createdAt'], 
-		        'updatedAt' => $row['updatedAt']
-		);
-	}
-	$jsonstring = json_encode($json);
-	echo $jsonstring;
+	// $json = Array();
+	// while($row = $qry_result->fetch_assoc()){
+	// 	$json[] = array(
+	// 		'albumId' => $row['albumId'],
+	// 		'userId' => $row['userId'],
+	// 		'albumName' => $row['albumName'], 
+	// 		'createdAt' => $row['createdAt'], 
+	// 	        'updatedAt' => $row['updatedAt']
+	// 	);
+	// }
+	// $jsonstring = json_encode($json);
+	// echo $jsonstring;
+	while ($row = $qry_result->fetch_assoc()){
+		$albumName = $row['albumName'];
+		$albumId = $row['albumId'];	
+		try {
+			get_album_photo($userId, $albumId);
+		} catch (Exception $e) {
+			// do something
+		}
+	}	
 }
 retrieve_user_albums();
 ?>

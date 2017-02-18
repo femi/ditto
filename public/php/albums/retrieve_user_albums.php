@@ -50,7 +50,6 @@ function retrieve_user_albums() {
 	
 	// TODO encapsulate into print function.
 	$result = 'Album table: <br>';
-	$result .= '<img src="../../img/invalid.png" alt="Test" onclick="Hi">';
 	$result .= '<table>';
 	while($row = $qry_result->fetch_assoc()){
 	        $result .= '<tr><td> '.$row['albumId'].' '.$row['userId'].' '.$row['albumName'].' '.$row['createdAt'] .' '.$row['updatedAt'].'</td></tr>';
