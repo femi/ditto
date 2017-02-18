@@ -7,7 +7,7 @@
 
 - To configure apache2's root from /var/www/:
 	- edit /etc/apache2/sites-available/000-default.conf, changing the "DocumentRoot /var/www" line to point at a custom folder
-	- In the smae file, create an Alias to the /resources/album_content directory:
+	- In the same file, create an Alias to the /resources/album_content directory:
 
 		Alias /album_content/ "/your/absolute/path/to/resources/album_content/"
 		<Directory "/your/absolute/path/to/resources/album_content/">
@@ -17,4 +17,6 @@
 		</Directory>
 	
 	- edit /etc/apache2/apache2.conf, changing "<Directory /var/www/ >" to the preferred directory
-	- sudo service restart apache2
+	- In the same file, and in the same <Directory> tag, change AllowOverride None to AllowOverride All (to enable the .htaccess file)
+	- Ensure that mod_rewrite is enabled (type sudo a2enmod rewrite into terminal)
+	- Restart the server: sudo service restart apache2

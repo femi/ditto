@@ -15,13 +15,13 @@ function get_album_photos() {
 	}
 
 	// Retrieve data from request and escape.
-	$userId = db_quote($_REQUEST['userId']);
+	// $userId = db_quote($_REQUEST['userId']); // userId for person trying to view data.
 	$albumId = db_quote($_REQUEST['albumId']);
 
 	// TODO check that userId is allowed to view the album
 	
 	// build query - by default it selects just one.
-	$query = "SELECT * FROM albums WHERE userId = $userId AND albumId = $albumId";
+	$query = "SELECT * FROM albums WHERE albumId = $albumId";
 
 	// Execute the query
 	$qry_result = db_query($query); 
@@ -31,11 +31,11 @@ function get_album_photos() {
 		echo mysqli_error(db_connect());
 	}
 
-	$userId = (int) substr($userId, 1, strlen($userId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
 	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
 
 	while($row = $qry_result->fetch_assoc()){
 		// scan the directory given
+		$userId = $row['userId'];
 		$photo_files = scandir("../../../resources/album_content/$userId/$albumId");
 	}
 
@@ -43,7 +43,7 @@ function get_album_photos() {
 
 	foreach($photo_files as $photoName) {
 		$file = "../../album_content/$userId/$albumId/$photoName";
-		echo "<img src=\"$file\" alt=\"Test\">"; // TODO join with caption below
+		echo "<div class=\"photo-thumbnail\"><img src=\"$file\" alt=\"Test\"></div>"; // TODO join with caption below
 		
 		// $new_query = "SELECT * FROM photos WHERE filename = $photoName LIMIT 1;";
 		// $new_query_result = db_query($query);

@@ -46,6 +46,10 @@
   margin-left: -27px; 
 }
 
+.dropzone, .dropzone * {
+  box-sizing: border-box; 
+}
+
 .thumbnail {
   height: 200px;
   width: 200px;
@@ -56,8 +60,7 @@
   width: 100px;
 }
 
-.dropzone, .dropzone * {
-  box-sizing: border-box; 
+.photo-thumbnail {
+  height: 100px;
+  width: 100px;
 }
-
-

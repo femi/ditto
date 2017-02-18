@@ -64,7 +64,8 @@ function retrieve_user_albums() {
 		$albumName = $row['albumName'];
 		$albumId = $row['albumId'];	
 		try {
-			get_album_photo($userId, $albumId);
+			$photo = get_album_photo($userId, $albumId);
+			echo "<div class=\"album-thumbnail\">$photo<p>$albumName</p></div>";
 		} catch (Exception $e) {
 			// do something
 		}

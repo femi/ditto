@@ -39,7 +39,7 @@ function get_album_photo($userId, $albumId) {
 		$filename = $row['filename'];
 		$caption = $row['caption'];
 		$photo_file = "../../../../album_content/$userId/$albumId/$filename";
-		echo "<img src=\"$photo_file\" alt=\"$caption\">";
+		return "<a href=\"../../html/get_photos.html\"><img src=\"$photo_file\" alt=\"$caption\"></a>";
 	}
 }
 ?>
