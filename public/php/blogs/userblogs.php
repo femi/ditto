@@ -9,6 +9,8 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 $connection = db_connect(); // the db connection
 
 
+
+
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
 
@@ -55,7 +57,7 @@ function print_blog_comments($blogId) {
     while($row = $blogcomments->fetch_assoc()){
         echo '<tr><td> '.$row['message'].' '.$row['updatedAt'].' '.$row['userId'];
         echo '<br>commentId: '.$row['commentId'];
-        echo '<form method="post" action="deletecomment.php">
+        echo '<form method="post" onclick="deleteComment('.$row['commentId'].')">
             <input type="submit" value="Delete">
             <input type="hidden" value=';
             echo $row['commentId'];
@@ -67,9 +69,10 @@ function print_blog_comments($blogId) {
 
 
 function form_add_comment($blogId) {
-    echo '<form method="post" action="addcomment.php">
-        <textarea style="height: 100px; width:200px" name=message>Write your comment here..</textarea><br>
-        <input type="submit" value="Add Comment">
+    // had to escape the ' in the echo'd html/js to specify 'message' as the id to get the comment from. very sketchy!
+    echo '<form method="post">
+        <textarea style="height: 100px; width:200px" name=message id="message">Write your comment here..</textarea><br>
+        <input type="submit" value="Add Comment" onclick="addComment('.$blogId.', 1, document.getElementById(\'message\').value)">
         <input type="hidden" value=';
         echo $blogId;
         echo ' name="blogId">
