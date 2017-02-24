@@ -13,8 +13,12 @@
 
   <form action="" method="post">
     <input type="text" name="email" placeholder="email" required><br>
-    <input type="text" name="password" placeholder="password" required><br><br>
-    <input type="submit" name="submit">
+    <input type="password" name="password" placeholder="password" required><br><br>
+    <input type="submit" name="submit" value="Login">
+  </form>
+
+  <form action="./public/php/home/register">
+    <input type="submit" value="Register" />
   </form>
 
 </body>
