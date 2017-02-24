@@ -17,7 +17,7 @@
     <input type="submit" name="submit" value="Login">
   </form>
 
-  <form action="s/public/php/home/register">
+  <form action="./public/php/home/register">
     <input type="submit" value="Register" />
   </form>
 
