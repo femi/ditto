@@ -1,10 +1,7 @@
 <?php
 
-require ('./resources/db/db_connect.php');
-require ('./resources/db/db_query.php');
-
-// require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-// require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
 session_start();
 $error='';

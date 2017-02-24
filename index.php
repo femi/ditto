@@ -12,8 +12,8 @@
   <h1>Login</h1>
 
   <form action="" method="post">
-    E-mail: <input type="text" name="email"><br>
-    Password: <input type="text" name="password"><br>
+    <input type="text" name="email" placeholder="email" required><br>
+    <input type="text" name="password" placeholder="password" required><br><br>
     <input type="submit" name="submit">
   </form>
 
