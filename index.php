@@ -12,9 +12,13 @@
   <h1>Login</h1>
 
   <form action="" method="post">
-    E-mail: <input type="text" name="email"><br>
-    Password: <input type="text" name="password"><br>
-    <input type="submit" name="submit">
+    <input type="text" name="email" placeholder="email" required><br>
+    <input type="text" name="password" placeholder="password" required><br><br>
+    <input type="submit" name="submit" value="Login">
+  </form>
+
+  <form action="s/public/php/home/register">
+    <input type="submit" value="Register" />
   </form>
 
 </body>
