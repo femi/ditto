@@ -1,10 +1,7 @@
 <?php
 
-require ('./resources/db/db_connect.php');
-require ('./resources/db/db_query.php');
-
-// require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-// require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
 session_start();
 $error='';
@@ -19,9 +16,18 @@ if ( isset($_POST['submit']) ) {
     $connection = db_connect();
     $query = db_query("SELECT * FROM `users` WHERE email = '$email' AND hashedPassword = '$password' ");
 
-    if (mysqli_num_rows(db_query("SELECT * FROM `users` WHERE email = '$email' AND hashedPassword = '$password'")) === 1) {
-      $_SESSION['login_user'] = $email; // Initializing Session
-      header("location: ./public/php/home/home.php");
+    // check to see if user exists
+    $userValid = mysqli_num_rows(db_query("SELECT * FROM `users` WHERE email = '$email'"));
+
+    if ($userValid === 1) {
+      $userHash = db_query("SELECT `hashedPassword` FROM `users` WHERE `email` = '$email'");
+      $row = mysqli_fetch_assoc($userHash)['hashedPassword'];
+
+      if (password_verify($password, $row) === true) {
+        $_SESSION['login_user'] = $email; // Initializing Session
+        header("location: ./public/php/home/home.php");
+      }
+
     } else {
       $error = "Username or Password is invalid";
     }
