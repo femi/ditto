@@ -4,12 +4,12 @@
 <html>
   <h1>Register</h1>
   <form method="POST" action="register_controller.php" >
-    First Name: <input type="text" name="fName" value=""><br>
-    Last Name: <input type="text" name="lName" value=""><br>
-    Email: <input type="text" name="email" value=""><br>
-    Number: <input type="text" name="pNumber" value=""><br>
-    DOB: <input type="text" name="dob" value=""><br>
-    Password: <input type="text" name="password" value=""><br>
-    <input type="submit" name="submit" value="submit">
+    <input type="text" name="fName" placeholder="First name" required><br>
+    <input type="text" name="lName" placeholder="Surname" required><br>
+    <input type="text" name="email" placeholder="Email address" required><br>
+    <input type="number" name="pNumber" placeholder="Mobile number" required><br>
+    <input type="date" name="dob" placeholder="Birthday" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <input type="submit" name="submit" value="Create account">
   </form>
 </html>
