@@ -13,7 +13,7 @@
 
   <form action="" method="post">
     <input type="text" name="email" placeholder="email" required><br>
-    <input type="text" name="password" placeholder="password" required><br><br>
+    <input type="password" name="password" placeholder="password" required><br><br>
     <input type="submit" name="submit" value="Login">
   </form>
 
