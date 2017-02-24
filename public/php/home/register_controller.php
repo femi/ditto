@@ -3,8 +3,9 @@
   require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
   require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
+  session_start();
   /*
-  * Inserts a new user into the database
+   Inserts a new user into the database
   */
   function newUser() {
     $fName = $_POST['fName'];
@@ -19,36 +20,48 @@
     $result = db_query($query);
 
     if ($result === false) {
-      echo "insert failure.";
+      // echo "insert failure.";
     } else {
-      echo "insert success.";
+      // echo "insert success.";
     }
   }
 
   /*
-  * Checks to see if a user already exists
+   Given an email address this function checks to see if a user already exists,
+   if a user does exist it returns `true` otherwise the function returns false.
   */
   function checkUser($email) {
 
     $query = "SELECT * FROM `users` WHERE `email` = '$email'";
     $result = mysqli_num_rows(db_query($query));
 
-    if ($result ===  1) {
+    if ($result === 1) {
       return true;
     } else {
       return false;
     }
   }
 
+  /*
+  This function registers a new guser given an email address and returns
+  a boolean true if an attempt to create a user was made and false otherwise.
+  */
   function register($email) {
     if (checkUser($email) === false) {
       newUser();
+      return true;
     } else {
-      echo "email address already registered";
+      return false;
     }
   }
 
+  // If the submit button has been pressed
   if (isset($_POST['submit'])) {
-  	register($_POST['email']);
+  	if (register($_POST['email'])) {
+      $_SESSION['login_user'] = $_POST['email'];
+      header("location: /hatebook/index");
+    } else {
+      echo "Email address already registered mate.";
+    }
 }
 ?>

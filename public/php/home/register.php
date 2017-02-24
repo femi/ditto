@@ -9,7 +9,7 @@
     <input type="text" name="email" placeholder="Email address" required><br>
     <input type="number" name="pNumber" placeholder="Mobile number" required><br>
     <input type="date" name="dob" placeholder="Birthday" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
     <input type="submit" name="submit" value="Create account">
   </form>
 </html>
