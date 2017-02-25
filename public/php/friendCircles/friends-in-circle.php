@@ -53,10 +53,21 @@ function print_users_FC($circleId) {
 }
 
 
+if (isset($_POST['circleId'])){
+    $circle = $_POST['circleId'];
+} else {
+    $circle = $_GET['circleId'];
+}
 
 // retrieving a user's FC
 echo "RETRIEVING A USER'S FRIEND CIRCLES FROM USERID PASSED BY FORM";
 echo '<br>';
-print_users_FC($_POST['circleId']);
+print_users_FC($circle);
 
 ?>
+<p>Add a friend to a circle:</p>
+<form action="friend-circles-add.php" method="post">
+    <input type="text" value="Enter a circleId" name="circleId"></input>
+    <input type="text" value="Enter the userId of friend" name="friendId"></input>
+    <input type="submit" value="Add">
+</form>

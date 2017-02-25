@@ -53,11 +53,15 @@ function print_users_FC($userId) {
     echo '</table>';
 }
 
-
+if (isset($_POST['userId'])){
+    $user = $_POST['userId'];
+} else {
+    $user = $_GET['userId'];
+}
 
 // retrieving a user's FC
-echo 'Friend circles of userId:'.$_POST['userId'].' <br><br>';
-print_users_FC($_POST['userId']);
+echo 'Friend circles of userId:'.$user.' <br><br>';
+print_users_FC($user);
 
 ?>
 <!-- form to obtain circleID to view friends in circle -->
