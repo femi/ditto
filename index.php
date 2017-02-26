@@ -1,7 +1,7 @@
 <?php
   include("public/php/home/login.php");
 
-  if( isset($_SESSION['login_user']) ){
+  if( isset($_SESSION['userId']) ){
     header("location: ./public/php/home/home.php");
 }
 ?>
