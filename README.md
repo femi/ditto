@@ -20,3 +20,5 @@
 	- In the same file, and in the same <Directory> tag, change AllowOverride None to AllowOverride All (to enable the .htaccess file)
 	- Ensure that mod_rewrite is enabled (type sudo a2enmod rewrite into terminal)
 	- Restart the server: sudo service restart apache2
+
+	- Ensure that album_content permissions are setup correctly (git needs write permissions)
