@@ -48,28 +48,39 @@ function retrieve_user_albums() {
 	if ($qry_result === false) {
 		echo mysqli_error(db_connect());
 	}
-	// $json = Array();
-	// while($row = $qry_result->fetch_assoc()){
-	// 	$json[] = array(
-	// 		'albumId' => $row['albumId'],
-	// 		'userId' => $row['userId'],
-	// 		'albumName' => $row['albumName'], 
-	// 		'createdAt' => $row['createdAt'], 
-	// 	        'updatedAt' => $row['updatedAt']
-	// 	);
-	// }
-	// $jsonstring = json_encode($json);
-	// echo $jsonstring;
-	while ($row = $qry_result->fetch_assoc()){
-		$albumName = $row['albumName'];
-		$albumId = $row['albumId'];	
-		try {
-			$photo = get_album_photo($userId, $albumId);
-			echo "<div class=\"album-thumbnail\">$photo<p>$albumName</p></div>";
-		} catch (Exception $e) {
-			// do something
-		}
-	}	
+
+    if ($qry_result->num_rows > 0) {
+      // $json = Array();
+	  // while($row = $qry_result->fetch_assoc()){
+	  // 	$json[] = array(
+	  // 		'albumId' => $row['albumId'],
+	  // 		'userId' => $row['userId'],
+	  // 		'albumName' => $row['albumName'], 
+	  // 		'createdAt' => $row['createdAt'], 
+	  // 	        'updatedAt' => $row['updatedAt']
+	  // 	);
+	  // }
+	  // $jsonstring = json_encode($json);
+	  // echo $jsonstring;
+      //
+	  while ($row = $qry_result->fetch_assoc()){
+	  	$albumName = $row['albumName'];
+	  	$albumId = $row['albumId'];	
+	  	try {
+	  		$photo = get_album_photo($userId, $albumId);
+	  		echo "<div class=\"album-thumbnail\"><p>$albumName</p>$photo</div>";
+	  	} catch (Exception $e) {
+	  		// do something
+	  	}
+      }
+
+    echo "<button type=\"button\" onclick=\"setupCreateAlbum($userId)\">Create another album?</button>";
+
+    } else {
+        // no rows found, offer to create album?
+        echo "<p>No albums found.</p><button type=\"button\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</button>";
+    }
+		
 }
 retrieve_user_albums();
 ?>

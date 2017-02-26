@@ -34,4 +34,11 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 # Regular expression, actual file, L for last. 
-RewriteRule ^albums/(\d+)*$ ./html/get_photos.html [L]
+RewriteRule ^albums/?$ ./html/albums.html [L]
+RewriteRule ^albums/(\d+)*$ ./php/photos/non_ajax_get_album_photos.php?albumId=$1 [L]
+#RewriteRule ^albums/(\d+)/(.+)/delete/?$ /html/redirect_page [L]
+RewriteRule ^albums/(\d+)/(.+)/delete/?$ /php/photos/delete_photo.php?albumId=$1&photoName=$2 [L]
+RewriteRule ^albums/(\d+)*/(.+)*$ /php/photos/get_photo_page_with_comments.php?albumId=$1&photoName=$2 [L]
+
+ErrorDocument 404 /html/404.html
+ErrorDocument 403 /html/403.html

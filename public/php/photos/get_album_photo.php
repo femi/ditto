@@ -21,7 +21,7 @@ function get_album_photo($userId, $albumId) {
 	// TODO check that userId is allowed to view the album
 	
 	// build query - by default it selects just one.
-	$query = "SELECT * FROM photos WHERE albumId = $albumId LIMIT 1";
+	$query = "SELECT * FROM photos WHERE albumId = $albumId ORDER BY createdAt DESC";
 
 	// Execute the query
 	$qry_result = db_query($query); 
@@ -39,7 +39,12 @@ function get_album_photo($userId, $albumId) {
 		$filename = $row['filename'];
 		$caption = $row['caption'];
 		$photo_file = "../../../../album_content/$userId/$albumId/$filename";
-		return "<a href=\"../../html/get_photos.html\"><img src=\"$photo_file\" alt=\"$caption\"></a>";
+        if (file_exists("../../../resources/album_content/$userId/$albumId/$filename")) {
+		    return "<a href=\"../../albums/$albumId\"><img src=\"$photo_file\" alt=\"$caption\"></a>";
+        } else {
+            // return default picture
+            return "<a href=\"../../albums/$albumId\"><img src=\"../../img/default.jpg\" alt=\"Currently no photos inside album.\"></a>";
+        }
 	}
 }
 ?>
