@@ -14,7 +14,6 @@
     $username = $_POST['username'];
     $mobileNumber = $_POST['mobileNumber'];
     $dob = $_POST['dob'];
-    echo $_POST['dob'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // insert into db
@@ -60,10 +59,16 @@
   // If the submit button has been pressed
   if (isset($_POST['submit'])) {
   	if (register($_POST['email'])) {
-      $_SESSION['login_user'] = $_POST['email'];
+      $_SESSION['userId'] = getUserId($_POST['email']);
       header("location: /hatebook/index");
     } else {
       echo "Email address already registered mate.";
     }
 }
+
+function getUserId($email) {
+  $result = db_query("SELECT userId FROM `users` WHERE email = '$email'");
+  return mysqli_fetch_assoc($result)['userId'];
+}
+
 ?>

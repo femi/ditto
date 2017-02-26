@@ -24,7 +24,8 @@ if ( isset($_POST['submit']) ) {
       $row = mysqli_fetch_assoc($userHash)['hashedPassword'];
 
       if (password_verify($password, $row) === true) {
-        $_SESSION['login_user'] = $email; // Initializing Session
+
+        $_SESSION['userId'] = getUserId($email);   // Initializing Session
         header("location: ./public/php/home/home.php");
       }
 
@@ -43,4 +44,10 @@ function cleanInput($input) {
   // will add more
   return $input;
 }
+
+function getUserId($email) {
+  $result = db_query("SELECT userId FROM `users` WHERE `email` = '$email'");
+  return mysqli_fetch_assoc($result)['userId'];
+}
+
 ?>
