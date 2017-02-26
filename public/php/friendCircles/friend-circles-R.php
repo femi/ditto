@@ -68,6 +68,17 @@ print_users_FC($user);
 ?> 
 
 <!-- form to obtain circleID to view friends in circle -->
+Create new circle for a user:
+<form action="friend-circles-C.php" method="post">
+    <select name="userId">
+                    <?php
+                    all_users();
+                    ?>   
+    </select>
+    <input type="text" placeholder="Enter a circleName" name="circleName"></input>
+    <input type="submit" value="Create">
+</form>
+
 Retrieve 'friends' friend-circles :
 <form action="friends-in-circle.php" method="post">
     <select name="circleId">

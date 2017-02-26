@@ -26,6 +26,6 @@ function add_friend($circleId, $userId) {
 
 }
 
-add_friend($_POST['circleId'], $_POST['friendId']);
+add_friend($_POST['circleId'], $_POST['userId']);
 
 ?>

@@ -18,11 +18,10 @@ Create new circle for a user:
                     all_users();
                     ?>   
     </select>
-    <input type="text" value="Enter a circleName" name="circleName"></input>
+    <input type="text" placeholder="Enter a circleName" name="circleName"></input>
     <input type="submit" value="Create">
-
-
 </form>
+
 Add a friend to a circle:
 <form action="friend-circles-add.php" method="post">
     <select name="circleId">
@@ -70,7 +69,7 @@ Update friend-circles name:
         all_circles();
         ?>   
     </select>
-    <input type="text" value="Enter new name" name="newName"></input>
+    <input type="text" placeholder="Enter new name" name="newName"></input>
     <input type="submit" value="Rename">
 </form>
 
