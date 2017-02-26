@@ -2,3 +2,4 @@ node_modules/
 public/lib/
 .bower-*/
 resources/album_content/
+.DS_Store

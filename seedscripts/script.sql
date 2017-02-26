@@ -12,6 +12,7 @@ dob DATE NOT NULL,
 city VARCHAR(20),
 mobileNumber VARCHAR(15) NOT NULL UNIQUE,
 email VARCHAR(100) NOT NULL UNIQUE,
+username VARCHAR(30) NOT NULL UNIQUE,
 hashedPassword VARCHAR(100) NOT NULL,
 maritalStatus VARCHAR(25),
 sex VARCHAR (10),
@@ -220,7 +221,7 @@ CREATE TRIGGER commentsOnlyOneNotNullUpdate BEFORE UPDATE ON comments
 		END IF;
 	END;//
 
--- A message is either to an individual or a friend circle - it can't be both. 
+-- A message is either to an individual or a friend circle - it can't be both.
 DROP TRIGGER IF EXISTS messagesBothNotNullInsert //
 CREATE TRIGGER messagesBothNotNullInsert BEFORE INSERT ON messages
 	FOR EACH ROW
