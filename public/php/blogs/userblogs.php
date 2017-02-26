@@ -2,11 +2,12 @@
 
 // REQUIRE THE DATABASE FUNCTIONS
 
-// these couldn't be require_once as it causes bug with session
-//require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
-//require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
+// if require_once functions and session are included then it breaks
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-require(realpath(dirname(__FILE__)) . "../../../php/home/session.php");
+//require(realpath(dirname(__FILE__)) . "../../../php/home/session.php");
+session_start();
 
 //$connection = db_connect(); // the db connection
 

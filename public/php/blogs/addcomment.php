@@ -7,6 +7,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 //require_once(realpath(dirname(__FILE__)) . "../home/session.php"); breaks if this is included here
+//session_start();
 
 $connection = db_connect(); // the db connection
 
