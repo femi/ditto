@@ -220,7 +220,7 @@ CREATE TRIGGER commentsOnlyOneNotNullUpdate BEFORE UPDATE ON comments
 		END IF;
 	END;//
 
--- A message is either to an individual or a friend circle - it can't be both. 
+-- A message is either to an individual or a friend circle - it can't be both.
 DROP TRIGGER IF EXISTS messagesBothNotNullInsert //
 CREATE TRIGGER messagesBothNotNullInsert BEFORE INSERT ON messages
 	FOR EACH ROW
