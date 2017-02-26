@@ -62,15 +62,28 @@ echo 'Friend circles of userId:'.$user.' <br><br>';
 print_users_FC($user);
 
 ?>
+
+<?php
+    require_once(__DIR__.'/get-all-users.php');
+?> 
+
 <!-- form to obtain circleID to view friends in circle -->
-<p>Retrieve 'friends' friend-circles:</p>
+Retrieve 'friends' friend-circles :
 <form action="friends-in-circle.php" method="post">
-    <input type="text" value="Enter a circleId" name="circleId"></input>
+    <select name="circleId">
+        <?php
+        all_circles();
+        ?>   
+    </select>
     <input type="submit" value="Retrieve">
 </form>
 Delete circle:
 <form action="friend-circles-D.php" method="post">
-    <input type="text" value="Enter a circleId" name="circleId"></input>
+    <select name="circleId">
+        <?php
+        all_circles();
+        ?>   
+    </select>
     <input type="submit" value="Delete">
 </form>
 <form action="friend-circles-CRUD.php" method="post">
