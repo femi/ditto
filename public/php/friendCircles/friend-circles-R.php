@@ -70,3 +70,11 @@ print_users_FC($user);
     <input type="text" value="Enter a circleId" name="circleId"></input>
     <input type="submit" value="Retrieve">
 </form>
+Delete circle:
+<form action="friend-circles-D.php" method="post">
+    <input type="text" value="Enter a circleId" name="circleId"></input>
+    <input type="submit" value="Delete">
+</form>
+<form action="friend-circles-CRUD.php" method="post">
+    <input type="submit" value="Back to CRUD">
+</form>
