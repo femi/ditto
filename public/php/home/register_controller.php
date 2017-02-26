@@ -11,12 +11,14 @@
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $email = $_POST['email'];
-    $pNumber = $_POST['pNumber'];
+    $username = $_POST['username'];
+    $mobileNumber = $_POST['mobileNumber'];
     $dob = $_POST['dob'];
+    echo $_POST['dob'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // insert into db
-    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `hashedPassword`, `mobileNumber`, `dob`) VALUES ('$fName', '$lName', '$email', '$password', '$pNumber', '$dob')";
+    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `username`, `hashedPassword`, `mobileNumber`, `dob`) VALUES ('$fName', '$lName', '$email', '$username', '$password', '$mobileNumber', '$dob')";
     $result = db_query($query);
 
     if ($result === false) {

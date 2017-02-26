@@ -8,7 +8,7 @@ $error='';
 
 if ( isset($_POST['submit']) ) {
   if (empty($_POST['email']) || empty($_POST['password'])) {
-    echo 'username or password is invalid';
+    echo 'email address or password is invalid';
   } else {
 
     $email = cleanInput($_POST['email']);
@@ -29,7 +29,7 @@ if ( isset($_POST['submit']) ) {
       }
 
     } else {
-      $error = "Username or Password is invalid";
+      $error = "Emaill address or Password is invalid";
     }
     mysqli_close($connection); // Closing Connection
   }
