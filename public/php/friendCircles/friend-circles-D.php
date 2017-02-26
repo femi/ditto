@@ -12,6 +12,20 @@ $connection = db_connect(); // the db connection
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
 
+// Remove all friends from a given circleId
+function remove_all_friend($circleId) {
+
+    $result = db_query("DELETE FROM friendcircle_users WHERE circleId =".db_quote($circleId));
+
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+        //
+    }
+
+}
+
+
 // Delete a circle by circleId
 function delete_circle($circleId) {
     $result = db_query("DELETE FROM friendcircles WHERE circleId = ".db_quote($circleId));
@@ -24,7 +38,7 @@ function delete_circle($circleId) {
         echo "deleted circleId: ".$circleId;
     }
 }
-
+remove_all_friend($_POST['circleId']);
 delete_circle($_POST['circleId']);
 
 ?>

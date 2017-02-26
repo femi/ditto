@@ -18,6 +18,7 @@ function remove_friend($circleId, $userId) {
     $result = db_query("DELETE FROM friendcircle_users WHERE circleId =".db_quote($circleId)." AND userId=".db_quote($userId));
 
     if($result === false) {
+    	while 
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.

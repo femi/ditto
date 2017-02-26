@@ -25,8 +25,6 @@ function retrieve_friend_circles($userId) {
 }
 
 
-
-
 // Print all a user's friend circles given a userId
 function print_users_FC($userId) {
 
