@@ -8,7 +8,7 @@ $error='';
 
 if ( isset($_POST['submit']) ) {
   if (empty($_POST['email']) || empty($_POST['password'])) {
-    echo 'username or password is invalid';
+    echo 'email address or password is invalid';
   } else {
 
     $email = cleanInput($_POST['email']);
@@ -24,12 +24,13 @@ if ( isset($_POST['submit']) ) {
       $row = mysqli_fetch_assoc($userHash)['hashedPassword'];
 
       if (password_verify($password, $row) === true) {
-        $_SESSION['login_user'] = $email; // Initializing Session
+
+        $_SESSION['userId'] = getUserId($email);   // Initializing Session
         header("location: ./public/php/home/home.php");
       }
 
     } else {
-      $error = "Username or Password is invalid";
+      $error = "Emaill address or Password is invalid";
     }
     mysqli_close($connection); // Closing Connection
   }
@@ -43,4 +44,10 @@ function cleanInput($input) {
   // will add more
   return $input;
 }
+
+function getUserId($email) {
+  $result = db_query("SELECT userId FROM `users` WHERE `email` = '$email'");
+  return mysqli_fetch_assoc($result)['userId'];
+}
+
 ?>
