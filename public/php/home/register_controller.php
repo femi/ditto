@@ -56,19 +56,33 @@
     }
   }
 
-  // If the submit button has been pressed
-  if (isset($_POST['submit'])) {
-  	if (register($_POST['email'])) {
-      $_SESSION['userId'] = getUserId($_POST['email']);
-      header("location: /hatebook/index");
-    } else {
-      echo "Email address already registered mate.";
-    }
-}
-
 function getUserId($email) {
   $result = db_query("SELECT userId FROM `users` WHERE email = '$email'");
   return mysqli_fetch_assoc($result)['userId'];
 }
 
+function createAlbum($userId) {
+  $query = "INSERT INTO `albums` (userId, albumName) VALUES ('$userId', 'profile')";
+  $result = db_query($query);
+}
+
+function createFriendCircle($userId) {
+  $query = "INSERT INTO `friendcircles` (userId, name) VALUES ('$userId', 'everyone')";
+  $result = db_query($query);
+}
+
+// If the submit button has been pressed
+if (isset($_POST['submit'])) {
+  if (register($_POST['email'])) {
+    $userId = getUserId($_POST['email']);
+    $_SESSION['userId'] = $userId;
+
+    createAlbum($userId);
+    createFriendCircle($userId);
+
+    header("location: /hatebook/index");
+  } else {
+    echo "Email address already registered mate.";
+  }
+}
 ?>
