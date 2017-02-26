@@ -2,11 +2,13 @@
 
 // REQUIRE THE DATABASE FUNCTIONS
 
-require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
-require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
-require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+// these couldn't be require_once as it causes bug with session
+//require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
+//require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
+require(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require(realpath(dirname(__FILE__)) . "../../../php/home/session.php");
 
-$connection = db_connect(); // the db connection
+//$connection = db_connect(); // the db connection
 
 
 
@@ -70,9 +72,11 @@ function print_blog_comments($blogId) {
 
 function form_add_comment($blogId) {
     // had to escape the ' in the echo'd html/js to specify 'message' as the id to get the comment from. very sketchy!
+    //$userId = $_REQUEST('userId');
+    echo "logged in user: ". $_SESSION['userId'];
     echo '<form method="post">
         <textarea style="height: 100px; width:200px" name=message id="message">Write your comment here..</textarea><br>
-        <input type="submit" value="Add Comment" onclick="addComment('.$blogId.', 1, document.getElementById(\'message\').value)">
+        <input type="submit" value="Add Comment" onclick="addComment('.$blogId.','.$_SESSION['userId'].', document.getElementById(\'message\').value)">
         <input type="hidden" value=';
         echo $blogId;
         echo ' name="blogId">
@@ -83,7 +87,7 @@ function form_add_comment($blogId) {
 // retrieving a user's blogs
 echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
 echo '<br>';
-print_users_blogs($_POST['userId']);
+print_users_blogs($_POST['blogUserId']);
 
 // retrieve comments for a blog entry
 // add comments for a blog entry

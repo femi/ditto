@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css/default.css">
     <script type="text/javascript">
-        function retrieveUserBlogs(userId) {
+        function retrieveUserBlogs(blogUserId) {
             var xmlhttp = new XMLHttpRequest();
                xmlhttp.onreadystatechange = function() {
                  if (this.readyState == XMLHttpRequest.DONE) {
@@ -18,8 +18,8 @@
                  };
                };
                //gets the values from the page
-               //console.log(userId);
-               var querystring = "userId=" + userId;
+               console.log(blogUserId);
+               var querystring = "blogUserId=" + blogUserId;
                xmlhttp.open("POST", "../../php/blogs/userblogs.php", true);
                //xmlhttp.open("POST", "../../php/blogs/echovars.php", true);
 
