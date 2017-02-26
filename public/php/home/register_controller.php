@@ -74,13 +74,20 @@ function createFriendCircle($userId) {
 // If the submit button has been pressed
 if (isset($_POST['submit'])) {
   if (register($_POST['email'])) {
+
+    // get the user's id number
     $userId = getUserId($_POST['email']);
+
+    // set the session
     $_SESSION['userId'] = $userId;
 
+    // intialise the user with album and friend circle
     createAlbum($userId);
     createFriendCircle($userId);
 
+    // redirect to the homepage
     header("location: /hatebook/index");
+
   } else {
     echo "Email address already registered mate.";
   }
