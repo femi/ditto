@@ -11,12 +11,13 @@
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $email = $_POST['email'];
-    $pNumber = $_POST['pNumber'];
+    $username = $_POST['username'];
+    $mobileNumber = $_POST['mobileNumber'];
     $dob = $_POST['dob'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // insert into db
-    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `hashedPassword`, `mobileNumber`, `dob`) VALUES ('$fName', '$lName', '$email', '$password', '$pNumber', '$dob')";
+    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `username`, `hashedPassword`, `mobileNumber`, `dob`) VALUES ('$fName', '$lName', '$email', '$username', '$password', '$mobileNumber', '$dob')";
     $result = db_query($query);
 
     if ($result === false) {
@@ -55,13 +56,40 @@
     }
   }
 
-  // If the submit button has been pressed
-  if (isset($_POST['submit'])) {
-  	if (register($_POST['email'])) {
-      $_SESSION['login_user'] = $_POST['email'];
-      header("location: /hatebook/index");
-    } else {
-      echo "Email address already registered mate.";
-    }
+function getUserId($email) {
+  $result = db_query("SELECT userId FROM `users` WHERE email = '$email'");
+  return mysqli_fetch_assoc($result)['userId'];
+}
+
+function createAlbum($userId) {
+  $query = "INSERT INTO `albums` (userId, albumName) VALUES ('$userId', 'profile')";
+  $result = db_query($query);
+}
+
+function createFriendCircle($userId) {
+  $query = "INSERT INTO `friendcircles` (userId, name) VALUES ('$userId', 'everyone')";
+  $result = db_query($query);
+}
+
+// If the submit button has been pressed
+if (isset($_POST['submit'])) {
+  if (register($_POST['email'])) {
+
+    // get the user's id number
+    $userId = getUserId($_POST['email']);
+
+    // set the session
+    $_SESSION['userId'] = $userId;
+
+    // intialise the user with album and friend circle
+    createAlbum($userId);
+    createFriendCircle($userId);
+
+    // redirect to the homepage
+    header("location: /hatebook/index");
+
+  } else {
+    echo "Email address already registered mate.";
+  }
 }
 ?>
