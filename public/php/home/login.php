@@ -26,7 +26,7 @@ if ( isset($_POST['submit']) ) {
       if (password_verify($password, $row) === true) {
 
         $_SESSION['userId'] = getUserId($email);   // Initializing Session
-        header("location: ./public/php/home/home.php");
+        header("location: /php/home/home.php");
       }
 
     } else {

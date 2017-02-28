@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
     createFriendCircle($userId);
 
     // redirect to the homepage
-    header("location: /hatebook/index");
+    header("location: /");
 
   } else {
     echo "Email address already registered mate.";

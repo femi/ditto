@@ -1,8 +1,8 @@
 <?php
-  include("public/php/home/login.php");
+  include("php/home/login.php");
 
   if( isset($_SESSION['userId']) ){
-    header("location: ./public/php/home/home.php");
+    header("location: /php/home/home.php");
 }
 ?>
 
@@ -17,7 +17,7 @@
     <input type="submit" name="submit" value="Login">
   </form>
 
-  <form action="./public/php/home/register">
+  <form action="/php/home/register.php">
     <input type="submit" value="Register" />
   </form>
 

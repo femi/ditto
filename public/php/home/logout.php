@@ -3,7 +3,7 @@
 
   // destroy the session
   if(session_destroy()) {
-    header("Location: /hatebook/index.php"); // redirect to hompe page
+    header("Location: /"); // redirect to home page
   }
 
 ?>
