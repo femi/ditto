@@ -20,8 +20,8 @@ function add_friend($circleId, $userId) {
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.
-        echo "<br>successfully inserted<br>" . $content . "into " . $userId. "'s blog";
-        header('Location: friends-in-circle.php?circleId='.$circleId); exit();
+        echo "<br>successfully inserted<br>";
+
     }
 
 }
@@ -29,3 +29,7 @@ function add_friend($circleId, $userId) {
 add_friend($_POST['circleId'], $_POST['userId']);
 
 ?>
+<br>
+<form action="friend-circles-CRUD.php" method="post">
+    <input type="submit" value="Back to CRUD">
+</form>

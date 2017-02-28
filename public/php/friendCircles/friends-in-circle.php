@@ -86,70 +86,12 @@ echo '<br>';
     echo '</table>';
 }
 
-
-if (isset($_POST['circleId'])){
-    $circle = $_POST['circleId'];
-} else {
-    $circle = $_GET['circleId'];
-}
-
 // retrieving a user's friend circles
-retrieve_friendcircle_name($circle);
-print_users_FC($circle);
+retrieve_friendcircle_name($_POST['circleId']);
+print_users_FC($_POST['circleId']);
 
 ?>
-<?php
-    require_once(__DIR__.'/get-all-users.php');
-?> 
-Update friend-circles name:
-<form action="friend-circles-U.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <input type="text" value="Enter new name" name="newName"></input>
-    <input type="submit" value="Rename">
-</form>
 
-Add a friend to a circle:
-<form action="friend-circles-add.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <select name="userId">
-                    <?php
-                    all_users();
-                    ?>   
-    </select>
-    <input type="submit" value="Add">
-</form>
-
-Remove a friend from circle:
-<form action="friend-circles-remove.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <select name="userId">
-                    <?php
-                    all_users();
-                    ?>   
-    </select>
-    <input type="submit" value="Remove">
-</form>
-Delete circle:
-<form action="friend-circles-D.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Delete">
-</form>
 
 
 <form action="friend-circles-CRUD.php" method="post">

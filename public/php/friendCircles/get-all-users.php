@@ -21,9 +21,12 @@ function all_users() {
     } else {
      
     	while($row = $result->fetch_assoc()){
+
 	    	$userId = $row['userId'];
 	    	$fName = $row['fName'];
-	        echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';
+
+            //only displays users apart from the logged in user
+	         if ($userId != $_SESSION['userId']){echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';}
     	}
     }
 
@@ -35,7 +38,7 @@ function all_circles() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+        return $results;
     	while($row = $result->fetch_assoc()){
 	    	$circleId = $row['circleId'];
 	    	$name = $row['name'];
@@ -45,6 +48,21 @@ function all_circles() {
 
 }
 
+// gets user's circles and echo's option for each circle
+function users_circles() {
 
+    $result = db_query("SELECT * FROM friendCircles WHERE userId = ". $_SESSION['userId']);
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+            $circleId = $row['circleId'];
+            $name = $row['name'];
+            echo '<option value="'.$circleId.'">'.$circleId.'. '.$name.'</option>';
+        }
+    }
+
+}
 
 ?>

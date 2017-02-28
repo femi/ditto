@@ -22,8 +22,8 @@ function remove_friend($circleId, $userId) {
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.
-        echo "<br>successfully inserted<br>" . $content . "into " . $userId. "'s blog";
-        header('Location: friends-in-circle.php?circleId='.$circleId); exit();
+        echo "<br>successfully deleted<br>" . $userId . "from " . $circleId;
+   
     }
 
 }
@@ -31,3 +31,8 @@ function remove_friend($circleId, $userId) {
 remove_friend($_POST['circleId'], $_POST['userId']);
 
 ?>
+
+<br>
+<form action="friend-circles-CRUD.php" method="post">
+    <input type="submit" value="Back to CRUD">
+</form>

@@ -22,7 +22,7 @@ function update_circle($circleId, $name) {
         echo "<br>successfully updated<br>";
         echo 'circleId = '.$circleId;
         echo 'name = '.$name;
-        header('Location: friends-in-circle.php?circleId='.$circleId); exit();
+        
     }
 
 }
@@ -30,3 +30,7 @@ function update_circle($circleId, $name) {
 update_circle($_POST['circleId'], $_POST['newName']);
 
 ?>
+<br>
+<form action="friend-circles-CRUD.php" method="post">
+    <input type="submit" value="Back to CRUD">
+</form>

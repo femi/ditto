@@ -5,7 +5,6 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-
 $connection = db_connect(); // the db connection
 
 
@@ -45,58 +44,12 @@ function print_users_FC($userId) {
 	        	<td> '.$circleID.'</td>
 	        	<td> '.$row['name'].'</td>
 	        	<td> '.$row['createdAt'] .' </td>
-	        	<td>'.$row['updatedAt'].'</td>
+	        	<td> '.$row['updatedAt'].'</td>
 	        </tr>';
     }
     echo '</table>';
 }
 
-if (isset($_POST['userId'])){
-    $user = $_POST['userId'];
-} else {
-    $user = $_GET['userId'];
-}
-
-// retrieving a user's FC
-echo 'Friend circles of userId:'.$user.' <br><br>';
-print_users_FC($user);
 
 ?>
 
-<?php
-    require_once(__DIR__.'/get-all-users.php');
-?> 
-
-<!-- form to obtain circleID to view friends in circle -->
-Create new circle for a user:
-<form action="friend-circles-C.php" method="post">
-    <select name="userId">
-                    <?php
-                    all_users();
-                    ?>   
-    </select>
-    <input type="text" placeholder="Enter a circleName" name="circleName"></input>
-    <input type="submit" value="Create">
-</form>
-
-Retrieve 'friends' friend-circles :
-<form action="friends-in-circle.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Retrieve">
-</form>
-Delete circle:
-<form action="friend-circles-D.php" method="post">
-    <select name="circleId">
-        <?php
-        all_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Delete">
-</form>
-<form action="friend-circles-CRUD.php" method="post">
-    <input type="submit" value="Back to CRUD">
-</form>
