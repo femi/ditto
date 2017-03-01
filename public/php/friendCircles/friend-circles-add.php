@@ -5,7 +5,7 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-
+session_start();
 $connection = db_connect(); // the db connection
 
 
@@ -26,7 +26,7 @@ function add_friend($circleId, $userId) {
 
 }
 
-add_friend($_POST['circleId'], $_POST['userId']);
+add_friend($_SESSION['circleId'], $_POST['userId']);
 
 ?>
 <br>

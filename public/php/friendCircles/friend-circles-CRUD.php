@@ -26,11 +26,16 @@
                 </form>';
             die();
         } 
-
     ?>
     
 
-<h2>Create</h2>
+<!-- retrieve a user's friend-circles -->
+<br>
+List of user's friend-circles:
+    <?php
+    print_users_FC($_SESSION['userId']);
+    ?>
+<br>
 <!-- To create a new circle for user that is logged in -->
 Create new circle for a user:
 <form action="friend-circles-C.php" method="post">
@@ -38,43 +43,6 @@ Create new circle for a user:
     <input type="submit" value="Create">
 </form>
 
-Add a friend to a circle:
-<form action="friend-circles-add.php" method="post">
-    <select name="circleId">
-        <?php
-         users_circles();
-        ?>   
-    </select>
-    <select name="userId">
-                    <?php
-                    all_users();
-                    ?>   
-    </select>
-    <input type="submit" value="Add">
-</form>
-
-
-<h2>Retrieve</h2>
-<!-- retrieve a user's friend-circles -->
-List of user's friend-circles:
-    <?php
-    print_users_FC($_SESSION['userId']);
-    ?>
-<br>
-
-<!-- Retrieve friends from a logged in user's circle -->
-Retrieve 'friends' form friend-circles :
-<form action="friends-in-circle.php" method="post">
-    <select name="circleId">
-        <?php
-         users_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Retrieve">
-</form>
-
-
-<h2>Update</h2>
 <!-- Update the name of logged in users friend circle -->
 Update friend-circles name:
 <form action="friend-circles-U.php" method="post">
@@ -88,7 +56,17 @@ Update friend-circles name:
 </form>
 
 
-<h2>Delete</h2>
+<!-- Retrieve friends from a logged in user's circle -->
+Retrieve 'friends' form friend-circles :
+<form action="friends-in-circle.php" method="post">
+    <select name="circleId">
+        <?php
+         users_circles();
+        ?>   
+    </select>
+    <input type="submit" value="Retrieve">
+</form>
+
 Delete circle:
 <form action="friend-circles-D.php" method="post">
     <select name="circleId">
@@ -98,23 +76,6 @@ Delete circle:
     </select>
     <input type="submit" value="Delete">
 </form>
-
-Remove a friend from circle:
-<form action="friend-circles-remove.php" method="post">
-    <select name="circleId">
-        <?php
-        users_circles();
-        ?>   
-    </select>
-    <select name="userId">
-                    <?php
-                    all_users();
-                    ?>   
-    </select>
-    <input type="submit" value="Remove">
-</form>
-
-
 
 </body>
 </html>

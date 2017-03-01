@@ -5,8 +5,13 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once(__DIR__.'/get-all-users.php');
+
 
 $connection = db_connect(); // the db connection
+session_start();
+$_SESSION['circleId'] = $_POST['circleId'];
+
 
 
 // -----------------------------------------------------------------------------
@@ -92,6 +97,27 @@ print_users_FC($_POST['circleId']);
 
 ?>
 
+Add a friend to current circle:
+
+
+<form action="friend-circles-add.php" method="post">
+    <select name="userId">
+                    <?php
+                    all_users();
+                    ?>   
+    </select>
+    <input type="submit" value="Add">
+</form>
+
+Remove a friend from circle:
+<form action="friend-circles-remove.php" method="post">
+    <select name="userId">
+        <?php
+        all_users();
+        ?>   
+    </select>
+    <input type="submit" value="Remove">
+</form>
 
 
 <form action="friend-circles-CRUD.php" method="post">

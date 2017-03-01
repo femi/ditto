@@ -42,7 +42,6 @@ remove_all_friend($_POST['circleId']);
 delete_circle($_POST['circleId']);
 
 ?>
-
 <form action="friend-circles-CRUD.php" method="post">
     <input type="submit" value="Back to CRUD">
 </form>

@@ -7,7 +7,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 $connection = db_connect(); // the db connection
-
+session_start();
 
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
@@ -28,8 +28,8 @@ function remove_friend($circleId, $userId) {
 
 }
 
-remove_friend($_POST['circleId'], $_POST['userId']);
-
+remove_friend($_SESSION['circleId'], $_POST['userId']);
+$_SESSION['circleId'] = null;
 ?>
 
 <br>
