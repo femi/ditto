@@ -1,15 +1,6 @@
-<?php include ('session.php'); ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  </head>
-
+<?php include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php"; ?>
+<html>
   <body>
-
     <div class="container">
       <?php include ("header.php") ?>
     <div class="row">
@@ -23,14 +14,5 @@
       <div class="col-md-4"></div>
     </div>
   </div>
-
-
-  <!-- Sex: <?php echo $user_data["sex"]; ?><br>
-  DOB: <?php echo $user_data["dob"]; ?><br>
-  Mobile Number: <?php echo $user_data["mobileNumber"]; ?><br>
-  Email: <?php echo $user_data["email"]; ?><br>
-  City: <?php echo $user_data["city"]; ?><br>
-  Description: <?php echo $user_data["description"]; ?><br><br> -->
-
   </body>
 </html>

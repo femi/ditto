@@ -3,7 +3,7 @@
   require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
   require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
-  session_start();
+  // session_start();
   /*
    Inserts a new user into the database
   */
@@ -44,7 +44,7 @@
   }
 
   /*
-  This function registers a new guser given an email address and returns
+  This function registers a new user given an email address and returns
   a boolean true if an attempt to create a user was made and false otherwise.
   */
   function register($email) {
@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
     createFriendCircle($userId);
 
     // redirect to the homepage
-    header("location: /hatebook/index");
+    header("location: /");
 
   } else {
     echo "Email address already registered mate.";
