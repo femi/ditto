@@ -30,5 +30,5 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
-# [QSA, L] Does not work for some reason - QSA = Query String Append
-RewriteRule ^(.+)$ /router.php?uri=$1 [L]
+#RewriteRule ^$ /mabs.php [L]
+RewriteRule ^(.+)$ /index.php?uri=$1 [L]

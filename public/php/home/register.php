@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  //session_start();
 ?>
 <html>
   <h1>Register</h1>

@@ -1,9 +1,9 @@
 <?php
 
-require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require_once(dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+require_once(dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
-session_start();
+// session_start();
 $error='';
 
 if ( isset($_POST['submit']) ) {
@@ -26,7 +26,7 @@ if ( isset($_POST['submit']) ) {
       if (password_verify($password, $row) === true) {
 
         $_SESSION['userId'] = getUserId($email);   // Initializing Session
-        header("location: /php/home/home.php");
+        header("location: /albums");
       }
 
     } else {
