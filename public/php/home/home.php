@@ -16,5 +16,9 @@
         <input type="submit" value="goto blogs" />
     </form>
 
+    <form action="../../php/messages/messageHome.php">
+        <input type="submit" value="goto messages" />
+    </form>
+
   </body>
 </html>
