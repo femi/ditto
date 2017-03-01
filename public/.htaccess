@@ -1,44 +1,6 @@
-#<IfModule mod_rewrite.c>
-#	<IfModule mod_negotiation.c>
-#    		Options -MultiViews
-#	</IfModule>
-#
-#	RewriteEngine On
-#
-#	# Redirect Trailing Slashes If Not A Folder...
-#	RewriteCond %{REQUEST_FILENAME} !-d
-#	RewriteRule ^(.*)/$ /$1 [L,R=301]
-#
-#	
-#	# Handle Front Controller...
-#	RewriteCond %{REQUEST_FILENAME} !-d
-#	RewriteCond %{REQUEST_FILENAME} !-f
-#	RewriteRule ^ index.php [L]
-#
-#	# Handle Authorization Header
-#	RewriteCond %{HTTP:Authorization} .
-#	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-#
-#	RewriteBase /
-#	RewriteRule ^index\.php$ - [L]
-#	RewriteCond %{REQUEST_FILENAME} !-f
-#	RewriteCond %{REQUEST_FILENAME} !-d
-#	RewriteRule . /index.php [L]
-#	
-#	
-#</IfModule>
-
 Options +FollowSymLinks
 RewriteEngine On
-# Only rewrite URLs to paths that do not exist.
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-# Regular expression, actual file, L for last. 
-RewriteRule ^albums/?$ ./html/albums.html [L]
-RewriteRule ^albums/(\d+)*$ ./php/photos/non_ajax_get_album_photos.php?albumId=$1 [L]
-#RewriteRule ^albums/(\d+)/(.+)/delete/?$ /html/redirect_page [L]
-RewriteRule ^albums/(\d+)/(.+)/delete/?$ /php/photos/delete_photo.php?albumId=$1&photoName=$2 [L]
-RewriteRule ^albums/(\d+)*/(.+)*$ /php/photos/get_photo_page_with_comments.php?albumId=$1&photoName=$2 [L]
 
-ErrorDocument 404 /html/404.html
-ErrorDocument 403 /html/403.html
+RewriteRule ^(.+)$ /index.php?uri=$1 [L]

@@ -3,3 +3,6 @@ public/lib/
 .bower-*/
 resources/album_content/
 .DS_Store
+resources/album_content/
+*.swp
+*.swo

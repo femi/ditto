@@ -22,3 +22,10 @@
 	- Restart the server: sudo service restart apache2
 
 	- Ensure that album_content permissions are setup correctly (git needs write permissions)
+	- sudo service restart apache2
+
+### Mac OSX
+- sudo vi /etc/apache2/httpd.conf
+- edit httpd.conf "DocumentRoot /Library/WebServer/Documents" line to point at a custom folder
+- In the same section change `AllowOverride None` to `AllowOverride All`
+- Uncomment `LoadModule rewrite_module libexec/apache2/mod_rewrite.so`
