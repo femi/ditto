@@ -1,4 +1,14 @@
 <?php
+/**
+ * Apache redirects every server request to this file. 
+ * Essentially, it checks the request against a list of regular expressions, 
+ * and calls an associate anonmous function, if it exists. If no match is found, the Route submit function
+ * throws a RouteException which can be caught and redirected to a 404 or 403 as appropriate.
+ *
+ * The routes for logged in users are kept entirely separate from the public routes.
+ * A route is added like this: $route->add(regular expression, anonymous function); where $route is an instance of the Route class.
+ * The anonymous function can call a php function, include a php file, or readfile (for html pages).
+ */
 
 session_start(); // import session.
 include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
@@ -9,8 +19,8 @@ if (isset($_SESSION['userId'])) {
     $route = new Route();
 
     // Add valid routes for logged in user to whitelist
-    $route->add('^logout.php/?$', function() {
-        require_once("./php/home/logout.php"); 
+    $route->add("^logout.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php"); 
     });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
@@ -24,7 +34,6 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^comments/create/?$");
     $route->add("^(\w+)/?$", function() {
-        // readfile('./testRoutePage.html'); // readfile for HTML pages
         include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
     });
 
@@ -46,8 +55,9 @@ if (isset($_SESSION['userId'])) {
         }
     }
 
-} else { // User is logged out
-    // define routes you can see while not logged in.
+} else { 
+    // User is logged out
+    // define API routes you can see while not logged in.
     $public_route = new Route();
 
     $public_route->add("^register/?$", function() {
@@ -69,10 +79,10 @@ if (isset($_SESSION['userId'])) {
     } catch(RouteException $e) {
         if (!isset($_GET['uri'])) {
             // homepage requested
-            // include './php/home/publicHomepage.php';
             include "$_SERVER[DOCUMENT_ROOT]/php/home/publicHomepage.php";
             echo "logged out";
         } else {
+            // TODO redirect to error page
             echo "Route Exception - logged out";
         }
     }

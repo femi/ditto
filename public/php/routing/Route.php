@@ -3,7 +3,7 @@
 require("$_SERVER[DOCUMENT_ROOT]/php/routing/routeException.php");
 
 /**
- * Class that holds maps of regular expressions and methods, and calls them when a given GET uri is matched.
+ * Class that holds mappings of regular expressions and their methods, and calls them when a given GET uri is matched if the method is not null.
  */
 class Route {
     private $_uri = Array(); 
@@ -23,11 +23,11 @@ class Route {
      * the method. If no match was found, it throws a custommade RouteException.
      */
     public function submit() {
-        $uriGetParam = isset($_GET['uri']) ? $_GET['uri'] : '/403';
+        $uriGetParam = isset($_GET['uri']) ? $_GET['uri'] : '/403'; // get the URI from the request
         $found = false;
         foreach($this->_uri as $key => $value) {
-            if (preg_match("#^$value$#", $uriGetParam) && $this->_method[$key] != null) {
-                call_user_func($this->_method[$key]);
+            if (preg_match("#^$value$#", $uriGetParam) && $this->_method[$key] != null) { // check the regular expression for a match
+                call_user_func($this->_method[$key]); // call the associated anonymous function
                 $found = true;
                 break;
             }
