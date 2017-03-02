@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+      function deleteAlbum() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == XMLHttpRequest.DONE) {
+            if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+              document.getElementById("ajaxResult").innerHTML = this.responseText;
+            } else if (this.status == 400) {
+              document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+            } else {
+              document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+            }
+          };
+        };
+        // gets the values from the page.
+        var querystring = "?userId=" + document.getElementById('userId').value + "&albumId=" + document.getElementById('albumId').value;
+        xmlhttp.open("POST", "../php/albums/delete_album.php" + querystring, true);
+        xmlhttp.send();
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <p>Enter your userId</p>
+      <input type="text" id="userId">
+      <p>Enter the albumId</p> 
+      <input type="text" id="albumId">
+    </form>
+    <input type="button" value="Submit" onclick="deleteAlbum()">
+    <p>Result:</p>
+    <p><span id="ajaxResult"></span></p>
+  </body>
+
+
+</html>

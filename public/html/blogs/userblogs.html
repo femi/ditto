@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/default.css">
+    <script type="text/javascript">
+        function retrieveUserBlogs(blogUserId) {
+            var xmlhttp = new XMLHttpRequest();
+               xmlhttp.onreadystatechange = function() {
+                 if (this.readyState == XMLHttpRequest.DONE) {
+                   if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+                     document.getElementById("ajaxResult").innerHTML = this.responseText;
+                   } else if (this.status == 400) {
+                     document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+                   } else {
+                     document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+                   }
+                 };
+               };
+               //gets the values from the page
+               console.log(blogUserId);
+               var querystring = "blogUserId=" + blogUserId;
+               xmlhttp.open("POST", "../../php/blogs/userblogs.php", true);
+               //xmlhttp.open("POST", "../../php/blogs/echovars.php", true);
+
+               //Send the proper header information along with the request
+               // POST DOESN'T WORK WITHOUT THIS
+               xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+               console.log(querystring);
+               xmlhttp.send(querystring);
+        }
+
+        function deleteComment(commentId) {
+            var xmlhttp = new XMLHttpRequest();
+               xmlhttp.onreadystatechange = function() {
+                 if (this.readyState == XMLHttpRequest.DONE) {
+                   if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+                     document.getElementById("ajaxResult").innerHTML = this.responseText;
+                   } else if (this.status == 400) {
+                     document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+                   } else {
+                     document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+                   }
+                 };
+               };
+               //gets the values from the page
+               //console.log(userId);
+               var querystring = "commentId=" + commentId;
+               xmlhttp.open("POST", "../../php/blogs/deletecomment.php", true);
+               //xmlhttp.open("POST", "../../php/blogs/echovars.php", true);
+
+               //Send the proper header information along with the request
+               // POST DOESN'T WORK WITHOUT THIS
+               xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+               console.log(querystring);
+               xmlhttp.send(querystring);
+        }
+
+
+        function addComment(blogId, userId, message) {
+            console.log("addComment has been triggered")
+            var xmlhttp = new XMLHttpRequest();
+               xmlhttp.onreadystatechange = function() {
+                 if (this.readyState == XMLHttpRequest.DONE) {
+                   if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+                     document.getElementById("ajaxResult").innerHTML = this.responseText;
+                   } else if (this.status == 400) {
+                     document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+                   } else {
+                     document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+                   }
+                 };
+               };
+               //gets the values from the page
+               //console.log(userId);
+               var querystring = "blogId=" + blogId + "&userId=" + userId + "&message=" + message;
+               xmlhttp.open("POST", "../../php/blogs/addcomment.php", true);
+
+               //Send the proper header information along with the request
+               // POST DOESN'T WORK WITHOUT THIS
+               xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+               console.log(querystring);
+               xmlhttp.send(querystring);
+        }
+    </script>
+  </head>
+  <body>
+      <p>Type a userId to retrieve their blogs</p>
+    <form>
+      <input type="text" onkeyup="retrieveUserBlogs(this.value)"> <!--this.value is the value of the input -->
+    </form>
+    <p>Result:</p>
+    <div id="ajaxResult"></div>
+  </body>
+
+
+</html>

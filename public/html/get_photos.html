@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/default.css">
+    <script type="text/javascript">
+      function getAlbumPhotos() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == XMLHttpRequest.DONE) {
+            if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+              document.getElementById("ajaxResult").innerHTML = this.responseText;
+            } else if (this.status == 400) {
+              document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+            } else {
+              document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+            }
+          };
+        };
+        // gets the values from the page
+        var querystring = "?userId=" + document.getElementById('userId').value + "&albumId=" + document.getElementById('albumId').value;;
+        xmlhttp.open("POST", "../php/photos/get_album_photos.php" + querystring, true);
+        xmlhttp.send();
+      }
+    </script>
+  </head>
+  <body>
+    <a href="../../html/albums.html"><p>Back to albums</p></a>
+    <form>
+      <p>Type a userId (1 for now)</p>
+      <input type="text" id="userId">
+      <p>Type an albumId (12 for now)</p>
+      <input type="text" id="albumId">
+    </form>
+    <input type="button" value="Get photos" onclick="getAlbumPhotos()">
+    <p>Result:</p>
+    <div id="ajaxResult"></div>
+  </body>
+
+
+</html>
