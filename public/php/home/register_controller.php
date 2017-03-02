@@ -3,7 +3,7 @@
   require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
   require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
-  session_start();
+  // session_start();
   /*
    Inserts a new user into the database
   */
@@ -44,7 +44,7 @@
   }
 
   /*
-  This function registers a new guser given an email address and returns
+  This function registers a new user given an email address and returns
   a boolean true if an attempt to create a user was made and false otherwise.
   */
   function register($email) {
@@ -56,19 +56,40 @@
     }
   }
 
-  // If the submit button has been pressed
-  if (isset($_POST['submit'])) {
-  	if (register($_POST['email'])) {
-      $_SESSION['userId'] = getUserId($_POST['email']);
-      header("location: /hatebook/index");
-    } else {
-      echo "Email address already registered mate.";
-    }
-}
-
 function getUserId($email) {
   $result = db_query("SELECT userId FROM `users` WHERE email = '$email'");
   return mysqli_fetch_assoc($result)['userId'];
 }
 
+function createAlbum($userId) {
+  $query = "INSERT INTO `albums` (userId, albumName) VALUES ('$userId', 'profile')";
+  $result = db_query($query);
+}
+
+function createFriendCircle($userId) {
+  $query = "INSERT INTO `friendcircles` (userId, name) VALUES ('$userId', 'everyone')";
+  $result = db_query($query);
+}
+
+// If the submit button has been pressed
+if (isset($_POST['submit'])) {
+  if (register($_POST['email'])) {
+
+    // get the user's id number
+    $userId = getUserId($_POST['email']);
+
+    // set the session
+    $_SESSION['userId'] = $userId;
+
+    // intialise the user with album and friend circle
+    createAlbum($userId);
+    createFriendCircle($userId);
+
+    // redirect to the homepage
+    header("location: /");
+
+  } else {
+    echo "Email address already registered mate.";
+  }
+}
 ?>

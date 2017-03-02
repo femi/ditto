@@ -1,4 +1,4 @@
-<?php include ('session.php'); ?>
+<?php include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php"; ?>
 <html>
   <body>
 
