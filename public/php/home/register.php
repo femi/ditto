@@ -68,9 +68,9 @@
                   <input class="input" type="password" name="password" placeholder="Password" required>
                 </p>
                 <p class="control">
-                  <input class="button is-success" type="submit" name="submit" value="Create account">
+                  <input class="button is-primary" type="submit" name="submit" value="Create account">
                     or
-                  <a href="/" class="button is-primary">Login</a>
+                  <a href="/" class="button">Login</a>
                 </p>
               </form>
 
