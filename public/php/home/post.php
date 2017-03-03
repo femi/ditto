@@ -1,13 +1,13 @@
 <article class="media">
   <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="http://bulma.io/images/placeholders/128x128.png">
+    <p class="image is-32x32">
+      <img class="img-thumbnail" src="https://avatars2.githubusercontent.com/u/7552626?v=3&u=1471a195307b622ed321e00ba61ee23adbb0d2f5&s=400">
     </p>
   </figure>
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+        <strong><?php echo $user_data['fName'] . " " . $user_data['lName'] ?></strong> <small><?php echo "@" . $user_data['username'] ?></small>
         <br>
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.      </p>
     </div>
@@ -29,6 +29,7 @@
     <button class="delete"></button>
   </div>
 </article>
+
 
 <!-- <article class="media">
   <figure class="media-left">
