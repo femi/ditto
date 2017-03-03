@@ -5,14 +5,25 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
+
+
       <a class="nav-item">
         <img src="http://placehold.it/40" alt="logo">
       </a>
+
+      <div class="level-item">
+        <p class="control">
+          <input class="input" type="text" placeholder="Search">
+          <!-- <button class="button"> -->
+        </p>
+      </div>
+
       <!-- <a class="nav-item is-tab is-hidden-mobile is-active">Home</a> -->
       <a href="/friends" class="nav-item is-tab is-hidden-mobile">Friends</a>
       <a href="/circles" class="nav-item is-tab is-hidden-mobile">Circles</a>
       <a href="/albums" class="nav-item is-tab is-hidden-mobile">Albums</a>
       <a href="/messages" class="nav-item is-tab is-hidden-mobile">Messages</a>
+
       <p class="control has-addons"></p>
     </div>
     <span class="nav-toggle">
