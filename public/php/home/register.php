@@ -1,10 +1,13 @@
 <?php
   //session_start();
 ?>
+<!DOCTYPE html>
 <html>
 
   <head>
     <link rel="stylesheet" type="text/css" href="css/bulma.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/typed.js"></script>
   </head>
 
 <!-- <nav class="nav has-shadow">
@@ -30,7 +33,7 @@
       <div class="container">
       <div class="columns">
         <div class="column is-4 is-offset-1">
-            <h1 class="title is-1">Connect with your mates</h1>
+            <h1 class="element title is-1" style="height: 2.3em;">Connect with <br> <span class="2"></span></h1>
             <h2 class="subtitle">
               Your favourite social network
             </h2>
@@ -80,5 +83,16 @@
   </div>
 
   </section>
-
+  <script>
+    $(function(){
+        $("span.2").typed({
+            strings: [" your friends 👫", " your love 😘", "your partners 💼", "the world 🌍"],
+            showCursor: false,
+            backDelay: 3000,
+            typeSpeed: 50,
+            backSpeed: 100,
+            loop: true
+        });
+    });
+    </script>
 </html>
