@@ -1,3 +1,7 @@
+<?php
+session_start();
+$username = $_SESSION['username'];
+ ?>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/css/bulma.css">
@@ -18,11 +22,10 @@
         </p>
       </div>
 
-      <!-- <a class="nav-item is-tab is-hidden-mobile is-active">Home</a> -->
-      <a href="/friends" class="nav-item is-tab is-hidden-mobile">Friends</a>
-      <a href="/circles" class="nav-item is-tab is-hidden-mobile">Circles</a>
-      <a href="/albums" class="nav-item is-tab is-hidden-mobile">Albums</a>
-      <a href="/messages" class="nav-item is-tab is-hidden-mobile">Messages</a>
+      <a href= <?php echo $username . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
+      <a href= <?php echo $username . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
+      <a href= <?php echo $username . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
+      <a href= <?php echo $username . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
 
       <p class="control has-addons"></p>
     </div>
