@@ -15,8 +15,10 @@ function delete_album() {
 	// Retrieve data from input and strip.
 	// $userId = db_quote($_REQUEST['userId']); TODO check user validity
 	$albumId = db_quote($_REQUEST['albumId']);
+	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
 
     $query = "SELECT * FROM albums WHERE albumId = $albumId";
+    echo $query;
     $result = db_query($query);
     if ($result === false ) {
         echo mysqli_error(db_connect());
@@ -52,7 +54,6 @@ function delete_album() {
 	} catch (Exception $e) {
 		return $e;
 	}	
-	echo "albums";
 
 }
 

@@ -21,6 +21,7 @@ function setupCreateAlbum(userId) {
       if (this.readyState === XMLHttpRequest.DONE) {
         if (this.status == 200) {
           // TODO redirect to album page
+          console.log(this.responseText);
           window.location.href= this.responseText;
         } else if (this.status === 400) {
           var p2 = document.createElement('p');

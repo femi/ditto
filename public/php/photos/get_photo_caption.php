@@ -14,14 +14,12 @@ function get_photo_caption() {
 		// Handle error
 	}
 
-    // TODO check user is authorised.
-
 	// Retrieve data from request and escape.
 	// $userId = db_quote($_REQUEST['userId']);
 	$filename= db_quote($_REQUEST['filename']);
 
 	// build query - by default it selects just one.
-	$query = "SELECT * FROM photos WHERE filename = $filename;";
+	$query = "SELECT * FROM photos WHERE filename = $filename";
 
 	// Execute the query
 	$qry_result = db_query($query); 
@@ -37,5 +35,4 @@ function get_photo_caption() {
     }
 
 }
-get_photo_caption();
 ?>

@@ -1,4 +1,4 @@
-function deleteAlbum() {
+function deleteAlbum(albumId) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE) {
@@ -11,8 +11,7 @@ function deleteAlbum() {
       }
     }
   }
-  var albumId = parseURL(window.location.href, 1);
   var querystring = '?albumId=' + albumId;
-  xmlhttp.open('POST', '../php/albums/delete_album.php' + querystring, true);
+  xmlhttp.open('POST', '/php/albums/delete_album.php' + querystring, true);
   xmlhttp.send();
 }

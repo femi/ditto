@@ -17,6 +17,7 @@ function submitCaption() {
   var caption = document.body.getElementsByClassName('caption-container')[0].getElementsByTagName('input')[0].value;
   var querystring = '?filename=' + filename + '&caption=' + caption;
 
-  xmlhttp.open('POST', '../../php/photos/update_photo_caption.php' + querystring, true);
+  console.log(caption);
+  xmlhttp.open('POST', '/php/photos/update_photo_caption.php' + querystring, true);
   xmlhttp.send();
 };

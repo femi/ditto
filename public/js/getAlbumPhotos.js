@@ -13,6 +13,6 @@ function getAlbumPhotos(albumId) {
   };
   // gets the values from the page
   var querystring = "?albumId=" + albumId;
-  xmlhttp.open("GET", "../php/photos/get_album_photos.php" + querystring, true);
+  xmlhttp.open("GET", '/php/photos/get_album_photos.php' + querystring, true);
   xmlhttp.send();
 }

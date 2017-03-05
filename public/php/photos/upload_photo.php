@@ -22,16 +22,13 @@ function upload_photo() {
 
 	$target_dir = "../../../resources/album_content/$userId/$albumId/";
     $filename = db_quote($_FILES["file"]["name"]);
+    $filename = str_replace('/', '', $filename); // Ensure that there are no forward slashes in the filename, since this will muck up the routing.
 
     // check that the filename is unique
     $numRows = 1;
-    echo $filename;
     while ($numRows > 0) {
         $query = "SELECT * FROM photos WHERE filename = $filename;";
-        echo $query;
         $query_result = db_query($query);
-
-        echo mysqli_num_rows($query_result);
 
         if ($query_result === false) {
            mysqli_error(db_connect()); // should not happen - abort

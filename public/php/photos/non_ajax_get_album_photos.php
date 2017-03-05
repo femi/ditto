@@ -2,21 +2,20 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/default.css">
-    <script type="text/javascript" src="../js/dropzone.js"></script>
-    <script type="text/javascript" src="../js/parseURL.js"></script>
-    <script type="text/javascript" src="../js/getAlbumPhotos.js"></script>
-    <script type="text/javascript" src="../js/deleteAlbum.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <script type="text/javascript" src="/js/dropzone.js"></script>
+    <script type="text/javascript" src="/js/parseURL.js"></script>
+    <script type="text/javascript" src="/js/getAlbumPhotos.js"></script>
+    <script type="text/javascript" src="/js/deleteAlbum.js"></script>
     <script type="text/javascript" >
       Dropzone.options.myAwesomeDropzone = {
         init: function() {
           this.on('complete', function(file) {
             console.log(file.xhr);
             var photos = getAlbumPhotos(parseURL(document.location.href, 1))
-            // document.getElementById('ajaxResult').innerHTML = 
           });
         },
-        url: '../php/photos/upload_photo.php',
+        url: '/php/photos/upload_photo.php',
         paramName: "file",
         maxFilesize: 2, // MB
         acceptedFiles: ".jpg, .jpeg, .png, .gif",
@@ -28,7 +27,7 @@
     </script>
   </head>
   <body>
-    <a href="../../../../albums"><p>Back to albums</p></a>
+    <a href="../albums"><p>Back to albums</p></a>
     <p>Result:</p>
     <div id="ajaxResult">
 <?php
@@ -37,7 +36,15 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
-function non_ajax_get_album_photos() {
+/**
+ * @param $albumId: The albumId from which to get the photos
+ * @param $username: Passed on to the photo getters to create appropriate links
+ * This function gets all the photos from inside the given album.
+ */
+function non_ajax_get_album_photos($albumId, $username) {
+
+    echoAlbumId($albumId); // pass albumId on to js deleteAlbum() function
+
 	$connection = db_connect(); // Try and connect to the database
 
 	// If connection was not successful, handle the error
@@ -47,7 +54,6 @@ function non_ajax_get_album_photos() {
 
 	// Retrieve data from request and escape.
 	// $userId = db_quote($_REQUEST['userId']); // userId for person trying to view data.
-	$albumId = db_quote($_REQUEST['albumId']);
 
 	// TODO check that userId is allowed to view the album
 
@@ -62,8 +68,8 @@ function non_ajax_get_album_photos() {
 		echo mysqli_error(db_connect());
 	}
 
-	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
-	
+	// $albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+
 	$first = true;
 	while($row = $qry_result->fetch_assoc()){
 		// scan the directory given
@@ -72,25 +78,29 @@ function non_ajax_get_album_photos() {
 			$first = false;
 		}	
 		$userId = $row['userId'];
-		$photo_files = scandir("../../../resources/album_content/$userId/$albumId");
+        $dir = "../resources/album_content/$userId/$albumId"; 
+        $photo_files = scandir($dir);
 	}
 
 	$photo_files = array_diff($photo_files, array('.', '..')); // remove . and .. directories
 
 	foreach($photo_files as $photoName) {
 		$file = "../../album_content/$userId/$albumId/$photoName";
-		echo "<div class=\"photo-thumbnail\"><a href=\"../../../../albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></div>"; // TODO get captions
+		echo "<div class=\"photo-thumbnail\"><a href=\"../../../../$username/albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></div>"; // TODO get captions
 	}
 }
-non_ajax_get_album_photos();
 ?>
 </div>
 
-  <form action="../php/photos/upload_photo.php" class="dropzone" id="my-awesome-dropzone">
+  <form action="/php/photos/upload_photo.php" class="dropzone" id="my-awesome-dropzone">
     <div class="fallback">
       <input name="file" type="file" multiple>
     </div>
   </form>
-  <button type="button" onclick="deleteAlbum()">Delete album</button>
+  <?php 
+  function echoAlbumId($albumId) {
+    echo "<button type=\"button\" onclick=\"deleteAlbum($albumId)\">Delete album</button>";
+  }
+  ?>
   </body>
 </html>

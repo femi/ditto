@@ -1,7 +1,7 @@
 <?php
 
-  require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-  require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+  require_once(dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+  require_once(dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
   // session_start();
   /*

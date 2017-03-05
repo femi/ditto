@@ -18,6 +18,6 @@ function getCaption() {
     var filename = parseURL(document.location.href, 1);
     var querystring = '?filename=' + filename;
 
-    xmlhttp.open('POST', '../../php/photos/get_photo_caption.php' + querystring, true);
+    xmlhttp.open('POST', '/php/photos/get_photo_caption.php' + querystring, true);
     xmlhttp.send();
 };

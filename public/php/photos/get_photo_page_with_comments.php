@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../css/default.css">
-    <script type="text/javascript" src="../../js/parseURL.js"></script>
-    <script type="text/javascript" src="../../js/editCaption.js"></script>
-    <script type="text/javascript" src="../../js/submitCaption.js"></script>
-    <script type="text/javascript" src="../../js/getCaption.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <script type="text/javascript" src="/js/parseURL.js"></script>
+    <script type="text/javascript" src="/js/editCaption.js"></script>
+    <script type="text/javascript" src="/js/submitCaption.js"></script>
+    <script type="text/javascript" src="/js/getCaption.js"></script>
   </head>
   <body>
-    <a href="../../../../albums/"><p>Back to albums</p></a>
+    <a href="../"><p>Back to albums</p></a>
     <p>Result:</p>
     <div class="single-photo-container">
 <?php
@@ -23,7 +23,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 /*
  * This file is called from the album browse page and will load the clicked photo to the screen dimensions, and include comments below.
  */
-function get_photo_page_with_comments() {
+function get_photo_page_with_comments($username, $albumId, $photoName) {
     $connection = db_connect(); // Try and connect to the database
 
     // If connection was not successful, handle the error
@@ -31,11 +31,8 @@ function get_photo_page_with_comments() {
         // Handle error
     }
 
-    // TODO check that userId is allowed to view the album
-
-    $albumId = db_quote($_REQUEST['albumId']);
-    $photoName = db_quote($_REQUEST['photoName']);
-
+    $albumId = db_quote($albumId);
+    $photoName= db_quote($photoName);
     $albumId = (int) substr($albumId, 1, strlen($albumId) -2); // Get rid of quotation marks.
 
     // build query - by default it selects just one.
@@ -65,18 +62,16 @@ function get_photo_page_with_comments() {
         $photo_file = "../../../../album_content/$userId/$albumId/$photoName";
         if (isset($caption)) {
             echo "<a href=\"../../albums/$albumId\"><img class=\"single-photo-container\" src=\"$photo_file\" alt=\"$caption\"></a><div class=\"caption-container\"><p>$caption</p></div>";
-            echo "<div class=\"photo-deletion\"><button type=\"button\" onclick=\"editCaption('$albumId', '$photoName')\">Edit caption</button><a href=\"../../../../albums/$albumId/$photoName/delete/\"><p>Delete photo</p></a></div>";
+            echo "<div class=\"photo-deletion\"><button type=\"button\" onclick=\"editCaption($albumId, '$photoName')\">Edit caption</button><a href=\"/$username/albums/$albumId/$photoName/delete/\"><p>Delete photo</p></a></div>";
         } else {
             echo "<a href=\"../../albums/$albumId\"><img class=\"single-photo-container\" src=\"$photo_file\" ></a><div class=\"caption-container\"><p>Temp Caption</p></div>";
-            echo "<div class=\"photo-deletion\"><button type=\"button\"onclick=\"editCaption('$albumId', '$photoName')\">Edit caption</button><a href=\" ../../../../albums/$albumId/$photoName/delete/\"><p>Delete photo</p></a></div>";
+            echo "<div class=\"photo-deletion\"><button type=\"button\"onclick=\"editCaption($albumId, '$photoName')\">Edit caption</button><a href=\"/$username/albums/$albumId/$photoName/delete/\"><p>Delete photo</p></a></div>";
         }
     }
 }
-get_photo_page_with_comments();
 ?>
   </div>
   <div class="comment-container">
-    <p>Comments will go here...</p>
   </div>
   </body>
 </html>

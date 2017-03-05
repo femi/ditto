@@ -1,4 +1,11 @@
 <?php
+
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidUser.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidUsername.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/userIdHasUsername.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidAlbum.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidPhoto.php");
+
 /**
  * Apache redirects every server request to this file. 
  * Essentially, it checks the request against a list of regular expressions, 
@@ -22,9 +29,90 @@ if (isset($_SESSION['userId'])) {
     $route->add("^logout.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php"); 
     });
-    $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
-    $route->add("^(\w+)/albums/(\d+)/?$");
-    $route->add("^(\w+)/albums/?$");
+    $route->add("^(\w+)/albums/(\d+)/(.+)/delete/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        // check that path is valid
+        if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true && isValidPhoto($pathArray[3]) === true) {
+            echo "Valid username, album, and photo given";
+            // check that user owns their photo
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                echo "User is visiting their own page";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/delete_photo.php");
+                delete_photo($pathArray[0], $_SESSION['userId'], $pathArray[2], $pathArray[3]);
+            }
+        }
+
+    });
+    $route->add("^(\w+)/albums/(\d+)/(.+)/?$", function() {
+        // Breakdown the path
+        $pathArray = (explode('/', $_GET['uri'])); // TODO ensure filenames do not have / in them and sort out final slash
+
+        // check validity of path
+        if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true && isValidPhoto($pathArray[3]) === true) {
+            echo "Valid username, album, and photo given";
+
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0]))  {
+                echo "<br />";
+                echo "User is visiting their own page";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments.php");
+                get_photo_page_with_comments($pathArray[0], $pathArray[2], $pathArray[3]);
+            } else {
+                echo "<br />";
+                echo "User is not visiting their own page";
+                echo "<br />";
+                echo "Need to create an edited album view page that does not offer upload";
+            }
+        } else {
+            echo "Invalid";
+        }
+    });
+    $route->add("^(\w+)/albums/(\d+)/?$", function() {
+        // Breakdown the path
+        $pathArray = (explode('/', $_GET['uri']));
+
+        // Check that the path is valid
+        if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true) { // TODO check that user is allowed  to view album
+            echo "Valid username and album given";
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                echo "<br />";
+                echo "User is visiting their own page";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos.php");
+                non_ajax_get_album_photos($pathArray[2], $pathArray[0]);
+            } else {
+                echo "<br />";
+                echo "User is not visiting their own page";
+                echo "<br />";
+                echo "Need to create an edited album view page that does not offer upload";
+            }
+        }
+    });
+    $route->add("^(\w+)/albums/?$", function() {
+        // Breakdown the path
+        $pathArray = (explode('/', $_GET['uri']));
+
+        // Check that the given username is valid
+        if (isValidUsername($pathArray[0]) === true) {
+            echo "Valid username given";
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                echo "<br />";
+                echo "User is visiting their own page";
+                // Serve their albums page with CRUD
+                // readfile('./html/albums.html');
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums.php");
+                retrieve_user_albums($_SESSION['userId'], $pathArray[0]);
+                // new_retrieve_user_albums.php($userId);
+            } else {
+                echo "<br />";
+                echo "User is not visiting their own page";
+                echo "Need to create an edited retrieve_user_albums that checks album privacy settings and does not offer create album";
+                // show all albums for which the session user is part of the username's friend circles.
+            }
+        } else {
+            echo "<br />";
+            echo "Invalid username given"; 
+        }
+        // check if the session user has the same username
+    });
     $route->add("^(\w+)/blogs/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/friendcircles/(\d+)/?$");
     $route->add("^(\w+)/friendcircles/?$");
@@ -33,14 +121,30 @@ if (isset($_SESSION['userId'])) {
         echo "hi Femi";
     });
     $route->add("^comments/create/?$");
+    $route->add("^(\w+)/php/photos/get_album_photos.php/?$", function () {
+        // temporary hack I hope...
+        $pathArray = (explode('/', $_GET['uri']));
+        
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photos.php");
+        get_album_photos($pathArray[0]);
+    });
+    $route->add("^(\w+)/php/photos/update_photo_caption.php/?$", function () {
+        // temporary hack I hope
+        $pathArray = (explode('/', $_GET['uri']));
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
+        update_photo_caption();
+
+    });
+    $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
+        // temporary hack I hope
+        $pathArray = (explode('/', $_GET['uri']));
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
+        get_photo_caption();
+
+    });
     $route->add("^(\w+)/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
     });
-
-    // Temporary routes for testing
-    //$route->add('^albums/?$');
-    //$route->add('^albums/(\d+)/?$');
-    //$route->add('^albums/(\d+)/(\w+)/?$');
 
     try {
         $route->submit();
@@ -51,7 +155,8 @@ if (isset($_SESSION['userId'])) {
             echo "logged in ";
         } else {
             echo "routeException but logged in:";
-            print_r($_SESSION);
+            $pathArray = (explode('/', $_GET['uri']));
+            print_r($pathArray);
         }
     }
 
@@ -79,14 +184,13 @@ if (isset($_SESSION['userId'])) {
     } catch(RouteException $e) {
         if (!isset($_GET['uri'])) {
             // homepage requested
-            include "$_SERVER[DOCUMENT_ROOT]/php/home/publicHomepage.php";
             echo "logged out";
+            include "$_SERVER[DOCUMENT_ROOT]/php/home/publicHomepage.php";
         } else {
             // TODO redirect to error page
             echo "Route Exception - logged out";
         }
     }
-
 }
 
 ?>
