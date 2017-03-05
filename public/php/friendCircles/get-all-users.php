@@ -65,4 +65,38 @@ function users_circles() {
 
 }
 
+//gets user's pending friend requests and echo's option for each request
+function get_friendrequests() {
+
+    $result = db_query("SELECT friendId FROM friend_requests WHERE userId = ". $_SESSION['userId']);
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+            $friendId = $row['friendId'];
+            echo '<option value="'.$friendId.'">'.$friendId.'</option>';
+        }
+    }
+
+}
+
+//gets a list of all members that are not already friends with the user and echo's option for each request
+function get_nonfriends() {
+
+    $result = db_query("SELECT * FROM users WHERE userId NOT IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'))");
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+            $userId = $row['userId'];
+            $name = $row['fName'];
+            echo '<option value="'.$userId.'">'.$userId.' '.$name.'</option>';
+        }
+    }
+
+}
+
+
 ?>
