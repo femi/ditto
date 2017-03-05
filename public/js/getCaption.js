@@ -1,4 +1,4 @@
-function getCaption() {
+function getCaption(albumId, filename) {
     // get the edited input value
     var value = document.body.getElementsByClassName('caption-container')[0].getElementsByTagName('input')[0].value;
     // create an XMLHTTPRequest to the php function.
@@ -15,7 +15,6 @@ function getCaption() {
             }
         }
     }
-    var filename = parseURL(document.location.href, 1);
     var querystring = '?filename=' + filename;
 
     xmlhttp.open('POST', '/php/photos/get_photo_caption.php' + querystring, true);

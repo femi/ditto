@@ -96,7 +96,6 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 echo "<br />";
                 echo "User is visiting their own page";
-                // Serve their albums page with CRUD
                 // readfile('./html/albums.html');
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums.php");
                 retrieve_user_albums($_SESSION['userId'], $pathArray[0]);
@@ -126,20 +125,19 @@ if (isset($_SESSION['userId'])) {
         $pathArray = (explode('/', $_GET['uri']));
         
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photos.php");
-        get_album_photos($pathArray[0]);
     });
     $route->add("^(\w+)/php/photos/update_photo_caption.php/?$", function () {
         // temporary hack I hope
         $pathArray = (explode('/', $_GET['uri']));
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
-        update_photo_caption();
+        // update_photo_caption();
 
     });
     $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
         // temporary hack I hope
         $pathArray = (explode('/', $_GET['uri']));
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
-        get_photo_caption();
+        // get_photo_caption();
 
     });
     $route->add("^(\w+)/?$", function() {

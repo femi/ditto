@@ -35,4 +35,5 @@ function get_photo_caption() {
     }
 
 }
+get_photo_caption();
 ?>

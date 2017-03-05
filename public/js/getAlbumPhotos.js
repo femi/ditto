@@ -1,4 +1,4 @@
-function getAlbumPhotos(albumId) {
+function getAlbumPhotos(albumId, username) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE) {
@@ -12,7 +12,7 @@ function getAlbumPhotos(albumId) {
     };
   };
   // gets the values from the page
-  var querystring = "?albumId=" + albumId;
+  var querystring = "?albumId=" + albumId + '&username=' + username;
   xmlhttp.open("GET", '/php/photos/get_album_photos.php' + querystring, true);
   xmlhttp.send();
 }

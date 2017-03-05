@@ -18,7 +18,6 @@ function delete_album() {
 	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
 
     $query = "SELECT * FROM albums WHERE albumId = $albumId";
-    echo $query;
     $result = db_query($query);
     if ($result === false ) {
         echo mysqli_error(db_connect());

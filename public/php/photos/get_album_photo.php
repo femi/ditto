@@ -23,20 +23,18 @@ function get_album_photo($userId, $albumId, $username) {
 	}
 
 	// Retrieve data from request and escape.
-//	$userId = db_quote($userId);
+    $userId = db_quote($userId);
 	$albumId = db_quote($albumId);
 
-	// TODO check that userId is allowed to view the album
-	
+    $userId = (int) substr($userId, 1, strlen($userId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+
 	// build query - by default it selects just one.
 	$query = "SELECT * FROM photos WHERE albumId = $albumId ORDER BY createdAt DESC";
 
 	// Execute the query
 	$qry_result = db_query($query); 
     
-    $userId = (int) substr($userId, 1, strlen($userId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
-	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
-
 	if ($qry_result === false) {
 		// No such album.
 		echo mysqli_error(db_connect());
@@ -49,7 +47,7 @@ function get_album_photo($userId, $albumId, $username) {
 		$filename = $row['filename'];
 		$caption = $row['caption'];
 		$photo_file = "../../../../album_content/$userId/$albumId/$filename";
-        if (file_exists("../../../resources/album_content/$userId/$albumId/$filename")) {
+        if (file_exists("../resources/album_content/$userId/$albumId/$filename")) {
 		    return "<a href=\"../../$username/albums/$albumId\"><img src=\"$photo_file\" alt=\"$caption\"></a>";
         } else {
             // return default picture

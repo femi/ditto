@@ -1,9 +1,9 @@
-function deleteAlbum(albumId) {
+function deleteAlbum(albumId, username) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE) {
       if (this.status == 200) {
-        window.location.replace('../albums');
+        window.location.replace('/' + username + '/albums');
       } else if (this.status == 400) {
         console.log('There was an error 400'); 
       } else {

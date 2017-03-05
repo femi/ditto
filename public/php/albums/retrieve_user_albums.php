@@ -18,6 +18,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photo.php");
  * @param $username: Passed on to the photo_getter to create appropriate links of the form /username/albums/albumId/photoName
  */
 function retrieve_user_albums($userId, $username) {
+
     $connection = db_connect(); // Try and connect to the database
 
     // If connection was not successful, handle the error

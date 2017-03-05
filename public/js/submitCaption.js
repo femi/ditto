@@ -1,11 +1,11 @@
-function submitCaption() {
+function submitCaption(albumId, filename) {
   // create an XMLHTTPRequest to the php function.
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState === XMLHttpRequest.DONE) {
       if (this.status === 200) {
         // executed when the request is successful
-        getCaption();
+        getCaption(albumId, filename);
       } else if (this.status === 400) {
         console.log("There was an error 400");
       } else {
@@ -17,7 +17,6 @@ function submitCaption() {
   var caption = document.body.getElementsByClassName('caption-container')[0].getElementsByTagName('input')[0].value;
   var querystring = '?filename=' + filename + '&caption=' + caption;
 
-  console.log(caption);
   xmlhttp.open('POST', '/php/photos/update_photo_caption.php' + querystring, true);
   xmlhttp.send();
 };

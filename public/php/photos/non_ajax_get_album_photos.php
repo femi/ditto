@@ -12,7 +12,7 @@
         init: function() {
           this.on('complete', function(file) {
             console.log(file.xhr);
-            var photos = getAlbumPhotos(parseURL(document.location.href, 1))
+            var photos = getAlbumPhotos(parseURL(document.location.href, 1), parseURL(document.location.href, 3))
           });
         },
         url: '/php/photos/upload_photo.php',
@@ -43,7 +43,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
  */
 function non_ajax_get_album_photos($albumId, $username) {
 
-    echoAlbumId($albumId); // pass albumId on to js deleteAlbum() function
+    echoAlbumId($albumId, $username); // pass albumId on to js deleteAlbum() function
 
 	$connection = db_connect(); // Try and connect to the database
 
@@ -98,8 +98,8 @@ function non_ajax_get_album_photos($albumId, $username) {
     </div>
   </form>
   <?php 
-  function echoAlbumId($albumId) {
-    echo "<button type=\"button\" onclick=\"deleteAlbum($albumId)\">Delete album</button>";
+  function echoAlbumId($albumId, $username) {
+    echo "<button type=\"button\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</button>";
   }
   ?>
   </body>
