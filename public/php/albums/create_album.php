@@ -49,5 +49,4 @@ function create_album() {
 }
 
 create_album();
-
 ?>

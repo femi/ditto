@@ -16,13 +16,14 @@ function setupCreateAlbum(userId) {
   var newButton = document.createElement('button');
   newButton.type = 'button';
   newButton.onclick = function () {
+    // This is the submit function
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === XMLHttpRequest.DONE) {
         if (this.status == 200) {
           // TODO redirect to album page
-          console.log(this.responseText);
           window.location.href= this.responseText;
+          // console.log(this.responseText);
         } else if (this.status === 400) {
           var p2 = document.createElement('p');
           p2.appendChild(document.createTextNode(this.responseText));
@@ -36,7 +37,7 @@ function setupCreateAlbum(userId) {
     };
     var albumName = document.getElementById('ajaxResult').getElementsByClassName('create-album-container')[0].getElementsByTagName('input')[0].value;
     var querystring = '?userId=' + userId + '&albumName=' + albumName;
-    xmlhttp.open('POST', '../php/albums/create_album.php' + querystring, true);
+    xmlhttp.open('POST', '/php/albums/create_album.php' + querystring, true);
     xmlhttp.send();
   };
   newButton.appendChild(document.createTextNode('Click to submit'));

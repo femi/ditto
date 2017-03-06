@@ -46,7 +46,6 @@ function get_album_photos() {
             $first = false;
         } 
 		$userId = $row['userId'];
-        echo getcwd();
 		$photo_files = scandir("../../../resources/album_content/$userId/$albumId");
 	}
 

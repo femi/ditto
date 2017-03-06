@@ -12,7 +12,7 @@
         init: function() {
           this.on('complete', function(file) {
             console.log(file.xhr);
-            var photos = getAlbumPhotos(parseURL(document.location.href, 1), parseURL(document.location.href, 3))
+            var photos = getAlbumPhotos(parseURL(document.location.href, 1), parseURL(document.location.href, 3)) // 1st is albumId, 2nd is username
           });
         },
         url: '/php/photos/upload_photo.php',
@@ -20,8 +20,7 @@
         maxFilesize: 2, // MB
         acceptedFiles: ".jpg, .jpeg, .png, .gif",
         sending: function(file, xhr, formData) {
-          formData.append('userId', '1'); // TODO put session here
-          formData.append('albumId', parseURL(document.location.href, 1)); // TODO put albumId from album object here - get the url link
+          formData.append('albumId', parseURL(document.location.href, 1)); // TODO put albumId from an album object here - get the url link
         }
       }
     </script>

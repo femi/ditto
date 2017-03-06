@@ -12,6 +12,6 @@ function deleteAlbum(albumId, username) {
     }
   }
   var querystring = '?albumId=' + albumId;
-  xmlhttp.open('POST', '/php/albums/delete_album.php' + querystring, true);
+  xmlhttp.open('GET', '/php/albums/delete_album.php' + querystring, true);
   xmlhttp.send();
 }

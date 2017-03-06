@@ -30,6 +30,7 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php"); 
     });
     $route->add("^(\w+)/albums/(\d+)/(.+)/delete/?$", function() {
+        // Deletes the photo
         $pathArray = explode('/', $_GET['uri']);
         // check that path is valid
         if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true && isValidPhoto($pathArray[3]) === true) {
@@ -48,7 +49,7 @@ if (isset($_SESSION['userId'])) {
         $pathArray = (explode('/', $_GET['uri'])); // TODO ensure filenames do not have / in them and sort out final slash
 
         // check validity of path
-        if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true && isValidPhoto($pathArray[3]) === true) {
+        if (isValidUsername($pathArray[0]) && isValidAlbum($pathArray[2]) && isValidPhoto($pathArray[3])) {
             echo "Valid username, album, and photo given";
 
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0]))  {
@@ -71,7 +72,7 @@ if (isset($_SESSION['userId'])) {
         $pathArray = (explode('/', $_GET['uri']));
 
         // Check that the path is valid
-        if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true) { // TODO check that user is allowed  to view album
+        if (isValidUsername($pathArray[0]) && isValidAlbum($pathArray[2])) { // TODO check that user is allowed  to view album
             echo "Valid username and album given";
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 echo "<br />";
@@ -84,6 +85,8 @@ if (isset($_SESSION['userId'])) {
                 echo "<br />";
                 echo "Need to create an edited album view page that does not offer upload";
             }
+        } else {
+            echo "Invalid path given";
         }
     });
     $route->add("^(\w+)/albums/?$", function() {
@@ -91,7 +94,7 @@ if (isset($_SESSION['userId'])) {
         $pathArray = (explode('/', $_GET['uri']));
 
         // Check that the given username is valid
-        if (isValidUsername($pathArray[0]) === true) {
+        if (isValidUsername($pathArray[0])) {
             echo "Valid username given";
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 echo "<br />";
@@ -140,6 +143,13 @@ if (isset($_SESSION['userId'])) {
         // get_photo_caption();
 
     });
+    $route->add("^(\w+)/php/albums/create_album.php/?$", function() {
+        // Called by the create album AJAX request
+        include "$_SERVER[DOCUMENT_ROOT]/php/albums/create_album.php";
+    });
+    $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
+        echo "Hi";
+    });
     $route->add("^(\w+)/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
     });
@@ -154,7 +164,6 @@ if (isset($_SESSION['userId'])) {
         } else {
             echo "routeException but logged in:";
             $pathArray = (explode('/', $_GET['uri']));
-            print_r($pathArray);
         }
     }
 

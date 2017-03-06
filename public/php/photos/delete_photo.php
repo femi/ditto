@@ -20,7 +20,6 @@ function delete_photo($username, $userId, $albumId, $filename) {
     echo "<pre>";
 
 	$target_file = "../resources/album_content/$userId/$albumId/$filename";
-    echo getcwd();
     // echo $target_file;
 
 	if (file_exists($target_file)) {

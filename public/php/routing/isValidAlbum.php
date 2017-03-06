@@ -18,8 +18,12 @@
 
         $query = "SELECT * FROM albums WHERE albumId = $albumId";
         $query_result = db_query($query);
-        
-        return (mysqli_num_rows($query_result) === 0) ? false : true;
+
+        if (mysqli_num_rows($query_result) === 0 ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 ?>
