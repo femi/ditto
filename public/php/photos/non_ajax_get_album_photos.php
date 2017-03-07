@@ -99,7 +99,7 @@ function non_ajax_get_album_photos($albumId, $username) {
   </form>
   <?php 
   function echoAlbumId($albumId, $username, $isProfile) {
-    if ($isProfile === true) {
+    if ($isProfile != '1') {
         echo "<button type=\"button\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</button>";
     }
   }

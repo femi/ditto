@@ -46,6 +46,7 @@ function create_album() {
             echo "Album could not be created.";
         }
 	}
+    return "/albums/$albumId";
 }
 
 create_album();

@@ -106,7 +106,6 @@ if (isset($_SESSION['userId'])) {
             } else {
                 echo "<br />";
                 echo "User is not visiting their own page";
-                echo "Need to create an edited retrieve_user_albums that checks album privacy settings and does not offer create album";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums_nonowner.php");
                 retrieve_user_albums_nonowner($_SESSION['userId'], $pathArray[0]);
                 // show all albums for which the session user is part of the username's friend circles.
