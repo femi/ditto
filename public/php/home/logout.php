@@ -3,7 +3,7 @@
 
   // destroy the session
   if(session_destroy()) {
-    header("Location: /"); // redirect to home page
+    header("Location: /register"); // redirect to home page
   }
 
 ?>
