@@ -60,11 +60,11 @@ if (isset($_SESSION['userId'])) {
             } else {
                 echo "<br />";
                 echo "User is not visiting their own page";
-                echo "<br />";
-                echo "Need to create an edited album view page that does not offer upload";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments_nonowner.php");
+                get_photo_page_with_comments_nonowner($pathArray[0], $pathArray[2], $pathArray[3]);
             }
         } else {
-            echo "Invalid";
+            echo "Invalid"; // TODO redirect to error
         }
     });
     $route->add("^(\w+)/albums/(\d+)/?$", function() {
@@ -82,11 +82,11 @@ if (isset($_SESSION['userId'])) {
             } else {
                 echo "<br />";
                 echo "User is not visiting their own page";
-                echo "<br />";
-                echo "Need to create an edited album view page that does not offer upload";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos_nonowner.php");
+                non_ajax_get_album_photos_nonowner($pathArray[2], $pathArray[0]);
             }
         } else {
-            echo "Invalid path given";
+            echo "Invalid path given"; // TODO redirect to 404
         }
     });
     $route->add("^(\w+)/albums/?$", function() {
@@ -107,6 +107,8 @@ if (isset($_SESSION['userId'])) {
                 echo "<br />";
                 echo "User is not visiting their own page";
                 echo "Need to create an edited retrieve_user_albums that checks album privacy settings and does not offer create album";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums_nonowner.php");
+                retrieve_user_albums_nonowner($_SESSION['userId'], $pathArray[0]);
                 // show all albums for which the session user is part of the username's friend circles.
             }
         } else {
@@ -125,23 +127,17 @@ if (isset($_SESSION['userId'])) {
     $route->add("^comments/create/?$");
     $route->add("^(\w+)/php/photos/get_album_photos.php/?$", function () {
         // temporary hack I hope...
-        $pathArray = (explode('/', $_GET['uri']));
-        
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photos.php");
     });
     $route->add("^(\w+)/php/photos/update_photo_caption.php/?$", function () {
         // temporary hack I hope
         $pathArray = (explode('/', $_GET['uri']));
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
-        // update_photo_caption();
 
     });
     $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
         // temporary hack I hope
-        $pathArray = (explode('/', $_GET['uri']));
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
-        // get_photo_caption();
-
     });
     $route->add("^(\w+)/php/albums/create_album.php/?$", function() {
         // Called by the create album AJAX request
