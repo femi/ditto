@@ -42,8 +42,6 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
  */
 function non_ajax_get_album_photos($albumId, $username) {
 
-    echoAlbumId($albumId, $username); // pass albumId on to js deleteAlbum() function
-
 	$connection = db_connect(); // Try and connect to the database
 
 	// If connection was not successful, handle the error
@@ -79,7 +77,10 @@ function non_ajax_get_album_photos($albumId, $username) {
 		$userId = $row['userId'];
         $dir = "../resources/album_content/$userId/$albumId"; 
         $photo_files = scandir($dir);
+        $isProfile = $row['isProfile'];         
 	}
+
+    echoAlbumId($albumId, $username, $isProfile); // pass albumId on to js deleteAlbum() function
 
 	$photo_files = array_diff($photo_files, array('.', '..')); // remove . and .. directories
 
@@ -97,8 +98,10 @@ function non_ajax_get_album_photos($albumId, $username) {
     </div>
   </form>
   <?php 
-  function echoAlbumId($albumId, $username) {
-    echo "<button type=\"button\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</button>";
+  function echoAlbumId($albumId, $username, $isProfile) {
+    if ($isProfile === true) {
+        echo "<button type=\"button\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</button>";
+    }
   }
   ?>
   </body>
