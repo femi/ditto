@@ -120,6 +120,6 @@ Remove a friend from circle:
 </form>
 
 
-<form action="friend-circles-CRUD.php" method="post">
+<form action="../circles" method="post">
     <input type="submit" value="Back to CRUD">
 </form>

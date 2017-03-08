@@ -29,7 +29,7 @@ Create new circle for a user:
 
 <!-- Update the name of logged in users friend circle -->
 Update friend-circles name:
-<form action="friend-circles-U.php" method="post">
+<form action="circles/updateCircle" method="post">
     <select name="circleId">
         <?php
         users_circles();
@@ -52,7 +52,7 @@ Retrieve 'friends' form friend-circles :
 </form>
 
 Delete circle:
-<form action="friend-circles-D.php" method="post">
+<form action="circles/deleteCircle" method="post">
     <select name="circleId">
         <?php
         users_circles();
