@@ -15,12 +15,13 @@ while ( $row = $usersblogs->fetch_assoc()){
   $uname = $user_data['username'];
   $blogcontent = $row['content'];
 
-    echo "<article class=\"media\">
+    echo "<article id=\"b_$blogId\" class=\"media\">
       <figure class=\"media-left\">
         <p class=\"image is-32x32\">
           <img class=\"img-rounded\" src=\"https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg\">
         </p>
       </figure>
+
       <div class=\"media-content\">
         <div class=\"content\">
 
@@ -28,12 +29,19 @@ while ( $row = $usersblogs->fetch_assoc()){
           <p>
             <strong> $fullname </strong> <small> @ $uname </small><br>
           </p>
-          $blogcontent <br>";
+          $blogcontent <br>
+          <div id=\"ajaxResult\"></div>
+
+
+          "
+
+          ;
 
       viewComments($row['blogId']);
 
       echo "
         </div>
+
         <nav class=\"level\">
           <div class=\"level-item\">
           <figure class=\"media-left\">
@@ -45,18 +53,20 @@ while ( $row = $usersblogs->fetch_assoc()){
           <form action\"\" method=\"POST\" id=\"$blogId\">
             <div class=\"control is-grouped\">
               <p class=\"control is-expanded\">
-                <input class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say?\">
+                <input id=\"comment\" class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say?\">
                 <input type=\"hidden\" name=\"blogId\" value=\"$blogId\"/>
               </p>
               <p class=\"control\">
                 <input class=\"button is-primary\" type=\"submit\" name=\"submit\">
-
               </p>
             </div>
           </form>
           </div>
           </div>
         </nav>
+      </div>
+      <div class=\"media-right\">
+        <button class=\"delete\" onclick=\"deleteBlog($blogId)\"></button>
       </div>
     </article>
   ";
@@ -71,6 +81,7 @@ function viewComments($blogId) {
       $content = $comment['message'];
       $userId = $comment['userId'];
       $postTime = $comment['createdAt'];
+      $commentId = $comment['commentId'];
 
       // get the user details of the comment poster
       $bloguser = getUser($userId);
@@ -79,7 +90,7 @@ function viewComments($blogId) {
       $user = $bloguser['username'];
 
       $comments_html ="
-      <article class=\"media\">
+      <article id=\"c_$commentId\" class=\"media\">
         <figure class=\"media-left\">
           <p class=\"image is-24x24\">
             <img src=\"http://bulma.io/images/placeholders/128x128.png\">
@@ -93,6 +104,8 @@ function viewComments($blogId) {
             </p>
           </div>
         </div>
+        <a class=\"delete is-small\" onclick=\"deleteComment($commentId);\"></a>
+
         </article>
         ";
       echo $comments_html;

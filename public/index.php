@@ -22,6 +22,15 @@ if (isset($_SESSION['userId'])) {
     $route->add("^logout.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php");
     });
+    $route->add("^delete_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
+    });
+    $route->add("^add_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/add_comment.php");
+    });
+    $route->add("^delete_blog.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
+    });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
     $route->add("^(\w+)/albums/?$");

@@ -82,9 +82,9 @@ function form_add_comment($blogId) {
 
 
 // retrieving a user's blogs
-echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
-echo '<br>';
-print_users_blogs($_POST['userId']);
+// echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
+// echo '<br>';
+// print_users_blogs($_POST['userId']);
 
 // retrieve comments for a blog entry
 // add comments for a blog entry
