@@ -18,9 +18,9 @@ function delete_blog($userId, $blogId) {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-        echo "<br>success<br>";
-        echo "deleted blogId: ".$blogId;
-        echo "from userId: ".$userId;
+        // echo "<br>success<br>";
+        // echo "deleted blogId: ".$blogId;
+        // echo "from userId: ".$userId;
     }
 }
 

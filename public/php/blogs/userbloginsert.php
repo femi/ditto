@@ -6,7 +6,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
-$connection = db_connect(); // the db connection
+// $connection = db_connect(); // the db connection
 
 
 // -----------------------------------------------------------------------------
@@ -20,11 +20,11 @@ function insert_blog($userId, $content) {
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.
-        echo "<br>successfully inserted<br>" . $content . "into " . $userId. "'s blog";
+        // echo "<br>successfully inserted<br>" . $content . "into " . $userId. "'s blog";
     }
 
 }
 
-insert_blog($_POST['userId'], $_POST['blogEntry']);
+// insert_blog($_POST['userId'], $_POST['blogEntry']);
 
 ?>

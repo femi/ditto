@@ -31,8 +31,6 @@
           <!-- <br><h5 class="title is-5"> <u>Blogs</u> </h5> -->
           <?php include ("new_post.php") ?><br>
           <?php include ("post.php") ?><br>
-          <?php include ("post.php") ?><br>
-          <?php include ("post.php") ?><br>
         </div>
         <!-- <form action="logout.php">
           <input type="submit" value="Logout" />

@@ -14,7 +14,7 @@ $connection = db_connect(); // the db connection
 
 // Retrieve all blogs for a given userId
 function retrieve_blog_content($userId) {
-    $result = db_query("SELECT * FROM blogs WHERE userId = ". $userId);
+    $result = db_query("SELECT * FROM blogs WHERE userId = $userId ORDER BY `blogId` DESC");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -36,9 +36,9 @@ function print_users_blogs($userId) {
 }
 
 
-// retrieving a user's blogs
-echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
-echo '<br>';
-print_users_blogs($_POST['userId']);
+// // retrieving a user's blogs
+// echo "RETRIEVING A USER'S BLOGS FROM USERID PASSED BY FORM";
+// echo '<br>';
+// print_users_blogs($_POST['userId']);
 
 ?>
