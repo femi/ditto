@@ -2,6 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="../../js/setupCreateAlbum.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/bulma.css">
 </head>
 <body>
 <?php
@@ -71,11 +72,11 @@ function retrieve_user_albums_nonowner($userId, $username) {
             }
         }
 
-        echo "<div id=\"ajaxResult\"><button type=\"button\" onclick=\"setupCreateAlbum($userId)\">Create another album?</button></div>";
+        echo "<div id=\"ajaxResult\"><a id=\"albumCreator\" class=\"button is-info\" onclick=\"setupCreateAlbum($userId)\">Create another album?</a></div>";
 
     } else {
         // no rows found, offer to create album?
-        echo "<div id=\"ajaxResult\"><p>No albums found.</p><button type=\"button\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</button></div>";
+        echo "<div id=\"ajaxResult\"><p>No albums found.</p><a id\"albumCreator\" class=\"button is-info\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</a></div>";
     }
 
 }

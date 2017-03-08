@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <link rel="stylesheet" type="text/css" href="/css/bulma.css">
     <script type="text/javascript" src="/js/dropzone.js"></script>
     <script type="text/javascript" src="/js/parseURL.js"></script>
     <script type="text/javascript" src="/js/getAlbumPhotos.js"></script>
@@ -100,7 +101,7 @@ function non_ajax_get_album_photos($albumId, $username) {
   <?php 
   function echoAlbumId($albumId, $username, $isProfile) {
     if ($isProfile != '1') {
-        echo "<button type=\"button\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</button>";
+        echo "<a class=\"button is-info\" onclick=\"deleteAlbum($albumId, '$username')\">Delete album</a>";
     }
   }
   ?>

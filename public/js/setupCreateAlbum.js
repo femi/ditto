@@ -4,17 +4,18 @@ function setupCreateAlbum(userId) {
     userId = userId.substring(1, userId.length - 2);
   }
   // userId taken in to pass on to submitter.
-  var ajaxResult = document.getElementById('ajaxResult')
-  var button = ajaxResult.getElementsByTagName('button')[0];
+  var ajaxResult = document.getElementById('ajaxResult');
+  var button = document.getElementById('albumCreator');
 
   var div1 = document.createElement('div');
   div1.className = 'create-album-container';
   var p1 = document.createElement('p');
   p1.appendChild(document.createTextNode('Enter album name:'));
   var input1 = document.createElement('input');
+  input1.className = 'input';
   input1.type = 'text';
-  var newButton = document.createElement('button');
-  newButton.type = 'button';
+  var newButton = document.createElement('a');
+  newButton.className = 'button is-info';
   newButton.onclick = function () {
     // This is the submit function
     var xmlhttp = new XMLHttpRequest();

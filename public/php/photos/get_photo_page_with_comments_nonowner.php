@@ -70,6 +70,25 @@ function get_photo_page_with_comments_nonowner($username, $albumId, $photoName) 
 ?>
   </div>
   <div class="comment-container">
+    <article class="media">
+        <figure class="media-left">
+            <p class="image is-32x32">
+                <img src="">
+            </p>
+        </figure>
+        <div class="media-content">
+            <p class="control">
+                <textarea class="textarea" placeholder="Type any comments in here"></textarea>
+            </p>
+            <nav class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <a class="button is-info">Post</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </article>
   </div>
   </body>
 </html>
