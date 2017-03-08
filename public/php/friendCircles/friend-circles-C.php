@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+// session_start();
 // REQUIRE THE DATABASE FUNCTIONS
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
@@ -26,6 +27,7 @@ function insert_circle($circleName) {
 insert_circle($_POST['circleName']);
 
 ?>
-<form action="friend-circles-CRUD.php" method="post">
+
+<form action="../circles" method="post">
     <input type="submit" value="Back to CRUD">
 </form>
