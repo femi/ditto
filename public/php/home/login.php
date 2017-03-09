@@ -26,6 +26,7 @@ if ( isset($_POST['submit']) ) {
       if (password_verify($password, $row) === true) {
 
         $_SESSION['userId'] = getUserId($email);   // Initializing Session
+        $_SESSION['username'] = getUserName($email);   // Initializing Session
         header("location: /albums");
       }
 
@@ -48,6 +49,11 @@ function cleanInput($input) {
 function getUserId($email) {
   $result = db_query("SELECT userId FROM `users` WHERE `email` = '$email'");
   return mysqli_fetch_assoc($result)['userId'];
+}
+
+function getUserName($email) {
+    $result = db_query("SELECT username FROM users WHERE email = '$email'");
+    return mysqli_fetch_assoc($result)['username'];
 }
 
 ?>

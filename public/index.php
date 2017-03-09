@@ -145,6 +145,14 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
         echo "Hi";
     });
+    $route->add("^(\w+)/php/comments/submitPhotoComment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/submitPhotoComment.php");
+    });
+    $route->add("^(\w+)/php/comments/getPhotoComments.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/getPhotoComments.php");
+    });
+
+
     $route->add("^(\w+)/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
     });

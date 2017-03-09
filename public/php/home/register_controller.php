@@ -116,8 +116,9 @@ if (isset($_POST['submit'])) {
 
     // set the session
     $_SESSION['userId'] = $userId;
+    $_SESSION['username'] = $username;
 
-    // intialise the user with album and friend circle
+    // initialise the user with album and friend circle
     createAlbum($userId);
     createFriendCircle($userId);
 
