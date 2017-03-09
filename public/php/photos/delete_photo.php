@@ -25,11 +25,29 @@ function delete_photo($username, $userId, $albumId, $filename) {
 	if (file_exists($target_file)) {
 		unlink($target_file); // deletes
 
+        $query = "SELECT photoId FROM photos WHERE albumId = '$albumId' AND filename = '$filename'";
+        $queryResult = db_query($query);
+
+        if ($queryResult === false) {
+            echo mysqli_error(db_connect());
+        } else {
+           $photoId = mysqli_fetch_assoc($queryResult)['photoId'];  
+        }
+
         $new_query = "DELETE FROM photos WHERE albumId = '$albumId' AND filename = '$filename'";
         $new_query_result = db_query($new_query);
 
         if ($new_query_result === false) {
             echo mysqli_error(db_connect());
+        }
+
+        // delete photo Comments
+        $query = "DELETE FROM comments WHERE photoId = $photoId";
+        $commentQueryResult = db_query($query);
+
+
+        if ($commentQueryResult === false) {
+            echo mysqli_error(db_connnect());
         }
 
         // redirect 

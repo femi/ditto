@@ -26,6 +26,28 @@ function delete_album() {
         $userId = $row['userId'];
     }
 
+    // need to get photoId to delete the photo comments
+    $photoIdQuery = "SELECT photoId from photos WHERE albumId = $albumId";
+    $photoIdQueryResult = db_query($photoIdQuery); 
+
+    if ($photoIdQueryResult === false) {
+        echo mysqli_error(db_connect());
+    } 
+
+    while ($row = $photoIdQueryResult->fetch_assoc()) {
+        // delete every photo's comments
+        $photoId = $row['photoId'];
+
+        $deleteQuery = "DELETE FROM comments WHERE photoId = $photoId";
+        $deleteQueryResult = db_query($deleteQuery);
+
+        if ($deleteQueryResult === false) {
+            mysqli_error(db_connect());
+        }
+    
+    }
+
+    // now delete the photo records;
     $querytwo = "DELETE FROM photos WHERE albumId = $albumId";
     $querytwoResult = db_query($querytwo);
  
