@@ -14,7 +14,7 @@ $connection = db_connect(); // the db connection
 
 // Delete a blog from the table by userId and blogId
 function delete_blog($userId, $blogId) {
-    $result = db_query("DELETE FROM blogs WHERE blogId = ".db_quote($blogId)." AND userId = ".db_quote($userId));
+    $result = db_query("DELETE FROM blogs WHERE blogId = $blogId");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
