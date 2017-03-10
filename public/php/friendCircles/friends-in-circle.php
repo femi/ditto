@@ -103,7 +103,7 @@ Add a friend to current circle:
 <form action="friends/add" method="post">
     <select name="userId">
                     <?php
-                    all_users();
+                    all_noncircle_friends();
                     ?>   
     </select>
     <input type="submit" value="Add">
@@ -113,7 +113,7 @@ Remove a friend from circle:
 <form action="friends/remove" method="post">
     <select name="userId">
         <?php
-        all_users();
+        all_circle_friends();
         ?>   
     </select>
     <input type="submit" value="Remove">

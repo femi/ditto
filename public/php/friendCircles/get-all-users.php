@@ -13,7 +13,7 @@ $connection = db_connect(); // the db connection
 // CUSTOM FUNCTIONS FOR THIS FILE
 
 
-// gets all current users and echo's option for each user
+// gets ALL current users and echo's option for each user
 function all_users() {
     $result = db_query("SELECT userId, fName FROM users");
     if($result === false) {
@@ -28,6 +28,55 @@ function all_users() {
             //only displays users apart from the logged in user
 	         if ($userId != $_SESSION['userId']){echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';}
     	}
+    }
+
+}
+
+// gets all current users not in this circle and echo's option for each user
+function all_noncircle_friends() {
+    // return all members of everyone circle
+    // $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
+
+
+    //returns all members of everyone circle but not those already in the current circle
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId'].")))");
+
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+
+            $userId = $row['userId'];
+            $fName = $row['fName'];
+
+            //only displays users apart from the logged in user
+             if ($userId != $_SESSION['userId']){echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';}
+        }
+    }
+
+}
+
+
+
+
+// gets all current users in a circle and echo's option for each user
+function all_circle_friends() {
+
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=6 AND circleId=5))");
+   // $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId']."))");
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+
+            $userId = $row['userId'];
+            $fName = $row['fName'];
+
+            //only displays users apart from the logged in user
+             if ($userId != $_SESSION['userId']){echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';}
+        }
     }
 
 }

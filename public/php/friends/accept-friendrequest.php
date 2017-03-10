@@ -15,13 +15,12 @@ $connection = db_connect(); // the db connection
 // add accepted friend to users 'everyone' circle 
 function accept_request($friendId) {
 
-
-	//$circleId = db_query("SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'");
 	 
     $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
 
     $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
-    if($result === false) {
+
+    if($result === false OR $result1 === false) {
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.
