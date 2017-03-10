@@ -52,8 +52,8 @@
          get_incomingrequests();
         ?>   
     </select>
-    <input type="submit" value="Accept Request">
-    <!-- <input type="submit" value="Delete Request"> -->
+    <input name="accept" type="submit" value="Accept Request">
+    <input name="delete" type="submit" value="Delete Request">
 </form>
 
 <p>View all pending requests: (outgoing)</p>
@@ -63,8 +63,8 @@
          get_outgoingrequests();
         ?>   
     </select>
-    <input type="submit" value="Retract burden of friendship">
-    <!-- <input type="submit" value="Delete Request"> -->
+    <input name="retract" type="submit" value="Retract burden of friendship">
+    
 </form>
 
 </body>

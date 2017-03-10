@@ -47,8 +47,34 @@ function delete_request($friendId) {
 
 }
 
-accept_request($_POST['friendId']);
-delete_request($_POST['friendId']);
+
+// Deletes request from 
+function retract_request($friendId) {
+    
+
+    $result = db_query("DELETE FROM friend_requests WHERE userId =". $friendId." AND friendId =".$_SESSION['userId']);
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+      
+        echo "request retracted";
+
+    }
+
+}
+if (isset($_POST['accept'])) {
+    accept_request($_POST['friendId']);
+    delete_request($_POST['friendId']);
+}
+
+if (isset($_POST['delete'])) {
+    delete_request($_POST['friendId']);
+
+}
+
+if (isset($_POST['retract'])) {
+    retract_request($_POST['friendId']);
+}
 
 ?>
 <br>
