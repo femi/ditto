@@ -1,6 +1,4 @@
-<a href="#">
-  <h5 class="title is-5" ><strong>Albums</strong></h5>
-</a>
+<h5 class="title is-5" ><strong>Albums</strong></h5>
 <div class="level">
 
   <figure class="image is-64x64 ">

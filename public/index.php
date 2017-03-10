@@ -31,6 +31,9 @@ if (isset($_SESSION['userId'])) {
     $route->add("^delete_blog.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
+    $route->add("^update_privacy.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/update_privacy.php");
+    });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
     $route->add("^(\w+)/albums/?$");
