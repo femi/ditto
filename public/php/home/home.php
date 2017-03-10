@@ -15,7 +15,10 @@
 
             <br><h3 class="title is-3"><strong><?php echo $fullname ?></strong> </h3>
 
-            <?php include ("privacy.php") ?>
+            <h3 class="title is-5"><strong>Privacy</strong> </h3>
+              <?php include ("privacy.php") ?>
+            <hr>
+
             <?php include ("circles.php") ?>
             <?php include ("albums.php") ?>
 

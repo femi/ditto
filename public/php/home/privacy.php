@@ -13,7 +13,6 @@ function privacy_level($id) {
 }
 ?>
 
-<h3 class="title is-5"><strong>Privacy</strong> </h3>
   <span class="select is-medium">
     <select id="privacy" onchange="updatePrivacy()">
       <option value="" disabled selected style="display: none;"><?php echo privacy_level($user_data['privacy']) ?></option>
@@ -23,4 +22,3 @@ function privacy_level($id) {
       <option value="3">No one</option>
     </select>
   </span>
-  <hr>
