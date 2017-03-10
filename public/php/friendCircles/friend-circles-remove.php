@@ -7,7 +7,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 $connection = db_connect(); // the db connection
-session_start();
+// session_start();
 
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
@@ -33,6 +33,6 @@ $_SESSION['circleId'] = null;
 ?>
 
 <br>
-<form action="friend-circles-CRUD.php" method="post">
+<form action="../../circles" method="post">
     <input type="submit" value="Back to CRUD">
 </form>

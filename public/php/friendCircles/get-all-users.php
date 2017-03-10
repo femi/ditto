@@ -66,7 +66,7 @@ function users_circles() {
 }
 
 //gets user's pending friend requests and echo's option for each request
-function get_friendrequests() {
+function get_incomingrequests() {
 
     $result = db_query("SELECT friendId FROM friend_requests WHERE userId = ". $_SESSION['userId']);
     if($result === false) {
@@ -76,6 +76,22 @@ function get_friendrequests() {
         while($row = $result->fetch_assoc()){
             $friendId = $row['friendId'];
             echo '<option value="'.$friendId.'">'.$friendId.'</option>';
+        }
+    }
+
+}
+
+//gets user's pending friend requests and echo's option for each request (ougoing)
+function get_outgoingrequests() {
+
+    $result = db_query("SELECT userId FROM friend_requests WHERE friendId = ". $_SESSION['userId']);
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+     
+        while($row = $result->fetch_assoc()){
+            $userId = $row['userId'];
+            echo '<option value="'.$userId.'">'.$userId.'</option>';
         }
     }
 
@@ -91,8 +107,10 @@ function get_nonfriends() {
      
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
-            $name = $row['fName'];
-            echo '<option value="'.$userId.'">'.$userId.' '.$name.'</option>';
+            if ($userId != $_SESSION['userId']){
+                $name = $row['fName'];
+                echo '<option value="'.$userId.'">'.$userId.' '.$name.'</option>';
+                }
         }
     }
 

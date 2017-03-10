@@ -9,7 +9,7 @@ require_once(__DIR__.'/get-all-users.php');
 
 
 $connection = db_connect(); // the db connection
-session_start();
+// session_start();
 $_SESSION['circleId'] = $_POST['circleId'];
 
 
@@ -100,7 +100,7 @@ print_users_FC($_POST['circleId']);
 Add a friend to current circle:
 
 
-<form action="friend-circles-add.php" method="post">
+<form action="friends/add" method="post">
     <select name="userId">
                     <?php
                     all_users();
@@ -110,7 +110,7 @@ Add a friend to current circle:
 </form>
 
 Remove a friend from circle:
-<form action="friend-circles-remove.php" method="post">
+<form action="friends/remove" method="post">
     <select name="userId">
         <?php
         all_users();

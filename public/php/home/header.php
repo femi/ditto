@@ -6,7 +6,7 @@
     <div class="nav-left">
 
 
-      <a class="nav-item">
+      <a href= "/" class="nav-item">
         <img src="http://placehold.it/40" alt="logo">
       </a>
 
@@ -17,10 +17,10 @@
         </p>
       </div>
 
-      <a href= <?php echo $username . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
-      <a href= <?php echo $username . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
-      <a href= <?php echo $username . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
-      <a href= <?php echo $username . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
+      <a href= /<?php echo $_SESSION['username'] . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
+      <a href= /<?php echo $_SESSION['username'] . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
+      <a href= /<?php echo $_SESSION['username'] . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
+      <a href= /<?php echo $_SESSION['username'] . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
 
       <p class="control has-addons"></p>
     </div>

@@ -6,7 +6,7 @@
     // session_start();
     require_once(__DIR__.'/get-all-users.php');
     require_once(__DIR__.'/friend-circles-R.php');
-    echo dirname(__FILE__);
+require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
     ?> 
 </head>
 <body>
@@ -42,7 +42,7 @@ Update friend-circles name:
 
 <!-- Retrieve friends from a logged in user's circle -->
 Retrieve 'friends' form friend-circles :
-<form action="friends-in-circle.php" method="post">
+<form action="circles/friends" method="post">
     <select name="circleId">
         <?php
          users_circles();

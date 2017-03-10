@@ -24,7 +24,11 @@ function insert_circle($circleName) {
 
 }
 
-insert_circle($_POST['circleName']);
+if (strlen($_POST['circleName'])>0){
+	insert_circle($_POST['circleName']);
+} else {
+	echo "Please enter a valid circle name";
+}
 
 ?>
 

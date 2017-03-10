@@ -44,8 +44,30 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/circles/updateCircle/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-U.php");
     });
+    $route->add("^(\w+)/circles/friends/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friends-in-circle.php");
+    });
+    $route->add("^(\w+)/circles/friends/add/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
+    });
+    $route->add("^(\w+)/circles/friends/remove/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
+    });
 
-    
+// Routes for friends
+   $route->add("^(\w+)/friends/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+    });
+     $route->add("^(\w+)/friends/accept/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
+    });
+       $route->add("^(\w+)/friends/request/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
+    });
+
+
+
+
     $route->add("^(\w+)/messages/(\w+)/?");
     $route->add("^(\w+)/messages/?$", function() {
         echo "hi Femi";
