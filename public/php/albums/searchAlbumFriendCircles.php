@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
@@ -21,8 +25,10 @@ function searchAlbumFriendCircles() {
 		// Handle error
 	}
 
-	// build query
-	$query = "SELECT circleId, circleName FROM friendcircles WHERE circleName LIKE '%$searchQuery%' LIMIT 3";
+    $userId = $_SESSION['userId'];
+
+	// build query - get the user's friendcircles that they have not already selected
+	$query = "SELECT circleId, circleName FROM friendcircles WHERE userId = $userId AND circleName LIKE '%$searchQuery%' AND circleId NOT IN (SELECT circleId FROM album_friendcircles) LIMIT 3";
 
 	// Execute the query
 	$qry_result = db_query($query);

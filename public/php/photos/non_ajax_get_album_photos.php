@@ -59,17 +59,17 @@
                 if ($isRestricted === '0') {
                     echo "<br>";
                     echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
                 } else if ($isRestricted === '1') {
                     echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
                     echo "<script>fillFriendCircleContainer($albumId)</script>"; // fill in the privacy controls stuff with JS
                 } else {
                     echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
 
                 }
             }
