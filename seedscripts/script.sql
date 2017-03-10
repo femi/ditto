@@ -37,8 +37,10 @@ albumId INT(10) AUTO_INCREMENT,
 userId INT(10) NOT NULL,
 isProfile BOOLEAN NOT NULL DEFAULT False, 
 albumName VARCHAR(200),
+isRestricted INT NOT NULL DEFAULT 0, -- defaults to public --
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+validator TINYINT NOT NULL,
 PRIMARY KEY (albumId)
 );
 
@@ -249,4 +251,29 @@ CREATE TRIGGER messagesBothNotNullUpdate BEFORE UPDATE ON messages
 			SET NEW.validator = NULL;
 		END IF;
 	END;//
+
+-- Album privacy settings are either 0 for friends (EVERYONE), 1 for friends circles, or 2 for friends of friends.
+DROP TRIGGER IF EXISTS albumPrivacyInsert //
+CREATE TRIGGER albumPrivacyInsert BEFORE INSERT ON albums
+	FOR EACH ROW
+	BEGIN
+		IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+			SET NEW.validator = 1;
+		ELSE
+			-- this will cause the update to abort, since validator is defined as NOT NULL
+			SET NEW.validator = NULL;
+		END IF;
+	END;//
+DROP TRIGGER IF EXISTS albumPrivacyUpdate //
+CREATE TRIGGER albumPrivacyUpdate BEFORE UPDATE ON albums
+	FOR EACH ROW
+	BEGIN
+		IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+			SET NEW.validator = 1;
+		ELSE
+			-- this will cause the update to abort, since validator is defined as NOT NULL
+			SET NEW.validator = NULL;
+		END IF;
+	END;//
+
 delimiter ;

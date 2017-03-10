@@ -1,0 +1,48 @@
+<?php
+
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
+require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+
+/**
+ * This function is called using AJAX and gets the top 3 albumName matches for the given search string.
+ */
+function searchAlbumFriendCircles() {
+    $albumId = db_quote($_REQUEST['albumId']);
+    $searchQuery = db_quote($_REQUEST['searchQuery']);
+
+	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+	$searchQuery = substr($searchQuery, 1, strlen($searchQuery) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+
+	$connection = db_connect(); // Try and connect to the database
+
+	// If connection was not successful, handle the error
+	if ($connection === false) {
+		// Handle error
+	}
+
+	// build query
+	$query = "SELECT circleName FROM friendcircles WHERE circleName LIKE '%$searchQuery%' LIMIT 3";
+
+	// Execute the query
+	$qry_result = db_query($query);
+
+	if ($qry_result === false) {
+		echo mysqli_error(db_connect());
+		return;
+    }
+
+    if (mysqli_num_rows($qry_result) === 0) {
+        echo "<p>No results found</p>";
+    } else {
+        echo "<ul>";
+        while ($row = $qry_result->fetch_assoc()) {
+            $circleName = $row['circleName'];
+            echo "<li>$circleName</li>"; // TODO add delete
+        }
+        echo "</ul>";
+    }
+    
+}
+searchAlbumFriendCircles();
+?>

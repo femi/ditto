@@ -8,6 +8,9 @@
     <script type="text/javascript" src="/js/parseURL.js"></script>
     <script type="text/javascript" src="/js/getAlbumPhotos.js"></script>
     <script type="text/javascript" src="/js/deleteAlbum.js"></script>
+    <script type="text/javascript" src="/js/changeAlbumPrivacy.js"></script>
+    <script type="text/javascript" src="/js/fillFriendCircleContainer.js"></script>
+    <script type="text/javascript" src="/js/searchAlbumFriendCircles.js"></script>
     <script type="text/javascript" >
       Dropzone.options.myAwesomeDropzone = {
         init: function() {
@@ -28,6 +31,50 @@
   </head>
   <body>
     <a href="../albums"><p>Back to albums</p></a>
+    <?php 
+        function showAlbumPrivacySettings($albumId) {
+
+            $connection = db_connect();
+
+            if ($connection === false) {
+                // error
+            }
+
+            echo "<div class=\"card privacy-settings\">";
+            // print out card header
+            echo "<header class=\"card-header\"><p class=\"card-header-title\">Album privacy settings:</p><a class=\"card-header-icon\"><span class=\"icon\"><i class=\"fa fa-angle-down\"></i></span></a></header>";
+            $query = "SELECT isRestricted FROM albums WHERE albumId = $albumId";
+            $queryResult = db_query($query);
+                
+            echo "<div class=\"card-content\"><div class=\"content\">";
+            // fill card content
+            if ($queryResult === false) {
+                msyqli_error(db_connect());
+            } else {
+                $isRestricted = mysqli_fetch_assoc($queryResult)['isRestricted'];
+                echo "This album can be viewed by:";
+                if ($isRestricted === '0') {
+                    echo "<br>";
+                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                } else if ($isRestricted === '1') {
+                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                } else {
+                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
+                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+
+                }
+            }
+            echo "</div></div>"; // close card-content div
+            echo "<div id=\"friendCircles-container\"><div id=\"friendCircles-controls\"><div id=\"friendCircles-query-result\"></div><p id=\"friendCircles-searchbox\"></p></div><div id=\"friendCircles-search-results\"></div></div>";
+            // fill out card footer
+            echo "</div>"; // close card div
+        }
+    ?>
     <p>Result:</p>
     <div id="ajaxResult">
 <?php
@@ -42,7 +89,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
  * This function gets all the photos from inside the given album.
  */
 function non_ajax_get_album_photos($albumId, $username) {
-
+    showAlbumPrivacySettings($albumId);
 	$connection = db_connect(); // Try and connect to the database
 
 	// If connection was not successful, handle the error

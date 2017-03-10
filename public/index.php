@@ -132,18 +132,23 @@ if (isset($_SESSION['userId'])) {
         // temporary hack I hope
         $pathArray = (explode('/', $_GET['uri']));
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
-
     });
     $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
         // temporary hack I hope
         require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
     });
+        $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
+        echo "Hi";
+    });
     $route->add("^(\w+)/php/albums/create_album.php/?$", function() {
         // Called by the create album AJAX request
         include "$_SERVER[DOCUMENT_ROOT]/php/albums/create_album.php";
     });
-    $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
-        echo "Hi";
+    $route->add("^(\w+)/php/albums/changeAlbumPrivacy.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/changeAlbumPrivacy.php";
+    });
+    $route->add("^(\w+)/php/albums/getAlbumFriendCircles.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/getAlbumFriendCircles.php";
     });
     $route->add("^(\w+)/php/comments/submitPhotoComment.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/submitPhotoComment.php");
