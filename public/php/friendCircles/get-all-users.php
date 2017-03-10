@@ -59,7 +59,9 @@ function users_circles() {
         while($row = $result->fetch_assoc()){
             $circleId = $row['circleId'];
             $name = $row['name'];
+            if ($name != "everyone"){
             echo '<option value="'.$circleId.'">'.$circleId.'. '.$name.'</option>';
+            }
         }
     }
 

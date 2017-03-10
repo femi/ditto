@@ -22,7 +22,7 @@ function retrieve_friend_circles($userId) {
     }
     return $result;
 }
-
+ 
 
 // Print all a user's friend circles given a userId
 function print_users_FC($userId) {
@@ -40,12 +40,15 @@ function print_users_FC($userId) {
     while($row = $usersFC->fetch_assoc()){
 
     	$circleID = $row['circleId'];
+        $name = $row['name'];
+        if($name != "everyone"){
         echo '<tr>
 	        	<td> '.$circleID.'</td>
-	        	<td> '.$row['name'].'</td>
+	        	<td> '.$name.'</td>
 	        	<td> '.$row['createdAt'] .' </td>
 	        	<td> '.$row['updatedAt'].'</td>
 	        </tr>';
+        }
     }
     echo '</table>';
 }

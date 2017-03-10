@@ -24,10 +24,10 @@ function insert_circle($circleName) {
 
 }
 
-if (strlen($_POST['circleName'])>0){
+if (strlen($_POST['circleName'])>0 && $_POST['circleName'] != "everyone"){
 	insert_circle($_POST['circleName']);
 } else {
-	echo "Please enter a valid circle name";
+	echo "Please enter a valid circle name. <br>'everyone' is a reserved name.";
 }
 
 ?>
