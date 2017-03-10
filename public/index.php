@@ -150,6 +150,12 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/php/albums/getAlbumFriendCircles.php/?$", function() {
         require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/getAlbumFriendCircles.php";
     });
+    $route->add("^(\w+)/php/albums/addAlbumFriendCircle.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/addAlbumFriendCircle.php";
+    });
+    $route->add("^(\w+)/php/albums/deleteAlbumFriendCircle.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/deleteAlbumFriendCircle.php";
+    });
     $route->add("^(\w+)/php/comments/submitPhotoComment.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/submitPhotoComment.php");
     });

@@ -11,6 +11,7 @@ function fillFriendCircleContainer(albumId) {
         var input1 = document.createElement('input');
         input1.className = 'input';
         input1.type = 'text';
+        input1.placeholder = 'Type a circle name...';
         input1.onkeyup = function() {
           searchAlbumFriendCircles(input1, albumId);
         }

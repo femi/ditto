@@ -7,9 +7,12 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 /**
  * This function is called using AJAX and changes an album's privacy settings to friends (0), friendcircles (1), or friends of friends (2)
  */
-function getAlbumFriendCircles() {
+function addAlbumFriendCircle() {
     $albumId = db_quote($_REQUEST['albumId']);
+    $circleId = db_quote($_REQUEST['circleId']);
+
 	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
+    $circleId = (int) substr($circleId, 1, strlen($circleId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
 
 	$connection = db_connect(); // Try and connect to the database
 
@@ -18,8 +21,9 @@ function getAlbumFriendCircles() {
 		// Handle error
 	}
 
+
 	// build query
-	$query = "SELECT friendcircles.circleId, circleName FROM friendcircles JOIN album_friendcircles WHERE friendcircles.circleId = album_friendcircles.circleId AND album_friendcircles.albumId = $albumId";
+	$query = "INSERT INTO album_friendcircles (albumId, circleId) VALUES ($albumId, $circleId)";
 
 	// Execute the query
 	$qry_result = db_query($query);
@@ -27,13 +31,8 @@ function getAlbumFriendCircles() {
 	if ($qry_result === false) {
 		echo mysqli_error(db_connect());
 		return;
-    }
-    while ($row = $qry_result->fetch_assoc()) {
-        $circleName = $row['circleName'];
-        $circleId = $row['circleId'];
-        echo "<span class=\"tag is-info\">$circleName<button class=\"delete is-small\" onclick=\"deleteAlbumFriendCircle($albumId, $circleId)\"></button></span>";
-    }
+	}
 
 }
-getAlbumFriendCircles();
+addAlbumFriendCircle();
 ?>

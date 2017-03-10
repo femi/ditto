@@ -22,7 +22,7 @@ function searchAlbumFriendCircles() {
 	}
 
 	// build query
-	$query = "SELECT circleName FROM friendcircles WHERE circleName LIKE '%$searchQuery%' LIMIT 3";
+	$query = "SELECT circleId, circleName FROM friendcircles WHERE circleName LIKE '%$searchQuery%' LIMIT 3";
 
 	// Execute the query
 	$qry_result = db_query($query);
@@ -35,12 +35,14 @@ function searchAlbumFriendCircles() {
     if (mysqli_num_rows($qry_result) === 0) {
         echo "<p>No results found</p>";
     } else {
-        echo "<ul>";
+
+        echo "<div class=\"box\">";
         while ($row = $qry_result->fetch_assoc()) {
             $circleName = $row['circleName'];
-            echo "<li>$circleName</li>"; // TODO add delete
+            $circleId = $row['circleId'];
+            echo "<a onclick=\"addAlbumFriendCircle($albumId, $circleId)\"><span class=\"tag is-info\">$circleName</span></a>";
         }
-        echo "</ul>";
+        echo "</div>"; // end box div
     }
     
 }

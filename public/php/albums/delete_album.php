@@ -55,10 +55,17 @@ function delete_album() {
         echo mysqli_error(db_connect());
     }
 
- 	$querythree = "DELETE FROM albums WHERE albumId = $albumId";
- 	$querythreeResult = db_query($querythree);
+    $querythree = "DELETE FROM album_friendcircles WHERE albumId = $albumId";
+    $querythreeResult = db_query($querythree);
+
+    if ($querytwoResult === false) {
+        echo mysqli_error(db_connect());
+    }
+
+ 	$queryfour = "DELETE FROM albums WHERE albumId = $albumId";
+ 	$queryfourResult = db_query($queryfour);
  
- 	if ($querythreeResult === false) {
+ 	if ($queryfourResult === false) {
  	    echo mysqli_error(db_connect());
     }
  	

@@ -11,6 +11,9 @@
     <script type="text/javascript" src="/js/changeAlbumPrivacy.js"></script>
     <script type="text/javascript" src="/js/fillFriendCircleContainer.js"></script>
     <script type="text/javascript" src="/js/searchAlbumFriendCircles.js"></script>
+    <script type="text/javascript" src="/js/addAlbumFriendCircle.js"></script>
+    <script type="text/javascript" src="/js/deleteAlbumFriendCircle.js"></script>
+    <script type="text/javascript" src="/js/replaceCurrentAlbumTags.js"></script>
     <script type="text/javascript" >
       Dropzone.options.myAwesomeDropzone = {
         init: function() {
@@ -62,6 +65,7 @@
                     echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
                     echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
                     echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of Friends</label></p>";
+                    echo "<script>fillFriendCircleContainer($albumId)</script>"; // fill in the privacy controls stuff with JS
                 } else {
                     echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
                     echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected Friend Circles</label>";
