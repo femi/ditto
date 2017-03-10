@@ -31,7 +31,8 @@
     }
 ?>
 </table>
-
+<p>Delete friend:</p>
+TODO
 <!-- Make a friend request to users not already in the 'everyone' circle -->
 <p>Make new friend request:</p>
 <form action="friends/request" method="post">
