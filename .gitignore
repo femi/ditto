@@ -4,3 +4,4 @@ public/lib/
 .DS_Store
 *.swp
 *.swo
+resources/album_content/
