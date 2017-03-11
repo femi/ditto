@@ -37,6 +37,10 @@ if (isset($_SESSION['userId'])) {
     $route->add("^settings/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/settings.php");
     });
+    $route->add("^validate.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
+    });
+
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
     $route->add("^(\w+)/albums/?$");
@@ -87,6 +91,9 @@ if (isset($_SESSION['userId'])) {
     });
     $public_route->add("^login.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/login.php");
+    });
+    $public_route->add("^validate.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
     });
 
     try {

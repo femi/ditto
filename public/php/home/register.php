@@ -49,31 +49,31 @@
               <form method="POST" action="register_controller.php" >
                 <div class="control is-grouped">
                   <p class="control is-expanded">
-                    <input class="input" type="text" name="fName" placeholder="First name" required>
+                    <input class="input is-medium" type="text" name="fName" placeholder="First name" required>
                   </p>
                   <p class="control is-expanded">
-                    <input class="input" type="text" name="lName" placeholder="Surname" required>
+                    <input class="input is-medium" type="text" name="lName" placeholder="Surname" required>
                   </p>
                 </div>
                 <p class="control">
-                  <input class="input" type="text" name="email" placeholder="Email address" required>
+                  <input id="emailInput" class="input is-medium" type="text" name="email" placeholder="Email address" required>
                 </p>
                 <p class="control">
-                  <input class="input" type="text" name="username" placeholder="Username" required>
+                  <input id="usernameInput" class="input is-medium" type="text" name="username" placeholder="Username" required>
                 </p>
                 <p class="control">
-                  <input class="input" type="number" name="mobileNumber" placeholder="Mobile number" required>
+                  <input class="input is-medium" type="number" name="mobileNumber" placeholder="Mobile number" required>
                 </p>
                 <p class="control">
-                  <input class="input" type="date" name="dob" placeholder="Birthday" required>
+                  <input class="input is-medium" type="date" name="dob" placeholder="Birthday" required>
                 </p>
                 <p class="control">
-                  <input class="input" type="password" name="password" placeholder="Password" required>
+                  <input class="input is-medium" type="password" name="password" placeholder="Password" required>
                 </p>
                 <p class="control">
-                  <input class="button is-primary" type="submit" name="submit" value="Create account">
+                  <input id="buttonSubmit" class="button is-primary is-medium" type="submit" name="submit" value="Create account">
                     or
-                  <a href="/" class="button">Login</a>
+                  <a href="/" class="button is-medium">Login</a>
                 </p>
               </form>
 
@@ -95,4 +95,5 @@
         });
     });
     </script>
+    <script src="js/validation.js"></script>
 </html>
