@@ -25,6 +25,7 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
+    });
     $route->add("^delete_comment.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
     });
@@ -70,7 +71,9 @@ if (isset($_SESSION['userId'])) {
         }
     }
 
-} else {
+} // end big if statement for user is logged in
+
+else {
     // User is logged out
     // define API routes you can see while not logged in.
     $public_route = new Route();
