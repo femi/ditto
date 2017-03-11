@@ -1,6 +1,7 @@
 <?php
 
-include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
+//include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
+require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL

@@ -1,13 +1,13 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/css/bulma.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <script src="/js/comments.js"></script>
 
 
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function(){
     $('.control input[type="text"]').on("keyup input", function(){
         /* Get input value on change */
@@ -37,9 +37,7 @@ $(document).ready(function(){
         resultDropdown.hide();
     });
 });
-</script>
-
-
+</script> -->
 
 
 <nav class="nav has-shadow">
@@ -90,3 +88,7 @@ $(document).ready(function(){
 
   </div>
 </nav>
+
+<script>
+    $(document).ready(setupSearch());
+</script>
