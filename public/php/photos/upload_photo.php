@@ -2,7 +2,6 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
 // For use with AJAX request.
 
 // REQUIRE THE DATABASE FUNCTIONS
@@ -11,12 +10,12 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 function upload_photo() {
+  
 	$connection = db_connect();
 
 	if ($connection === false) {
 		// Handle error
 	}
-
 
 	$userId = $_SESSION['userId'];
 	$albumId = db_quote($_POST['albumId']);
@@ -80,7 +79,7 @@ function upload_photo() {
 			return;
 		} else {
 			$status = 1;
-        }
+		}
 	}
 }
 upload_photo();

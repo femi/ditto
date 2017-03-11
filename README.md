@@ -15,7 +15,7 @@
 	  	  AllowOverride None
 	  	  Require all granted
 		</Directory>
-	
+    
 	- edit /etc/apache2/apache2.conf, changing "<Directory /var/www/ >" to the preferred directory
 	- In the same file, and in the same <Directory> tag, change AllowOverride None to AllowOverride All (to enable the .htaccess file)
 	- Ensure that mod_rewrite is enabled (type sudo a2enmod rewrite into terminal)

@@ -47,12 +47,12 @@ function get_album_photo($userId, $albumId, $username) {
 		$filename = $row['filename'];
 		$caption = $row['caption'];
 		$photo_file = "../../../../album_content/$userId/$albumId/$filename";
-        if (file_exists("../resources/album_content/$userId/$albumId/$filename")) {
+    if (file_exists("../resources/album_content/$userId/$albumId/$filename")) {
 		    return "<a href=\"../../$username/albums/$albumId\"><img src=\"$photo_file\" alt=\"$caption\"></a>";
-        } else {
-            // return default picture
-            return "<a href=\"../../$username/albums/$albumId\"><img src=\"../../img/default.jpg\" alt=\"Currently no photos inside album.\"></a>";
-        }
+    } else {
+        // return default picture
+        return "<a href=\"../../$username/albums/$albumId\"><img src=\"../../img/default.jpg\" alt=\"Currently no photos inside album.\"></a>";
+    }
 	}
 }
 ?>

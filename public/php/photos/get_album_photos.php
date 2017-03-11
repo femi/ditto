@@ -36,8 +36,7 @@ function get_album_photos() {
 		echo mysqli_error(db_connect());
 	}
 
-
-    $first = true;
+  $first = true;
 	while($row = $qry_result->fetch_assoc()){
 		// scan the directory given
         if ($first === true) {
@@ -55,8 +54,6 @@ function get_album_photos() {
 		$file = "../../album_content/$userId/$albumId/$photoName";
 		echo "<div class=\"photo-thumbnail\"><a href=\"/$username/albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></div>"; // TODO get captions
 	}
-	
-
 	
 	// IGNORE FOR NOW - probably not a good idea to serve json files here.
 	//$json_string = json_encode($photo_files);

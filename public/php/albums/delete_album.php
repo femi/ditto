@@ -75,7 +75,6 @@ function delete_album() {
  	} catch (Exception $e) {
  		return $e;
  	}	
-
 }
 
 function remove_directory($path) {

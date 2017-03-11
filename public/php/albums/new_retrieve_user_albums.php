@@ -80,7 +80,6 @@ function retrieve_user_albums() {
         // no rows found, offer to create album?
         echo "<p>No albums found.</p><button type=\"button\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</button>";
     }
-		
 }
 retrieve_user_albums();
 ?>
