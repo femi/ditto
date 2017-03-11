@@ -1,7 +1,7 @@
 <?php
 /**
- * Apache redirects every server request to this file. 
- * Essentially, it checks the request against a list of regular expressions, 
+ * Apache redirects every server request to this file.
+ * Essentially, it checks the request against a list of regular expressions,
  * and calls an associate anonmous function, if it exists. If no match is found, the Route submit function
  * throws a RouteException which can be caught and redirected to a 404 or 403 as appropriate.
  *
@@ -20,12 +20,18 @@ if (isset($_SESSION['userId'])) {
 
     // Add valid routes for logged in user to whitelist
     $route->add("^logout.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php"); 
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php");
+    });
+    $route->add("^backend-search.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
     $route->add("^(\w+)/albums/?$");
     $route->add("^(\w+)/blogs/(\d+)/(\w+)/?$");
+    $route->add("^(\w+)/blogs/?$", function () {
+        echo "hi";
+    });
     $route->add("^(\w+)/friendcircles/(\d+)/?$");
     $route->add("^(\w+)/friendcircles/?$");
     $route->add("^(\w+)/messages/(\w+)/?");
@@ -55,7 +61,7 @@ if (isset($_SESSION['userId'])) {
         }
     }
 
-} else { 
+} else {
     // User is logged out
     // define API routes you can see while not logged in.
     $public_route = new Route();

@@ -4,8 +4,11 @@
   <body>
 
     <?php include ("header.php") ?><br>
+    
 
-    <div class="container">
+    <div class="container" style="z-index: 1">
+
+
       <div class="columns is-multiline">
 
         <div class="column is-one-quarter">
