@@ -17,11 +17,13 @@ if (isset($_POST['blogEntry'])) {
   <div class="media-content">
     <form action="" method="post">
       <p class="control">
-        <textarea name="blogEntry" class="textarea" placeholder="What are you excited about?"></textarea>
+        <textarea name="blogEntry" class="textarea" placeholder="What are you excited about today <?php echo $firstname ?>?" required></textarea>
       </p>
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
+            <!-- <input class="button" type="file" value"Upload Photo" name="fileToUpload" style="display: none;" id="fileToUpload">
+            <label class="button" for="fileToUpload" style="font-weight: 400;">Upload Image</label> -->
             <a class="button">Upload Image</a>
           </div>
           <div class="level-item">

@@ -12,8 +12,14 @@
             <figure class="image is-250x250">
               <img class="img-rounded" src="https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg">
             </figure>
+            <br><h3 class="title is-3"><strong><?php echo $fullname ?></strong> </h3><hr>
 
-            <br><h3 class="title is-3"><strong><?php echo $fullname ?></strong> </h3>
+            <!-- <h5 class="title is-5"><strong>Profile</strong> </h5> -->
+            <!-- <div class="content">
+              <p>Biography: Loving mother!</p>
+              <p>City: London 🇬🇧</p>
+              <p>Availability: Married</p>
+            </div> -->
 
             <h3 class="title is-5"><strong>Privacy</strong> </h3>
               <?php include ("privacy.php") ?>
