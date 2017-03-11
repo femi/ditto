@@ -28,6 +28,38 @@ function validate_username($username) {
   }
 }
 
+function change_password($userId, $old_password, $new_password) {
+  $userId = $_SESSION['userId'];
+  $query = "SELECT `hashedPassword` FROM `users` WHERE `userId` = $userId";
+  $result = db_query($query);
+
+  $hashed_password = mysqli_fetch_assoc($result)['hashedPassword'];
+
+  if (password_verify($old_password, $hashed_password)) {
+    $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+    $query = "UPDATE `users` SET `hashedPassword` = '$new_password_hash' WHERE `userId` = $userId";
+    $result = db_query($query);
+  } else {
+    echo "Invalid Password Given";
+  }
+}
+
+function update_details($fName, $lName, $username, $city, $mobileNumber, $email) {
+  $userId = $_SESSION['userId'];
+  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city' WHERE `userId` = $userId";
+  $result = db_query($query);
+}
+
+if( $_POST['updateDetails'] ) {
+  update_details($_POST['fName'], $_POST['lName'], $_POST['username'], $_POST['city'], $_POST['mobileNumber'], $_POST['email']);
+  header("Location: /settings");
+}
+else if( $_POST['changePassword'] ) {
+  change_password($_SESSION['userId'], $_POST['oldPassword'], $_POST['newPassword']);
+  header("Location: /settings");
+}
+
+
 if (isset($_REQUEST['username'])) {
   if (validate_username($_REQUEST['username']) === true) {
     echo "false";
@@ -43,5 +75,4 @@ if (isset($_REQUEST['email'])) {
     echo "true";
   }
 }
-
  ?>

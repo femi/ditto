@@ -8,10 +8,10 @@ $( "#emailInput" ).keyup(function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText === "false") {
           elem.className = "input is-medium is-success";
-          button.className = "button is-primary"
+          button.className = "button is-primary is-medium"
         } else {
           elem.className = "input is-medium is-danger";
-          button.className = "button is-primary is-disabled"
+          button.className = "button is-primary is-medium is-disabled"
         }
       }
     }
@@ -23,7 +23,7 @@ $( "#emailInput" ).keyup(function() {
     xmlhttp.send(querystring);
 } else {
     elem.className = "input is-medium is-danger";
-    button.className = "button is-primary is-disabled"
+    button.className = "button is-primary is-medium is-disabled";
 }
 });
 
@@ -36,10 +36,10 @@ $( "#usernameInput" ).keyup(function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText === "false") {
         elem.className = "input is-medium is-success";
-        button.className = "button is-primary"
+        button.className = "button is-medium is-primary"
       } else {
         elem.className = "input is-medium is-danger";
-        button.className = "button is-primary is-disabled"
+        button.className = "button is-primary is-medium is-disabled"
       }
     }
   }

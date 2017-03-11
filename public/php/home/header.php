@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/bulma.css">
 <script src="/js/comments.js"></script>
+<script src="js/jquery-3.1.1.min.js"></script>
+
 
 <!-- Fixed Header bar -->
 <style> .nav { position: fixed !important; top: 0; left: 0; right: 0; } body { padding-top: 60px; } </style>
