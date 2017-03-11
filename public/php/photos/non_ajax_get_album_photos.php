@@ -43,40 +43,46 @@
                 // error
             }
 
-            echo "<div class=\"card privacy-settings\">";
-            // print out card header
-            echo "<header class=\"card-header\"><p class=\"card-header-title\">Album privacy settings:</p><a class=\"card-header-icon\"><span class=\"icon\"><i class=\"fa fa-angle-down\"></i></span></a></header>";
-            $query = "SELECT isRestricted FROM albums WHERE albumId = $albumId";
+            $query = "SELECT isRestricted, isProfile FROM albums WHERE albumId = $albumId";
             $queryResult = db_query($query);
                 
-            echo "<div class=\"card-content\"><div class=\"content\">";
             // fill card content
             if ($queryResult === false) {
                 msyqli_error(db_connect());
             } else {
-                $isRestricted = mysqli_fetch_assoc($queryResult)['isRestricted'];
-                echo "This album can be viewed by:";
-                if ($isRestricted === '0') {
-                    echo "<br>";
-                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
-                } else if ($isRestricted === '1') {
-                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
-                    echo "<script>fillFriendCircleContainer($albumId)</script>"; // fill in the privacy controls stuff with JS
-                } else {
-                    echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
-                    echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
+                $row = mysqli_fetch_assoc($queryResult);
+                $isRestricted = $row['isRestricted'];
+                $isProfile = $row['isProfile'];
+                
+                if ($isProfile === '0') { // only show privacy settings for non profile albums
+                    echo "<div class=\"card-content\"><div class=\"content\">";
+                    echo "<div class=\"card privacy-settings\">";
+                    // print out card header
+                    echo "<header class=\"card-header\"><p class=\"card-header-title\">Album privacy settings:</p><a class=\"card-header-icon\"><span class=\"icon\"><i class=\"fa fa-angle-down\"></i></span></a></header>";
+                    echo "This album can be viewed by:";
 
+                    if ($isRestricted === '0') {
+                        echo "<br>";
+                        echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
+                    } else if ($isRestricted === '1') {
+                        echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
+                        echo "<script>fillFriendCircleContainer($albumId)</script>"; // fill in the privacy controls stuff with JS
+                    } else if ($isRestricted === '2'){
+                        echo "<p class=\"control\"><label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"0\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"1\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Selected friend circles</label>";
+                        echo "<label class=\"radio\"><input type=\"radio\" name=\"albumPrivacy\" value=\"2\" checked=\"checked\" onclick=\"changeAlbumPrivacy(this, $albumId)\">Friends of friends</label></p>";
+
+                    }
+                    echo "</div></div>"; // close card-content div
+                    echo "<div id=\"friendCircles-container\"><div id=\"friendCircles-controls\"><div id=\"friendCircles-query-result\"></div><p id=\"friendCircles-searchbox\"></p></div><div id=\"friendCircles-search-results\"></div></div>";
+                    // fill out card footer
+                    echo "</div>"; // close card div
                 }
             }
-            echo "</div></div>"; // close card-content div
-            echo "<div id=\"friendCircles-container\"><div id=\"friendCircles-controls\"><div id=\"friendCircles-query-result\"></div><p id=\"friendCircles-searchbox\"></p></div><div id=\"friendCircles-search-results\"></div></div>";
-            // fill out card footer
-            echo "</div>"; // close card div
         }
     ?>
     <p>Result:</p>
