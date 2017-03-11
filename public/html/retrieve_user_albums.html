@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+      function retrieveUserAlbums(userId) {
+        var xmlhttp = new XMLHttpRequest();
+        console.log("OINK");
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == XMLHttpRequest.DONE) {
+            if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+              document.getElementById("ajaxResult").innerHTML = this.responseText;
+            } else if (this.status == 400) {
+              document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+            } else {
+              document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+            }
+          };
+        };
+        // gets the values from the page
+        var querystring = "?userId=" + userId;
+        xmlhttp.open("GET", "../php/albums/retrieve_user_albums.php" + querystring, true);
+        xmlhttp.send();
+      }
+    </script>
+  </head>
+  <body>
+    <p>Type a userId</p>
+    <form>
+      <input type="text" onkeyup="retrieveUserAlbums(this.value)">
+    </form>
+    <p>Result:</p>
+    <p><span id="ajaxResult"></span></p>
+  </body>
+
+
+</html>

@@ -13,6 +13,7 @@
 session_start(); // import session.
 include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
 
+
 // Check if user is logged in.
 if (isset($_SESSION['userId'])) {
     // User is logged in - create a new Route object
@@ -24,6 +25,14 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
+    $route->add("^delete_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
+    });
+    $route->add("^add_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/add_comment.php");
+    });
+    $route->add("^delete_blog.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
@@ -94,5 +103,4 @@ if (isset($_SESSION['userId'])) {
     }
 
 }
-
 ?>
