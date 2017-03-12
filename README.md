@@ -7,7 +7,22 @@
 
 - To configure apache2's root from /var/www/:
 	- edit /etc/apache2/sites-available/000-default.conf, changing the "DocumentRoot /var/www" line to point at a custom folder
+	- In the same file, create an Alias to the /resources/album_content directory:
+
+		Alias /album_content/ "/your/absolute/path/to/resources/album_content/"
+		<Directory "/your/absolute/path/to/resources/album_content/">
+	  	  Options FollowSymLinks
+	  	  AllowOverride None
+	  	  Require all granted
+		</Directory>
+    
 	- edit /etc/apache2/apache2.conf, changing "<Directory /var/www/ >" to the preferred directory
+	- In the same file, and in the same <Directory> tag, change AllowOverride None to AllowOverride All (to enable the .htaccess file)
+	- Ensure that mod_rewrite is enabled (type sudo a2enmod rewrite into terminal)
+	- Restart the server: sudo service restart apache2
+
+	- Ensure that album_content permissions are setup correctly (git needs write permissions, for example)
+		- album_content must be owned by the www-data user group
 	- sudo service restart apache2
 
 ### Mac OSX
@@ -15,3 +30,4 @@
 - edit httpd.conf "DocumentRoot /Library/WebServer/Documents" line to point at a custom folder
 - In the same section change `AllowOverride None` to `AllowOverride All`
 - Uncomment `LoadModule rewrite_module libexec/apache2/mod_rewrite.so`
+- Setup album_content permissions (must be owned by _www user group, and must have write permissions)
