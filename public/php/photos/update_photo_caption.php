@@ -14,8 +14,6 @@ function update_photo_caption() {
 		// Handle error
 	}
 
-    // TODO check user is authorised.
-
 	// Retrieve data from request and escape.
 	// $userId = db_quote($_REQUEST['userId']);
 	$filename= db_quote($_REQUEST['filename']);

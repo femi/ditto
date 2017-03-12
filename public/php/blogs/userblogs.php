@@ -2,17 +2,12 @@
 
 // REQUIRE THE DATABASE FUNCTIONS
 
+// if require_once functions and session are included then it breaks
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-
-$connection = db_connect(); // the db connection
-
-
-
-
-// -----------------------------------------------------------------------------
-// CUSTOM FUNCTIONS FOR THIS FILE
+//require(realpath(dirname(__FILE__)) . "../../../php/home/session.php");
+// session_start();
 
 // Retrieve all blogs for a given userId
 function retrieve_blog_content($userId) {
@@ -24,7 +19,6 @@ function retrieve_blog_content($userId) {
     }
     return $result;
 }
-
 
 // Print all a user's blogs given a userId
 function print_users_blogs($userId) {
@@ -66,8 +60,6 @@ function print_blog_comments($blogId) {
     }
     echo '</table>';
 }
-
-
 
 function form_add_comment($blogId) {
     // had to escape the ' in the echo'd html/js to specify 'message' as the id to get the comment from. very sketchy!

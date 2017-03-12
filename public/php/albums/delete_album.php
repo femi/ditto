@@ -74,7 +74,7 @@ function delete_album() {
  		remove_directory("../../../resources/album_content/$userId/$albumId");
  	} catch (Exception $e) {
  		return $e;
- 	}	
+ 	}
 }
 
 function remove_directory($path) {

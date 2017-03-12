@@ -48,7 +48,6 @@ function retrieve_user_albums() {
 	if ($qry_result === false) {
 		echo mysqli_error(db_connect());
 	}
-
     if ($qry_result->num_rows > 0) {
       // $json = Array();
 	  // while($row = $qry_result->fetch_assoc()){

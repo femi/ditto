@@ -25,11 +25,9 @@ include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
 if (isset($_SESSION['userId'])) {
     // User is logged in - create a new Route object
     $route = new Route();
-
-    // Add valid routes for logged in user to whitelist
-    $route->add("^logout.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php");
-    });
+    
+// Routes for blogs
+    
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
@@ -45,6 +43,7 @@ if (isset($_SESSION['userId'])) {
     $route->add("^delete_blog.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
+// album routes
     $route->add("^(\w+)/albums/(\d+)/(.+)/delete/?$", function() {
         // Deletes the photo
         $pathArray = explode('/', $_GET['uri']);
@@ -132,6 +131,49 @@ if (isset($_SESSION['userId'])) {
         }
         // check if the session user has the same username
     });
+    $route->add("^(\w+)/php/photos/get_album_photos.php/?$", function () {
+        // temporary hack I hope...
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photos.php");
+    });
+    $route->add("^(\w+)/php/photos/update_photo_caption.php/?$", function () {
+        // temporary hack I hope
+        $pathArray = (explode('/', $_GET['uri']));
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
+    });
+    $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
+        // temporary hack I hope
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
+    });
+    $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
+        echo "Hi";
+    });
+    $route->add("^(\w+)/php/albums/create_album.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/albums/create_album.php";
+    });
+    $route->add("^(\w+)/php/albums/changeAlbumPrivacy.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/changeAlbumPrivacy.php";
+    });
+    $route->add("^(\w+)/php/albums/getAlbumFriendCircles.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/getAlbumFriendCircles.php";
+    });
+    $route->add("^(\w+)/php/albums/addAlbumFriendCircle.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/addAlbumFriendCircle.php";
+    });
+    $route->add("^(\w+)/php/albums/deleteAlbumFriendCircle.php/?$", function() {
+        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/deleteAlbumFriendCircle.php";
+    });
+    $route->add("^(\w+)/php/comments/submitPhotoComment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/submitPhotoComment.php");
+    });
+    $route->add("^(\w+)/php/comments/getPhotoComments.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/getPhotoComments.php");
+    });
+
+
+// Routes for settings
+    $route->add("^logout.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php");
+    });
     $route->add("^update_privacy.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/update_privacy.php");
     });
@@ -141,22 +183,9 @@ if (isset($_SESSION['userId'])) {
     $route->add("^validate.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
     });
-
-    $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
-    $route->add("^(\w+)/albums/(\d+)/?$");
-    $route->add("^(\w+)/albums/?$");
-    $route->add("^(\w+)/blogs/(\d+)/(\w+)/?$");
-    $route->add("^(\w+)/blogs/?$", function () {
-        echo "hi";
-    });
-    $route->add("^(\w+)/friendcircles/(\d+)/?$");
-    $route->add("^(\w+)/friendcircles/?$");
-
-
-      $route->add("permission/?$", function() {
+    $route->add("permission/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/permissions.php");
     });
-
 
 // Routes for circles
     $route->add("^(\w+)/circles/?$", function() {
@@ -192,53 +221,25 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
     });
 
-
-
-
-    $route->add("^(\w+)/messages/(\w+)/?");
+// Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
-        echo "hi Femi";
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
     });
-    $route->add("^comments/create/?$");
-    $route->add("^(\w+)/php/photos/get_album_photos.php/?$", function () {
-        // temporary hack I hope...
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photos.php");
+    $route->add("^(\w+)/sendUserMessage.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
     });
-    $route->add("^(\w+)/php/photos/update_photo_caption.php/?$", function () {
-        // temporary hack I hope
-        $pathArray = (explode('/', $_GET['uri']));
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/update_photo_caption.php");
+    $route->add("^(\w+)/viewUserReceived.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
     });
-    $route->add("^(\w+)/php/photos/get_photo_caption.php/?$", function () {
-        // temporary hack I hope
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_caption.php");
+    $route->add("^(\w+)/sendCircleMessage.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
     });
-        $route->add("^(\w+)/php/photos/upload_photo.php/?$", function() {
-        echo "Hi";
-    });
-    $route->add("^(\w+)/php/albums/create_album.php/?$", function() {
-        // Called by the create album AJAX request
-        include "$_SERVER[DOCUMENT_ROOT]/php/albums/create_album.php";
-    });
-    $route->add("^(\w+)/php/albums/changeAlbumPrivacy.php/?$", function() {
-        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/changeAlbumPrivacy.php";
-    });
-    $route->add("^(\w+)/php/albums/getAlbumFriendCircles.php/?$", function() {
-        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/getAlbumFriendCircles.php";
-    });
-    $route->add("^(\w+)/php/albums/addAlbumFriendCircle.php/?$", function() {
-        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/addAlbumFriendCircle.php";
-    });
-    $route->add("^(\w+)/php/albums/deleteAlbumFriendCircle.php/?$", function() {
-        require_once"$_SERVER[DOCUMENT_ROOT]/php/albums/deleteAlbumFriendCircle.php";
-    });
-    $route->add("^(\w+)/php/comments/submitPhotoComment.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/submitPhotoComment.php");
-    });
-    $route->add("^(\w+)/php/comments/getPhotoComments.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/getPhotoComments.php");
+    $route->add("^(\w+)/viewCircleMessages.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
     });
 
+// Routes for profile
+    
     $route->add("^(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
 
@@ -261,9 +262,7 @@ if (isset($_SESSION['userId'])) {
             echo "logged in ";
         } else {
             echo "routeException but logged in:";
-            echo "<pre>";
-            print_r($_REQUEST);
-            print_r($_SESSION);
+            print_r($_GET['uri']);
         }
     }
 

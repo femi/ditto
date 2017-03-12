@@ -1,7 +1,9 @@
 <?php
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
 // For use with AJAX request.
 
 // REQUIRE THE DATABASE FUNCTIONS
