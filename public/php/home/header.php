@@ -13,7 +13,9 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
+
       <a class="nav-item" href="/">
+
         <img src="http://placehold.it/40" alt="logo">
       </a>
 
@@ -27,6 +29,8 @@
         <a href= <?php echo $username . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
         <a href= <?php echo $username . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
       </div>
+
+
 
     <div class="nav-right nav-menu">
 
