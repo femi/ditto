@@ -1,4 +1,19 @@
-<?php include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php"; ?>
+<?php require_once("$_SERVER[DOCUMENT_ROOT]/php/home/session.php"); 
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
+
+
+function getUserIdFromUsername($username) {
+    $connection = db_connect();
+    if ($connection === false) {
+        // oh dear...
+        return "";
+    } else {
+        $username = db_quote($username);
+        $result = db_query("SELECT userId FROM users WHERE username = $username");
+        return $result->fetch_assoc()['userId'];
+    }
+}
+?>
 
 <html>
   <body>
@@ -10,7 +25,11 @@
         <div class="column is-one-quarter">
 
             <figure class="image is-250x250">
-              <img class="img-rounded" src="https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg">
+                <?php 
+                    $pathArray = explode('/', $_GET['uri']);
+                    $userId = getUserIdFromUsername($pathArray[0]);
+                    getProfilePic($userId);
+                ?>
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3><hr>
 

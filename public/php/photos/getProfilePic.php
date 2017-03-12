@@ -1,6 +1,6 @@
 <?php
 // For use with AJAX request.
-session_start();
+// session_start();
 
 // REQUIRE THE DATABASE FUNCTIONS
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
@@ -36,9 +36,12 @@ function getProfilePic($userId) {
             $caption = $row['caption'];
             $filename = $row['filename'];
             $albumId = $row['albumId'];
-            echo "<img src=\"../../../../resources/album_content/$userId/$albumId/$filename\">";
+            $path= dirname($_SERVER['DOCUMENT_ROOT']) . "/resources/album_content/$userId/$albumId/$filename";  
+            // $path = preg_replace('#\s#', '\\ \\', $path); // get rid of whitespace issue
+            echo $path;
+            // echo "<img src='$path'>";
+            echo "<img src='/img/invalid.png'>";
 	    }
     }
 }
-getProfilePic($_SESSION['userId']);
 ?>
