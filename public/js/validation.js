@@ -1,6 +1,6 @@
 $( "#emailInput" ).keyup(function() {
   var elem = document.getElementById("emailInput");
-  var button = document.getElementById("buttonSubmit");
+  // var button = document.getElementById("buttonSubmit");
   var email = elem.value;
   if (isValidEmailAddress(email)) {
     var xmlhttp = new XMLHttpRequest();
@@ -8,10 +8,10 @@ $( "#emailInput" ).keyup(function() {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText === "false") {
           elem.className = "input is-medium is-success";
-          button.className = "button is-primary is-medium"
+          // button.className = "button is-primary is-medium"
         } else {
           elem.className = "input is-medium is-danger animated shake";
-          button.className = "button is-primary is-medium is-disabled"
+          // button.className = "button is-primary is-medium is-disabled"
         }
       }
     }
@@ -23,20 +23,20 @@ $( "#emailInput" ).keyup(function() {
     xmlhttp.send(querystring);
 } else {
     elem.className = "input is-medium is-danger";
-    button.className = "button is-primary is-medium is-disabled";
+    // button.className = "button is-primary is-medium is-disabled";
 }
 });
 
 $( "#usernameInput" ).keyup(function() {
   var elem = document.getElementById("usernameInput");
-  var button = document.getElementById("buttonSubmit");
+  // var button = document.getElementById("buttonSubmit");
   var username = elem.value;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText === "false") {
         elem.className = "input is-medium is-success";
-        button.className = "button is-medium is-primary"
+        // button.className = "button is-medium is-primary"
       } else {
         elem.className = "input is-medium is-danger";
         elem.className = "input is-medium is-danger animated shake";
