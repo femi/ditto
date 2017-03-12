@@ -1,7 +1,7 @@
 <?php
 /**
- * Apache redirects every server request to this file. 
- * Essentially, it checks the request against a list of regular expressions, 
+ * Apache redirects every server request to this file.
+ * Essentially, it checks the request against a list of regular expressions,
  * and calls an associate anonmous function, if it exists. If no match is found, the Route submit function
  * throws a RouteException which can be caught and redirected to a 404 or 403 as appropriate.
  *
@@ -20,7 +20,16 @@ if (isset($_SESSION['userId'])) {
 
     // Add valid routes for logged in user to whitelist
     $route->add("^logout.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php"); 
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/logout.php");
+    });
+    $route->add("^delete_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
+    });
+    $route->add("^add_comment.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/add_comment.php");
+    });
+    $route->add("^delete_blog.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
@@ -99,7 +108,7 @@ if (isset($_SESSION['userId'])) {
         }
     }
 
-} else { 
+} else {
     // User is logged out
     // define API routes you can see while not logged in.
     $public_route = new Route();
@@ -132,5 +141,4 @@ if (isset($_SESSION['userId'])) {
     }
 
 }
-
 ?>

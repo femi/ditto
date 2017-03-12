@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/default.css">
+    <script type="text/javascript" src="../js/dropzone.js"></script>
+    <script type="text/javascript">
+      Dropzone.options.myAwesomeDropzone = {
+        paramName: "file",
+        maxFilesize: 2, // MB
+        acceptedFiles: ".jpg, .png, .gif",
+        sending: function(file, xhr, formData) {
+          formData.append('userId', '1'); // TODO put session here
+          formData.append('albumId', '12'); // TODO put albumId from album object here.
+        },
+        success: function(file, xhr) {
+          document.getElementById("ajaxResult").innerHTML = file.xhr.response;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form action="../php/photos/upload_photo.php" class="dropzone" id="my-awesome-dropzone">
+      <div class="fallback">
+        <input name="file" type="file" multiple>
+      </div>
+    </form>
+    <span id="ajaxResult"></span>
+  </body>
+
+
+</html>
