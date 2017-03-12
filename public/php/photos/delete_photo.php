@@ -6,29 +6,56 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
-function delete_photo() {
-	// TODO authenticate user owns album
+function delete_photo($username, $userId, $albumId, $filename) {
+
 	$connection = db_connect();
 
 	if ($connection === false) {
 		// Handle error
 	}
 
-	$userId = db_quote($_POST['userId']);
-	$albumid = db_quote($_POST['albumId']);
-	$filename= db_quote($_POST['filename']);
+	// $userId = (int) substr($userId, 1, strlen($userId) - 2);
+	//$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
+	//$filename = substr($filename, 1, strlen($filename) - 2);
+    echo "<pre>";
 
-	$userId = (int) substr($userId, 1, strlen($userId) - 2);
-	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
-	$filename = substr($filename, 1, strlen($filename) - 2);
-
-	$target_file = "../../../resources/album_content/$userId/$albumId/$filename";
+	$target_file = "../resources/album_content/$userId/$albumId/$filename";
+    // echo $target_file;
 
 	if (file_exists($target_file)) {
 		unlink($target_file); // deletes
+
+        $query = "SELECT photoId FROM photos WHERE albumId = '$albumId' AND filename = '$filename'";
+        $queryResult = db_query($query);
+
+        if ($queryResult === false) {
+            echo mysqli_error(db_connect());
+        } else {
+           $photoId = mysqli_fetch_assoc($queryResult)['photoId'];  
+        }
+
+        $new_query = "DELETE FROM photos WHERE albumId = '$albumId' AND filename = '$filename'";
+        $new_query_result = db_query($new_query);
+
+        if ($new_query_result === false) {
+            echo mysqli_error(db_connect());
+        }
+
+        // delete photo Comments
+        $query = "DELETE FROM comments WHERE photoId = $photoId";
+        $commentQueryResult = db_query($query);
+
+
+        if ($commentQueryResult === false) {
+            echo mysqli_error(db_connnect());
+        }
+
+        // redirect 
+        header ("Location: /$username/albums/$albumId");
+        exit;
+
 	} else {
 		echo "Cannot find file.";
 	}
 }
-delete_photo();
 ?>

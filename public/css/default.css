@@ -60,7 +60,12 @@
   width: 100px;
 }
 
+.photo-thumbnail-div {
+  height: 150px;
+  width: 150px;
+}
+
 .photo-thumbnail {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
 }

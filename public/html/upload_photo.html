@@ -6,15 +6,22 @@
     <script type="text/javascript" src="../js/dropzone.js"></script>
     <script type="text/javascript">
       Dropzone.options.myAwesomeDropzone = {
+        init: function() {
+          this.on("queuecomplete", function(file) {
+            document.getElementById('ajaxResult').innerHTML = file;
+            console.log(file);
+          })
+          // this.on('addedfile', function(file) {
+          //   document.getElementById('ajaxResult').innerHTML = file;
+          //   console.log(file);
+          // })
+        },
         paramName: "file",
         maxFilesize: 2, // MB
-        acceptedFiles: ".jpg, .png, .gif",
+        acceptedFiles: ".jpg, .jpeg, .png, .gif",
         sending: function(file, xhr, formData) {
           formData.append('userId', '1'); // TODO put session here
-          formData.append('albumId', '12'); // TODO put albumId from album object here.
-        },
-        success: function(file, xhr) {
-          document.getElementById("ajaxResult").innerHTML = file.xhr.response;
+          formData.append('albumId', 12); // TODO put albumId from album object here.
         }
       }
     </script>

@@ -18,7 +18,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photo.php");
  * @param $userId: used to get the user's album data.
  * @param $username: Passed on to the photo_getter to create appropriate links of the form /username/albums/albumId/photoName
  */
-function retrieve_user_albums($userId, $username) {
+function retrieve_user_albums_nonowner($userId, $username) {
 
     $connection = db_connect(); // Try and connect to the database
 
@@ -76,7 +76,7 @@ function retrieve_user_albums($userId, $username) {
 
     } else {
         // no rows found, offer to create album?
-        echo "<div id=\"ajaxResult\"><p>No albums found.</p><a id=\"albumCreator\" class=\"button is-info\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</a></div>";
+        echo "<div id=\"ajaxResult\"><p>No albums found.</p><a id\"albumCreator\" class=\"button is-info\" onclick=\"setupCreateAlbum($userId)\">Create a new album?</a></div>";
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 //session_start();
-require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require_once(dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+require_once(dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
 $userId = $_SESSION['userId'];
 // Fetch all user data

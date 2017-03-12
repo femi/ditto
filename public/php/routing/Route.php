@@ -1,6 +1,6 @@
 <?php
 
-require("$_SERVER[DOCUMENT_ROOT]/php/routing/routeException.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/routeException.php");
 
 /**
  * Class that holds mappings of regular expressions and their methods, and calls them when a given GET uri is matched if the method is not null.

@@ -39,12 +39,15 @@ function create_album() {
 	// need to retrieve the albumId and make a directory
 	$albumId = retrieve_albumId($userId, $albumName);
 	if (!file_exists("../../../resources/album_content/$userId/$albumId")) {
-		echo "Shit buddy";
-		mkdir("../../../resources/album_content/$userId/$albumId", 0777, true);
+        try {
+		    mkdir("../../../resources/album_content/$userId/$albumId", 0777, true);
+            echo "albums/$albumId";
+        } catch (Exception $e) {
+            echo "Album could not be created.";
+        }
 	}
-	echo "New album created!";
+    return "/albums/$albumId";
 }
 
 create_album();
-
 ?>
