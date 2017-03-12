@@ -25,7 +25,7 @@
 
       <div class="level-item">
         <p class="control">
-          <input class="input" type="text" placeholder="Search">
+          <input class="input" type="text" placeholder="Search" style="top: 6px;">
         </p>
 
       <div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px"></div>
