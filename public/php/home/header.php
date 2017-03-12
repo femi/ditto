@@ -24,10 +24,10 @@
           <input class="input" type="text" placeholder="Search">
         </p>
       </div>
-        <a href= <?php echo $username . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
-        <a href= <?php echo $username . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
-        <a href= <?php echo $username . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
-        <a href= <?php echo $username . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
+        <a href= <?php echo $_SESSION['username'] . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
+        <a href= <?php echo $_SESSION['username'] . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
+        <a href= <?php echo $_SESSION['username'] . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
+        <a href= <?php echo $_SESSION['username'] . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
       </div>
 
 

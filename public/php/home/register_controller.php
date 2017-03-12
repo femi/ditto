@@ -61,6 +61,11 @@ function getUserId($email) {
   return mysqli_fetch_assoc($result)['userId'];
 }
 
+function getUsername($email) {
+    $result = db_query("SELECT username FROM users WHERE email = $email");
+    return mysqli_fetch_assoc($result)['username'];
+}
+
 function createAlbum($userId) {
   $query = "INSERT INTO `albums` (userId, albumName) VALUES ('$userId', 'profile')";
   $result = db_query($query);
@@ -80,6 +85,7 @@ if (isset($_POST['submit'])) {
 
     // set the session
     $_SESSION['userId'] = $userId;
+    $_SESSION['username'] = $username;
 
     // intialise the user with album and friend circle
     createAlbum($userId);
