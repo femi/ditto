@@ -17,7 +17,7 @@
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // insert into db
-    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `username`, `hashedPassword`, `mobileNumber`, `dob`) VALUES ('$fName', '$lName', '$email', '$username', '$password', '$mobileNumber', '$dob')";
+    $query = "INSERT INTO `users` (`fName`, `lName`, `email`, `username`, `hashedPassword`, `mobileNumber`, `dob`, `privacy`) VALUES ('$fName', '$lName', '$email', '$username', '$password', '$mobileNumber', '$dob', 0)";
     $result = db_query($query);
 
     if ($result === false) {
