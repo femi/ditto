@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/bulma.css">
 
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> old jQuery fallback if stuff goes fubar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <script src="/js/comments.js"></script>
@@ -30,10 +30,12 @@
 
       <div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px"></div>
 
-      <a href= <?php echo $username . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
-      <a href= <?php echo $username . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
-      <a href= <?php echo $username . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
-      <a href= <?php echo $username . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
+      </div>
+        <a href= /<?php echo $_SESSION['username'] . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>
+        <a href= /<?php echo $_SESSION['username'] . "/circles"?> class="nav-item is-tab is-hidden-mobile">Circles</a>
+        <a href= /<?php echo $_SESSION['username'] . "/albums"?> class="nav-item is-tab is-hidden-mobile">Albums</a>
+        <a href= /<?php echo $_SESSION['username'] . "/messages"?> class="nav-item is-tab is-hidden-mobile">Messages</a>
+      </div>
 
       <p class="control has-addons"></p>
 

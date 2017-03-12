@@ -6,7 +6,7 @@
     require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/get-all-users.php");
     require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-R.php");
     require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
-    ?> 
+    ?>
 
 </head>
 <body>
@@ -19,15 +19,20 @@
     <th>fName</th>
     <th>lName</th>
 </tr>
-<?php     
-    
+<?php
+
     $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
-    while($row =$friends->fetch_assoc()){
-        echo '<tr>
-                <td> '.$row['userId'].'</td>
-                <td> '.$row['fName'].'</td>
-                <td> '.$row['lName'] .' </td>
-            </tr>';
+    if ($friends) {
+        while($row = $friends->fetch_assoc()){
+            echo '<tr>
+                    <td> '.$row['userId'].'</td>
+                    <td> '.$row['fName'].'</td>
+                    <td> '.$row['lName'] .' </td>
+                </tr>';
+        }
+    }
+    else {
+        echo "sorry you have no friends";
     }
 ?>
 </table>
@@ -36,7 +41,7 @@
     <select name="friendId">
         <?php
          get_friends();
-        ?>   
+        ?>
     </select>
     <input name="abolish" type="submit" value="Abolish all ties">
 </form>
@@ -47,7 +52,7 @@
     <select name="friendId">
         <?php
          get_nonfriends();
-        ?>   
+        ?>
     </select>
     <input type="submit" value="Make Request">
 </form>
@@ -59,7 +64,7 @@
     <select name="friendId">
         <?php
          get_incomingrequests();
-        ?>   
+        ?>
     </select>
     <input name="accept" type="submit" value="Accept Request">
     <input name="delete" type="submit" value="Delete Request">
@@ -70,10 +75,10 @@
     <select name="friendId">
         <?php
          get_outgoingrequests();
-        ?>   
+        ?>
     </select>
     <input name="retract" type="submit" value="Retract burden of friendship">
-    
+
 </form>
 
 </body>

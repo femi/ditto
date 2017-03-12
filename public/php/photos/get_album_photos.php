@@ -6,6 +6,9 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
+/**
+ * This function is called after dropzonejs has completed uploading photos.
+ */
 function get_album_photos() {
 	$connection = db_connect(); // Try and connect to the database
 
@@ -17,8 +20,10 @@ function get_album_photos() {
 	// Retrieve data from request and escape.
 	// $userId = db_quote($_REQUEST['userId']); // userId for person trying to view data.
 	$albumId = db_quote($_REQUEST['albumId']);
+	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
 
-	// TODO check that userId is allowed to view the album
+    $username = db_quote($_REQUEST['username']);
+	$username = substr($username, 1, strlen($username) - 2); // Get rid of quotation marks e.g. from '2' to 2.
 	
 	// build query - by default it selects just one.
 	$query = "SELECT * FROM albums WHERE albumId = $albumId";
@@ -31,10 +36,14 @@ function get_album_photos() {
 		echo mysqli_error(db_connect());
 	}
 
-	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2); // Get rid of quotation marks e.g. from '2' to 2.
-
+  $first = true;
 	while($row = $qry_result->fetch_assoc()){
 		// scan the directory given
+        if ($first === true) {
+            $albumName = $row['albumName'];
+            echo "<p>$albumName</p>";
+            $first = false;
+        } 
 		$userId = $row['userId'];
 		$photo_files = scandir("../../../resources/album_content/$userId/$albumId");
 	}
@@ -43,22 +52,8 @@ function get_album_photos() {
 
 	foreach($photo_files as $photoName) {
 		$file = "../../album_content/$userId/$albumId/$photoName";
-		echo "<div class=\"photo-thumbnail\"><img src=\"$file\" alt=\"Test\"></div>"; // TODO join with caption below
-		
-		// $new_query = "SELECT * FROM photos WHERE filename = $photoName LIMIT 1;";
-		// $new_query_result = db_query($query);
-
-		// if ($new_query_result === false) {
-		// 	echo $mysqli_error(db_connect());
-		// }
-
-		// while ($row = $qry_result->fetch_assoc()) {
-		// 	$caption = $row['caption'];
-		// 	echo "<p>$caption</p>";
-		// }
+		echo "<div class=\"photo-thumbnail\"><a href=\"/$username/albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></div>"; // TODO get captions
 	}
-	
-
 	
 	// IGNORE FOR NOW - probably not a good idea to serve json files here.
 	//$json_string = json_encode($photo_files);

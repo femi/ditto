@@ -26,11 +26,18 @@ if ( isset($_POST['submit']) ) {
       if (password_verify($password, $row) === true) {
 
         $_SESSION['userId'] = getUserId($email);   // Initializing Session
+
+        // fallback to this if merge doesn't work
+        //$_SESSION['username'] = getUsername($email);   // Initializing Session
+
+        // header("location: /");
+
+        $_SESSION['username'] = getUserName($email);   // Initializing Session
         header("location: /albums");
       }
 
     } else {
-      $error = "Emaill address or Password is invalid";
+      $error = "Email address or Password is invalid";
     }
     mysqli_close($connection); // Closing Connection
   }
@@ -48,6 +55,18 @@ function cleanInput($input) {
 function getUserId($email) {
   $result = db_query("SELECT userId FROM `users` WHERE `email` = '$email'");
   return mysqli_fetch_assoc($result)['userId'];
+}
+
+// previous version, fallback if merge doesn't work
+// function getUsername($email) {
+//     $query = "SELECT username FROM users WHERE email = '$email'";
+//     $result = db_query($query);
+//     $username = mysqli_fetch_assoc($result)['username'];
+//     return $username;
+
+function getUserName($email) {
+    $result = db_query("SELECT username FROM users WHERE email = '$email'");
+    return mysqli_fetch_assoc($result)['username'];
 }
 
 ?>

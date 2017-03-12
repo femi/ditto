@@ -2,7 +2,6 @@ node_modules/
 public/lib/
 .bower-*/
 .DS_Store
-.DS_Store*
-resources/album_content/
 *.swp
 *.swo
+resources/album_content/
