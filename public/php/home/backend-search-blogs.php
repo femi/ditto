@@ -32,14 +32,14 @@ if(isset($query)){
             inner join users as u on b.userId = u.userId
             inner join friendcircle_users as fcu on fcu.userId = b.userId
             inner join friendcircles as fc on fc.circleId = fcu.circleId
-            where fc.userId = 3 and fc.name = 'everyone' and content like '%".$query."%'";
+            where fc.userId = $userId and fc.name = 'everyone' and content like '%".$query."%'";
 
     if($result = mysqli_query($connection, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S BLOG
                 // assuming url is /username/#blogId
-                echo "<a href=/".$row['username']."/#".$row['blogId']."><p>". $row['fName']." ".$row['lName']." ". $row['trimcontent'] ."...</p></a>";
+                echo "<a href=/".$row['username']."/#b_".$row['blogId']."><p>". $row['fName']." ".$row['lName']." ". $row['trimcontent'] ."...</p></a>";
             }
             // Close result set
             mysqli_free_result($result);
