@@ -174,7 +174,16 @@ if (isset($_SESSION['userId'])) {
 
 
     $route->add("^(\w+)/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
+        $pathArray = explode('/', $_GET['uri']);
+
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION'userId', $pathArray[0])) {
+                // user is viewing their own page
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/home/home.php");
+            } else {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/home/profile.php");
+            }
+        }
     });
 
     try {
