@@ -16,6 +16,7 @@ username VARCHAR(30) NOT NULL UNIQUE,
 hashedPassword VARCHAR(100) NOT NULL,
 maritalStatus VARCHAR(25),
 sex VARCHAR (10),
+privacy INT(1) NOT NULL,
 description VARCHAR(1000),
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
@@ -30,7 +31,6 @@ createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (blogId)
 );
-
 
 CREATE TABLE albums (
 albumId INT(10) AUTO_INCREMENT,
@@ -131,6 +131,14 @@ validator TINYINT NOT NULL,
 PRIMARY KEY (messageId)
 );
 
+CREATE TABLE friend_requests (
+userId INT(10) NOT NULL,
+friendId INT(10) NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+PRIMARY KEY (userId, friendId)
+);
+
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (albumId) REFERENCES albums(albumId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE albums ADD FOREIGN KEY (userId) REFERENCES users(userId);
@@ -148,6 +156,8 @@ ALTER TABLE dislikes ADD FOREIGN KEY (commentId) REFERENCES comments(commentId);
 ALTER TABLE messages ADD FOREIGN KEY (senderId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (receiverId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (userId) REFERENCES users(userId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (friendId) REFERENCES users(userId);
 
 -- ALTER TABLE albums ADD FOREIGN KEY (dislikeId) REFERENCES dislikes(dislikeId);
 -- ALTER TABLE album_users ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
@@ -275,5 +285,4 @@ CREATE TRIGGER albumPrivacyUpdate BEFORE UPDATE ON albums
 			SET NEW.validator = NULL;
 		END IF;
 	END;//
-
 delimiter ;

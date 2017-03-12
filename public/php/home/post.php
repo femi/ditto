@@ -27,10 +27,9 @@ while ( $row = $usersblogs->fetch_assoc()){
 
           <!-- Blogpost content -->
           <p>
-            <strong> $fullname </strong> <small> @ $uname </small><br>
+            <strong> $fullname </strong> <small> @$uname </small><br>
           </p>
           $blogcontent <br>
-          <div id=\"ajaxResult\"></div>
 
 
           "
@@ -44,20 +43,21 @@ while ( $row = $usersblogs->fetch_assoc()){
 
         <nav class=\"level\">
           <div class=\"level-item\">
-          <figure class=\"media-left\">
-            <p class=\"image is-32x32\">
-              <img src=\"http://bulma.io/images/placeholders/128x128.png\">
-            </p>
-          </figure>
+
           <div class=\"media-content\">
           <form action\"\" method=\"POST\" id=\"$blogId\">
             <div class=\"control is-grouped\">
+            <figure class=\"media-left\">
+              <p class=\"image is-24x24\">
+                <img src=\"http://bulma.io/images/placeholders/128x128.png\">
+              </p>
+            </figure>
               <p class=\"control is-expanded\">
-                <input id=\"comment\" class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say?\">
+                <input id=\"comment\" class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say $firstname?\" required>
                 <input type=\"hidden\" name=\"blogId\" value=\"$blogId\"/>
               </p>
               <p class=\"control\">
-                <input class=\"button is-primary\" type=\"submit\" name=\"submit\">
+                <input class=\"button is-primary\" type=\"submit\" style=\"display: none;\" name=\"submit\">
               </p>
             </div>
           </form>

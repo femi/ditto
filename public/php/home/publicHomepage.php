@@ -19,10 +19,10 @@
               <h1 class="title is-1">Login</h1>
               <form action="" method="post">
                 <p class="control">
-                  <input class="input" type="text" name="email" placeholder="email" required><br>
+                  <input class="input is-medium" type="text" name="email" placeholder="email" required><br>
                 </p>
                 <p class="control">
-                  <input class="input" type="password" name="password" placeholder="password" required>
+                  <input class="input is-medium" type="password" name="password" placeholder="password" required>
                 </p>
                 <p class="control">
                   <input class="button is-primary" type="submit" name="submit" value="Login">
