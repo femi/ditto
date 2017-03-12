@@ -28,7 +28,9 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/blogs/(\d+)/(\w+)/?$");
 
 
-    
+      $route->add("permission/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/permissions.php"); 
+    });  
 
 
 // Routes for circles
