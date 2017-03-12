@@ -227,7 +227,6 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/comments/getPhotoComments.php");
     });
 
-
     $route->add("^(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
 
@@ -240,7 +239,7 @@ if (isset($_SESSION['userId'])) {
             }
         }
     });
-
+  
     try {
         $route->submit();
     } catch (RouteException $e) {
