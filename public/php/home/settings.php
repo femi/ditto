@@ -66,6 +66,41 @@
               <input class="button is-primary is-medium" type="submit" name="changePassword" value="Change Password" onclick="alert('Password Changed');"><hr>
             </form>
 
+            <h3 class="title-3">Interests 🖌</h3>
+            <p>Show your uniqueness.</p>
+
+              <p class="control">
+                <textarea class="textarea is-medium" placeholder="Biography"></textarea>
+              </p>
+
+
+              <div id="alltags" class="content">
+              <?php
+              while ( $row = $usertags->fetch_assoc()){
+                $name = $row['name'];
+                // echo $name;
+                echo ("<span id=\"tag_$name\" class=\"tag is-info is-large\">$name<button class=\"delete is-small\" onclick=\"removeInterest('tag_$name')\" ></button></span>");
+              }
+              ?>
+              </div>
+
+              <p class="control">
+                <span class="select is-medium">
+                  <select id="myselect">
+                    <option value="Interests" disabled selected style="display: none;">Interests</option>
+
+                    <?php
+                      while ( $row = $alltags->fetch_assoc()){
+                        $tag = $row['name'];
+                        echo ("<option value=\"$tag\">$tag</option>");
+                      }
+                     ?>
+                  </select>
+                </span>
+              </p><hr>
+
+              <!-- <input class="button is-primary is-medium" id="buttonSubmit2" type="submit" name="updateInterests" value="Update Interests"><hr> -->
+
             <h3 class="title-3">Deactivate your account 🤔</h3>
             <p>It's going to be sad to see you go.</p>
             <a class="button is-danger is-medium" onclick="alert('Ha, no!')">Deactivate</a>
