@@ -32,7 +32,15 @@
 ?>
 </table>
 <p>Delete friend:</p>
-TODO
+<form action="friends/accept" method="post">
+    <select name="friendId">
+        <?php
+         get_friends();
+        ?>   
+    </select>
+    <input name="abolish" type="submit" value="Abolish all ties">
+</form>
+
 <!-- Make a friend request to users not already in the 'everyone' circle -->
 <p>Make new friend request:</p>
 <form action="friends/request" method="post">

@@ -12,7 +12,7 @@ $connection = db_connect(); // the db connection
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
 
-// add accepted friend to users 'everyone' circle 
+// accept friend request and add accepted friend to users 'everyone' circle - for both users
 function accept_request($friendId) {
 
 	 
@@ -31,7 +31,7 @@ function accept_request($friendId) {
 }
 
 
-// Deletes request from 
+// Deletes request from incoming friend requests
 function delete_request($friendId) {
 	
 
@@ -47,7 +47,7 @@ function delete_request($friendId) {
 }
 
 
-// Deletes request from 
+// Deletes request from outgoing friend requests
 function retract_request($friendId) {
     
 
@@ -61,6 +61,24 @@ function retract_request($friendId) {
     }
 
 }
+
+//to delete a friend for both users everyone circle.
+function delete_friend($friendId) {
+
+    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId =(SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone')");
+
+    $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId from friendCircles WHERE userId =".$friendId." AND name='everyone')");
+    
+    if($result === false OR $result1 === false)  {
+        echo mysqli_error(db_connect());
+    } else {
+      
+        echo "Friendship has sunk";
+
+    }
+
+}
+
 if (isset($_POST['accept'])) {
     accept_request($_POST['friendId']);
     delete_request($_POST['friendId']);
@@ -73,6 +91,11 @@ if (isset($_POST['delete'])) {
 
 if (isset($_POST['retract'])) {
     retract_request($_POST['friendId']);
+}
+
+if (isset($_POST['abolish'])) {
+
+    delete_friend($_POST['friendId']);
 }
 
 ?>
