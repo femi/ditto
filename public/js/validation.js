@@ -10,7 +10,7 @@ $( "#emailInput" ).keyup(function() {
           elem.className = "input is-medium is-success";
           button.className = "button is-primary is-medium"
         } else {
-          elem.className = "input is-medium is-danger";
+          elem.className = "input is-medium is-danger animated shake";
           button.className = "button is-primary is-medium is-disabled"
         }
       }
@@ -39,7 +39,7 @@ $( "#usernameInput" ).keyup(function() {
         button.className = "button is-medium is-primary"
       } else {
         elem.className = "input is-medium is-danger";
-        button.className = "button is-primary is-medium is-disabled"
+        elem.className = "input is-medium is-danger animated shake";
       }
     }
   }
