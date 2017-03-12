@@ -33,9 +33,26 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
     });
     $route->add("^comments/create/?$");
+    $route->add("^(\w+)/sendUserMessage.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
+    });
+    $route->add("^(\w+)/viewUserReceived.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
+    });
+    $route->add("^(\w+)/sendCircleMessage.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
+    });
+    $route->add("^(\w+)/viewCircleMessages.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
+    });
+    // $route->add("^resources/jquery-3.1.1.js", function() {
+    //     readfile(dirname($_SERVER['DOCUMENT_ROOT']) . 'resources/jquery-3.1.1.js';
+    // });
     $route->add("^(\w+)/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
     });
+    
+
 
     // Temporary routes for testing
     //$route->add('^albums/?$');
@@ -51,7 +68,7 @@ if (isset($_SESSION['userId'])) {
             echo "logged in ";
         } else {
             echo "routeException but logged in:";
-            print_r($_SESSION);
+            print_r($_GET['uri']);
         }
     }
 
@@ -73,7 +90,7 @@ if (isset($_SESSION['userId'])) {
     $public_route->add("^login.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/login.php");
     });
-
+    
     try {
         $public_route->submit();
     } catch(RouteException $e) {

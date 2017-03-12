@@ -52,8 +52,8 @@ function printUsersCircles() {
 ?>
 
 <link rel="stylesheet" type="text/css" href="/css/bulma.css"></link>
-<script src="../../../resources/jquery-3.1.1.js"></script>
-<script>
+<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
     function sendMessage(receiverId, senderId, message) {
         console.log("called sendMessage");
         var xmlhttp = new XMLHttpRequest();
@@ -76,7 +76,6 @@ function printUsersCircles() {
            //Send the proper header information along with the request
            // POST DOESN'T WORK WITHOUT THIS
            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
            xmlhttp.send(querystring);
     };
 
@@ -221,7 +220,7 @@ Send a message to a friendCircle:
 </form>
 
 
-<script>
+<script type="text/javascript">
 $(document).ready(function() {
     setInterval(getMessages, 1000);
     setInterval(printCircleMessages, 1000);
