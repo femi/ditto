@@ -28,7 +28,7 @@ function searchAlbumFriendCircles() {
     $userId = $_SESSION['userId'];
 
 	// build query - get the user's friendcircles that they have not already selected
-	$query = "SELECT circleId, name FROM friendcircles WHERE userId = $userId AND name LIKE '%$searchQuery%' AND circleId NOT IN (SELECT circleId FROM album_friendcircles) LIMIT 3";
+	$query = "SELECT circleId, name FROM friendcircles WHERE userId = $userId AND name != 'everyone' AND name LIKE '%$searchQuery%' AND circleId NOT IN (SELECT circleId FROM album_friendcircles) LIMIT 3";
 
 	// Execute the query
 	$qry_result = db_query($query);
