@@ -63,7 +63,7 @@ function all_noncircle_friends() {
 // gets all current users in a circle and echo's option for each user
 function all_circle_friends() {
 
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=6 AND circleId=5))");
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId']."))");
    // $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId']."))");
     if($result === false) {
         echo mysqli_error(db_connect());
