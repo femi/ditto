@@ -30,7 +30,7 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/friendcircles/?$");
     $route->add("^(\w+)/messages/(\w+)/?");
     $route->add("^(\w+)/messages/?$", function() {
-        echo "hi Femi";
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
     });
     $route->add("^comments/create/?$");
     $route->add("^(\w+)/?$", function() {

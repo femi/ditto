@@ -29,7 +29,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 //require_once(realpath(dirname(__FILE__)) . "/viewUserReceived.php");
-session_start();
+//session_start(); // session should have already been started.
 
 function getUsersCircles() {
     $result = db_query('select circleId from friendcircle_users where userId = '.$_SESSION['userId'].';');
@@ -51,6 +51,7 @@ function printUsersCircles() {
 
 ?>
 
+<link rel="stylesheet" type="text/css" href="/css/bulma.css"></link>
 <script src="../../../resources/jquery-3.1.1.js"></script>
 <script>
     function sendMessage(receiverId, senderId, message) {
@@ -187,9 +188,11 @@ Here are your messages:<br><br>
 Send a message to another user:
 
 <form>
-    <input type="text" placeholder="Enter id of recipient" id="receiverId"></input><br>
-    <textarea placeholder="Enter your message" style="width: 300px; height: 200px" id="message"></textarea><br>
-    <input type="submit" value="Send" onclick="sendMessage(document.getElementById('receiverId').value, <?php echo $_SESSION['userId'] ?>, document.getElementById('message').value)"></input>
+    <p class="control">
+        <input class="input" type="text" placeholder="Enter id of recipient" id="receiverId"></input><br>
+        <textarea class="textarea" placeholder="Enter your message" style="width: 300px; height: 200px" id="message"></textarea><br>
+        <button class="button is-primary" type="submit" onclick="sendMessage(document.getElementById('receiverId').value, <?php echo $_SESSION['userId'] ?>, document.getElementById('message').value)">Send</button>
+    </p>
 </form>
 
 Show messages in your friendCircles:
@@ -210,9 +213,11 @@ Show messages in your friendCircles:
 Send a message to a friendCircle:
 
 <form>
-    <input type="text" placeholder="Enter circleId" id="circleId"></input><br>
-    <textarea placeholder="Enter your message" style="width: 300px; height: 200px" id="circleMessage"></textarea><br>
-    <input type="submit" value="Send" onclick="sendCircleMessage(document.getElementById('circleId').value, <?php echo $_SESSION['userId'] ?>, document.getElementById('circleMessage').value)"></input>
+    <p class="control">
+        <input class="input" type="text" placeholder="Enter circleId" id="circleId"></input><br>
+        <textarea class="textarea" placeholder="Enter your message" style="width: 300px; height: 200px" id="circleMessage"></textarea><br>
+        <button class="button is-primary" type="submit" onclick="sendCircleMessage(document.getElementById('circleId').value, <?php echo $_SESSION['userId'] ?>, document.getElementById('circleMessage').value)">Send</button>
+    </p>
 </form>
 
 
