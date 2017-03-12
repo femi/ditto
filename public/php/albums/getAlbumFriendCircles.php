@@ -19,7 +19,7 @@ function getAlbumFriendCircles() {
 	}
 
 	// build query
-	$query = "SELECT friendcircles.circleId, circleName FROM friendcircles JOIN album_friendcircles WHERE friendcircles.circleId = album_friendcircles.circleId AND album_friendcircles.albumId = $albumId";
+	$query = "SELECT friendcircles.circleId, name FROM friendcircles JOIN album_friendcircles WHERE friendcircles.circleId = album_friendcircles.circleId AND album_friendcircles.albumId = $albumId";
 
 	// Execute the query
 	$qry_result = db_query($query);
@@ -29,7 +29,7 @@ function getAlbumFriendCircles() {
 		return;
     }
     while ($row = $qry_result->fetch_assoc()) {
-        $circleName = $row['circleName'];
+        $circleName = $row['name'];
         $circleId = $row['circleId'];
         echo "<span class=\"tag is-info\">$circleName<button class=\"delete is-small\" onclick=\"deleteAlbumFriendCircle($albumId, $circleId)\"></button></span>";
     }

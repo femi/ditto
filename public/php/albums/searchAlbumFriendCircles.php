@@ -28,7 +28,7 @@ function searchAlbumFriendCircles() {
     $userId = $_SESSION['userId'];
 
 	// build query - get the user's friendcircles that they have not already selected
-	$query = "SELECT circleId, circleName FROM friendcircles WHERE userId = $userId AND circleName LIKE '%$searchQuery%' AND circleId NOT IN (SELECT circleId FROM album_friendcircles) LIMIT 3";
+	$query = "SELECT circleId, name FROM friendcircles WHERE userId = $userId AND name LIKE '%$searchQuery%' AND circleId NOT IN (SELECT circleId FROM album_friendcircles) LIMIT 3";
 
 	// Execute the query
 	$qry_result = db_query($query);
@@ -44,7 +44,7 @@ function searchAlbumFriendCircles() {
 
         echo "<div class=\"box\">";
         while ($row = $qry_result->fetch_assoc()) {
-            $circleName = $row['circleName'];
+            $circleName = $row['name'];
             $circleId = $row['circleId'];
             echo "<a onclick=\"addAlbumFriendCircle($albumId, $circleId)\"><span class=\"tag is-info\">$circleName</span></a>";
         }
