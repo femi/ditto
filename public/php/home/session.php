@@ -26,5 +26,5 @@ $usertags = db_query("SELECT * FROM tags INNER JOIN tag_users ON tags.tagId = ta
 if (!isset($login_session)) {
   // mysqli_close($connection); // Closing Connection
   // header('Location: index.php'); // Redirecting To Home Page
-}s
+}
 ?>
