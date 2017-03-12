@@ -14,13 +14,6 @@
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $fullname ?></strong> </h3><hr>
 
-            <!-- <h5 class="title is-5"><strong>Profile</strong> </h5> -->
-            <!-- <div class="content">
-              <p>Biography: Loving mother!</p>
-              <p>City: London 🇬🇧</p>
-              <p>Availability: Married</p>
-            </div> -->
-
             <h3 class="title is-5"><strong>Privacy</strong> </h3>
               <?php include ("privacy.php") ?>
             <hr>

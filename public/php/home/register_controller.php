@@ -1,7 +1,8 @@
 <?php
 
-  require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-  require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+  require_once(dirname(__FILE__) . '/../../../resources/db/db_connect.php');
+  require_once(dirname(__FILE__) . '/../../../resources/db/db_query.php');
+  require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_albumId.php");
 
   // session_start();
   /*
@@ -67,8 +68,43 @@ function getUsername($email) {
 }
 
 function createAlbum($userId) {
-  $query = "INSERT INTO `albums` (userId, albumName) VALUES ('$userId', 'profile')";
+  // Probably could merge with the function in albums module at somepoint, but fine for now
+  $query = "INSERT INTO `albums` (userId, albumName, isProfile) VALUES ('$userId', 'Profile Pictures', True)";
   $result = db_query($query);
+
+  if ($result === false) {
+    mysqli_error(db_connect());
+  } else {
+    // Create the relevant directory
+      // Create user's album directory if it's not already there
+      if (!file_exists("../resources/album_content/$userId")) {
+        mkdir("../resources/album_content/$userId", 0775, true);
+      }
+
+      // need to retrieve the albumId and make a directory
+      $newQuery = "SELECT * FROM albums WHERE userId = $userId ORDER BY createdAt DESC LIMIT 1";
+      echo $newQuery;
+      $newQueryResult = db_query($newQuery);
+
+      if ($newQueryResult === false) {
+        mysqli_error(db_connect());
+      }
+
+      while ($row = $newQueryResult->fetch_assoc()) { 
+        //print_r($row);
+        $albumId = $row['albumId'];
+      }
+
+      echo $albumId;
+
+      if (!file_exists("../resources/album_content/$userId/$albumId")) {
+        try {
+            mkdir("../resources/album_content/$userId/$albumId", 0775, true);
+        } catch (Exception $e) {
+            echo "Album directory could not be created";
+        }
+      }
+  }
 }
 
 function createFriendCircle($userId) {
@@ -87,7 +123,7 @@ if (isset($_POST['submit'])) {
     $_SESSION['userId'] = $userId;
     $_SESSION['username'] = $username;
 
-    // intialise the user with album and friend circle
+    // initialise the user with album and friend circle
     createAlbum($userId);
     createFriendCircle($userId);
 

@@ -13,32 +13,68 @@ function delete_album() {
 	}
 
 	// Retrieve data from input and strip.
-	$userId = db_quote($_REQUEST['userId']);
 	$albumId = db_quote($_REQUEST['albumId']);
-
-	// build query
-	$query = "DELETE FROM albums WHERE userId = $userId AND albumId = $albumId";
-
-	// Execute the query
-	$qry_result = db_query($query);
-
-	if ($qry_result === false) {
-		echo mysqli_error(db_connect());
-		return;
-	}
-	
-	// remove quotation marks.
-	$userId = (int) substr($userId, 1, strlen($userId) - 2);
 	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
 
-	try {
-		remove_directory("../../../resources/album_content/$userId/$albumId");
-	} catch (Exception $e) {
-		echo "Could not delete album directory.";
-		return;
-	}	
-	echo "\nRemoved album succesfully.";
+    $query = "SELECT * FROM albums WHERE albumId = $albumId";
+    $result = db_query($query);
 
+    if ($result === false ) {
+        echo mysqli_error(db_connect());
+    }
+    while ($row = $result->fetch_assoc()) {
+        $userId = $row['userId'];
+    }
+
+    // need to get photoId to delete the photo comments
+    $photoIdQuery = "SELECT photoId from photos WHERE albumId = $albumId";
+    $photoIdQueryResult = db_query($photoIdQuery); 
+
+    if ($photoIdQueryResult === false) {
+        echo mysqli_error(db_connect());
+    } 
+
+    while ($row = $photoIdQueryResult->fetch_assoc()) {
+        // delete every photo's comments
+        $photoId = $row['photoId'];
+
+        $deleteQuery = "DELETE FROM comments WHERE photoId = $photoId";
+        $deleteQueryResult = db_query($deleteQuery);
+
+        if ($deleteQueryResult === false) {
+            mysqli_error(db_connect());
+        }
+    
+    }
+
+    // now delete the photo records;
+    $querytwo = "DELETE FROM photos WHERE albumId = $albumId";
+    $querytwoResult = db_query($querytwo);
+ 
+    if ($querytwoResult === false) {
+        echo mysqli_error(db_connect());
+    }
+
+    $querythree = "DELETE FROM album_friendcircles WHERE albumId = $albumId";
+    $querythreeResult = db_query($querythree);
+
+    if ($querytwoResult === false) {
+        echo mysqli_error(db_connect());
+    }
+
+ 	$queryfour = "DELETE FROM albums WHERE albumId = $albumId";
+ 	$queryfourResult = db_query($queryfour);
+ 
+ 	if ($queryfourResult === false) {
+ 	    echo mysqli_error(db_connect());
+    }
+ 	
+ 
+ 	try {
+ 		remove_directory("../../../resources/album_content/$userId/$albumId");
+ 	} catch (Exception $e) {
+ 		return $e;
+ 	}	
 }
 
 function remove_directory($path) {

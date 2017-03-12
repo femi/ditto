@@ -6,6 +6,10 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
+/**
+ * This function should only be called straight after creating a new album, as it 
+ * gets the most recently created album with the given name.
+ */
 function retrieve_albumId($userId, $albumName) {
 	// Called after creating an album to get the 
 	$connection = db_connect(); // Try and connect to the database
