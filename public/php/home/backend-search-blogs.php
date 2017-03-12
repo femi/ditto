@@ -39,7 +39,7 @@ if(isset($query)){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S BLOG
                 // assuming url is /username/#blogId
-                echo "<a href=/".$row['username']."/#b_".$row['blogId']."><p>". $row['fName']." ".$row['lName']." ". $row['trimcontent'] ."...</p></a>";
+                echo "<a href=/".$row['username']."#b_".$row['blogId']."><p>". $row['fName']." ".$row['lName']." ". $row['trimcontent'] ."...</p></a>";
             }
             // Close result set
             mysqli_free_result($result);
