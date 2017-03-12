@@ -35,7 +35,7 @@ PRIMARY KEY (blogId)
 CREATE TABLE albums (
 albumId INT(10) AUTO_INCREMENT,
 userId INT(10) NOT NULL,
-isProfile BOOLEAN NOT NULL DEFAULT False, 
+isProfile BOOLEAN NOT NULL DEFAULT False,
 albumName VARCHAR(200),
 isRestricted INT NOT NULL DEFAULT 0, -- defaults to public --
 createdAt DATETIME NOT NULL DEFAULT NOW(),
@@ -79,7 +79,7 @@ PRIMARY KEY (commentId)
 CREATE TABLE friendcircles (
 circleId INT(10) AUTO_INCREMENT,
 userId INT(10),
-circleName VARCHAR(100),
+name VARCHAR(100),
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (circleId),
