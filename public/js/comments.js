@@ -11,7 +11,8 @@ function setupSearch() {
         console.log(resultDropdown);
 
         if(term.length){
-            $.post("/php/home/backend-search.php", {query: term}).done(function(data){
+            // $.post("/php/home/backend-search-blog.php", {query: term}).done(function(data){  remove -blog for friend name search
+            $.post("/php/home/backend-search-blogs.php", {query: term}).done(function(data){
                 // Display the returned data in browser
                 resultDropdown.html(data);
                 resultDropdown.show();

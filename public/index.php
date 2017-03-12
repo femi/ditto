@@ -26,6 +26,9 @@ if (isset($_SESSION['userId'])) {
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
+    $route->add("^backend-search-blogs.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search-blogs.php");
+    });
     $route->add("^delete_comment.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
     });
