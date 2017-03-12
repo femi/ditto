@@ -53,13 +53,9 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^comments/create/?$");
     $route->add("^(\w+)/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
+        // check that username is same as session username
+        include "$_SERVER[DOCUMENT_ROOT]/php/home/profile.php";
     });
-
-    // Temporary routes for testing
-    //$route->add('^albums/?$');
-    //$route->add('^albums/(\d+)/?$');
-    //$route->add('^albums/(\d+)/(\w+)/?$');
 
     try {
         $route->submit();
