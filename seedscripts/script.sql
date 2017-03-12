@@ -129,6 +129,20 @@ validator TINYINT NOT NULL,
 PRIMARY KEY (messageId)
 );
 
+CREATE TABLE tags (
+	tagId INT(10) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(20) NOT NULL,
+	PRIMARY KEY (tagId)
+);
+
+CREATE TABLE tag_users (
+	tagId INT(10) NOT NULL,
+	userId INT(10) NOT NULL,
+	PRIMARY KEY (tagId, userId)
+);
+
+
+ALTER TABLE tag_users ADD FOREIGN KEY (tagId) REFERENCES tags(tagId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (albumId) REFERENCES albums(albumId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE albums ADD FOREIGN KEY (userId) REFERENCES users(userId);
@@ -146,6 +160,23 @@ ALTER TABLE dislikes ADD FOREIGN KEY (commentId) REFERENCES comments(commentId);
 ALTER TABLE messages ADD FOREIGN KEY (senderId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (receiverId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
+
+
+INSERT INTO tags (name) VALUES ("Swimming");
+INSERT INTO tags (name) VALUES ("Football");
+INSERT INTO tags (name) VALUES ("Friends");
+INSERT INTO tags (name) VALUES ("Databases");
+INSERT INTO tags (name) VALUES ("Skiing");
+INSERT INTO tags (name) VALUES ("Surfing");
+INSERT INTO tags (name) VALUES ("Books");
+INSERT INTO tags (name) VALUES ("TV");
+INSERT INTO tags (name) VALUES ("Learning");
+INSERT INTO tags (name) VALUES ("Cooking");
+INSERT INTO tags (name) VALUES ("Cleaning");
+INSERT INTO tags (name) VALUES ("Drinking");
+INSERT INTO tags (name) VALUES ("Cinema");
+INSERT INTO tags (name) VALUES ("Bowling");
+INSERT INTO tags (name) VALUES ("Gym");
 
 -- ALTER TABLE albums ADD FOREIGN KEY (dislikeId) REFERENCES dislikes(dislikeId);
 -- ALTER TABLE album_users ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
