@@ -100,3 +100,14 @@ function deleteBlog(blogId) {
      xmlhttp.send(querystring);
 
 }
+
+function updatePrivacy() {
+   var elem = document.getElementById('privacy');
+   var privacy = elem.options[elem.selectedIndex].value
+   var xmlhttp = new XMLHttpRequest();
+   var querystring = "privacy=" + privacy;
+   xmlhttp.open("POST", "/update_privacy.php", true);
+   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   console.log(querystring);
+   xmlhttp.send(querystring);
+}
