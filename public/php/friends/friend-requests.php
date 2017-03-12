@@ -84,8 +84,8 @@
 </form>
 
 <p>Search for friends of friends</p>
-<input class="input" type="text" placeholder="Search" style="top: 6px; width: 200px">
-<div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px"></div>
+<input id="fofsearch" class="input" type="text" placeholder="Search" style="top: 6px; width: 200px">
+<div id="fofresult" class="box" style="display: none; z-index: 100000000;"></div>
 
 <script>
     $(document).ready(setupFofSearch());

@@ -2,7 +2,7 @@
 
 //include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
 require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
-
+require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
