@@ -231,7 +231,7 @@ if (isset($_SESSION['userId'])) {
         $pathArray = explode('/', $_GET['uri']);
 
         if (isValidUsername($pathArray[0])) {
-            if (userIdHasUsername($_SESSION'userId', $pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 // user is viewing their own page
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/home.php");
             } else {
