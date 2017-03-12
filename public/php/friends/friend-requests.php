@@ -7,6 +7,8 @@
     require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-R.php");
     require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
     ?>
+    <script src="/js/searchfof.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
 
 </head>
 <body>
@@ -80,6 +82,14 @@
     <input name="retract" type="submit" value="Retract burden of friendship">
 
 </form>
+
+<p>Search for friends of friends</p>
+<input class="input" type="text" placeholder="Search" style="top: 6px; width: 200px">
+<div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px"></div>
+
+<script>
+    $(document).ready(setupFofSearch());
+</script>
 
 </body>
 </html>

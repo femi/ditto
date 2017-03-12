@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <script src="/js/comments.js"></script>
-<script src="js/jquery-3.1.1.min.js"></script>
+<script src="/js/jquery-3.1.1.min.js"></script>
 
 
 <!-- Fixed Header bar -->
