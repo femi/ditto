@@ -16,6 +16,7 @@ username VARCHAR(30) NOT NULL UNIQUE,
 hashedPassword VARCHAR(100) NOT NULL,
 maritalStatus VARCHAR(25),
 sex VARCHAR (10),
+privacy INT(1) NOT NULL,
 description VARCHAR(1000),
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
@@ -31,13 +32,15 @@ updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (blogId)
 );
 
-
 CREATE TABLE albums (
 albumId INT(10) AUTO_INCREMENT,
 userId INT(10) NOT NULL,
+isProfile BOOLEAN NOT NULL DEFAULT False,
 albumName VARCHAR(200),
+isRestricted INT NOT NULL DEFAULT 0, 
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+validator TINYINT NOT NULL,
 PRIMARY KEY (albumId)
 );
 
@@ -128,6 +131,14 @@ validator TINYINT NOT NULL,
 PRIMARY KEY (messageId)
 );
 
+CREATE TABLE friend_requests (
+userId INT(10) NOT NULL,
+friendId INT(10) NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+PRIMARY KEY (userId, friendId)
+);
+
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (albumId) REFERENCES albums(albumId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE albums ADD FOREIGN KEY (userId) REFERENCES users(userId);
@@ -145,6 +156,8 @@ ALTER TABLE dislikes ADD FOREIGN KEY (commentId) REFERENCES comments(commentId);
 ALTER TABLE messages ADD FOREIGN KEY (senderId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (receiverId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (userId) REFERENCES users(userId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (friendId) REFERENCES users(userId);
 
 -- ALTER TABLE albums ADD FOREIGN KEY (dislikeId) REFERENCES dislikes(dislikeId);
 -- ALTER TABLE album_users ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
@@ -248,4 +261,30 @@ CREATE TRIGGER messagesBothNotNullUpdate BEFORE UPDATE ON messages
 			SET NEW.validator = NULL;
 		END IF;
 	END;//
+
+
+
+DROP TRIGGER IF EXISTS albumPrivacyInsert //
+ CREATE TRIGGER albumPrivacyInsert BEFORE INSERT ON albums
+         FOR EACH ROW
+         BEGIN
+                 IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+                         SET NEW.validator = 1;
+                 ELSE
+                         -- this will cause the update to abort, since validator is defined as NOT NULL
+                         SET NEW.validator = NULL;
+                 END IF;
+         END;//
+ DROP TRIGGER IF EXISTS albumPrivacyUpdate //
+ CREATE TRIGGER albumPrivacyUpdate BEFORE UPDATE ON albums
+         FOR EACH ROW
+         BEGIN
+                 IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+                         SET NEW.validator = 1;
+                 ELSE
+                         -- this will cause the update to abort, since validator is defined as NOT NULL
+                         SET NEW.validator = NULL;
+                 END IF;
+         END;//
+
 delimiter ;

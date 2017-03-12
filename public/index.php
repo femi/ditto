@@ -38,6 +38,16 @@ if (isset($_SESSION['userId'])) {
     $route->add("^delete_blog.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
+    $route->add("^update_privacy.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/update_privacy.php");
+    });
+    $route->add("^settings/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/settings.php");
+    });
+    $route->add("^validate.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
+    });
+
     $route->add("^(\w+)/albums/(\d+)/(\w+)/?$");
     $route->add("^(\w+)/albums/(\d+)/?$");
     $route->add("^(\w+)/albums/?$");
@@ -47,6 +57,50 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^(\w+)/friendcircles/(\d+)/?$");
     $route->add("^(\w+)/friendcircles/?$");
+
+
+      $route->add("permission/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/permissions.php");
+    });
+
+
+// Routes for circles
+    $route->add("^(\w+)/circles/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-CRUD.php");
+    });
+    $route->add("^(\w+)/circles/addCircle/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-C.php");
+    });
+    $route->add("^(\w+)/circles/deleteCircle/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-D.php");
+    });
+    $route->add("^(\w+)/circles/updateCircle/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-U.php");
+    });
+    $route->add("^(\w+)/circles/friends/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friends-in-circle.php");
+    });
+    $route->add("^(\w+)/circles/friends/add/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
+    });
+    $route->add("^(\w+)/circles/friends/remove/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
+    });
+
+// Routes for friends
+   $route->add("^(\w+)/friends/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+    });
+     $route->add("^(\w+)/friends/accept/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
+    });
+       $route->add("^(\w+)/friends/request/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
+    });
+
+
+
+
     $route->add("^(\w+)/messages/(\w+)/?");
     $route->add("^(\w+)/messages/?$", function() {
         echo "hi Femi";
@@ -70,6 +124,8 @@ if (isset($_SESSION['userId'])) {
             echo "logged in ";
         } else {
             echo "routeException but logged in:";
+            echo "<pre>";
+            print_r($_REQUEST);
             print_r($_SESSION);
         }
     }
@@ -93,6 +149,9 @@ else {
     });
     $public_route->add("^login.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/login.php");
+    });
+    $public_route->add("^validate.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
     });
 
     try {
