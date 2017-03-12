@@ -32,13 +32,15 @@ updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (blogId)
 );
 
-
 CREATE TABLE albums (
 albumId INT(10) AUTO_INCREMENT,
 userId INT(10) NOT NULL,
+isProfile BOOLEAN NOT NULL DEFAULT False,
 albumName VARCHAR(200),
+isRestricted INT NOT NULL DEFAULT 0, -- defaults to public --
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+validator TINYINT NOT NULL,
 PRIMARY KEY (albumId)
 );
 
@@ -121,7 +123,7 @@ messageId INT(10) NOT NULL AUTO_INCREMENT,
 senderId INT(10) NOT NULL,
 receiverId INT(10),
 circleId INT(10),
-messageDate DATE NOT NULL,
+-- messageDate DATE NOT NULL,
 content VARCHAR(1000) NOT NULL,
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
@@ -141,6 +143,13 @@ CREATE TABLE tag_users (
 	PRIMARY KEY (tagId, userId)
 );
 
+CREATE TABLE friend_requests (
+userId INT(10) NOT NULL,
+friendId INT(10) NOT NULL,
+createdAt DATETIME NOT NULL DEFAULT NOW(),
+updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
+PRIMARY KEY (userId, friendId)
+);
 
 ALTER TABLE tag_users ADD FOREIGN KEY (tagId) REFERENCES tags(tagId) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE album_friendcircles ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -160,6 +169,8 @@ ALTER TABLE dislikes ADD FOREIGN KEY (commentId) REFERENCES comments(commentId);
 ALTER TABLE messages ADD FOREIGN KEY (senderId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (receiverId) REFERENCES users(userId);
 ALTER TABLE messages ADD FOREIGN KEY (circleId) REFERENCES friendcircles(circleId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (userId) REFERENCES users(userId);
+ALTER TABLE friend_requests ADD FOREIGN KEY (friendId) REFERENCES users(userId);
 
 
 INSERT INTO tags (name) VALUES ("Swimming");
@@ -277,6 +288,30 @@ CREATE TRIGGER messagesBothNotNullUpdate BEFORE UPDATE ON messages
 			SET NEW.validator = 1;
 		ELSE
 			-- this will cause the update to abort, since validtor is defined as NOT NULL
+			SET NEW.validator = NULL;
+		END IF;
+	END;//
+
+-- Album privacy settings are either 0 for friends (EVERYONE), 1 for friends circles, or 2 for friends of friends.
+DROP TRIGGER IF EXISTS albumPrivacyInsert //
+CREATE TRIGGER albumPrivacyInsert BEFORE INSERT ON albums
+	FOR EACH ROW
+	BEGIN
+		IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+			SET NEW.validator = 1;
+		ELSE
+			-- this will cause the update to abort, since validator is defined as NOT NULL
+			SET NEW.validator = NULL;
+		END IF;
+	END;//
+DROP TRIGGER IF EXISTS albumPrivacyUpdate //
+CREATE TRIGGER albumPrivacyUpdate BEFORE UPDATE ON albums
+	FOR EACH ROW
+	BEGIN
+		IF NEW.isRestricted >= 0 AND NEW.isRestricted <= 2 THEN
+			SET NEW.validator = 1;
+		ELSE
+			-- this will cause the update to abort, since validator is defined as NOT NULL
 			SET NEW.validator = NULL;
 		END IF;
 	END;//

@@ -1,3 +1,37 @@
+console.log("running comments.js");
+
+function setupSearch() {
+    console.log("running setupSearch");
+    $('.control input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var term = $(this).val();
+
+        // find result div in another way
+        resultDropdown = $( "#result");
+        console.log(resultDropdown);
+
+        if(term.length){
+            // $.post("/php/home/backend-search-blog.php", {query: term}).done(function(data){  remove -blog for friend name search
+            $.post("/php/home/backend-search-blogs.php", {query: term}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+                resultDropdown.show();
+            });
+        } else{
+            resultDropdown.empty();
+            resultDropdown.hide();
+        }
+    });
+
+    // Set search input value on click of result item
+    $(document).on("click", "#result p", function(){
+        console.log($(this).text());
+        $(this).parents(".control").find('input[type="text"]').val($(this).text());
+        resultDropdown.empty();
+        resultDropdown.hide();
+    });
+}
+
 function retrieveUserBlogs(blogUserId) {
   var xmlhttp = new XMLHttpRequest();
      xmlhttp.onreadystatechange = function() {
@@ -100,6 +134,8 @@ function deleteBlog(blogId) {
      xmlhttp.send(querystring);
 
 }
+
+// setupSearch();
 
 function updatePrivacy() {
    var elem = document.getElementById('privacy');
