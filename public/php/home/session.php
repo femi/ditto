@@ -18,7 +18,7 @@ $_SESSION['username'] = $user_data['username'];
 $fullname = $user_data['fName'] . " " . $user_data['lName'];
 $firstname = $user_data['fName'];
 
-// Tags 
+// Tags
 $alltags = db_query("SELECT * FROM tags");
 $usertags = db_query("SELECT * FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE userId = '$userId'");
 

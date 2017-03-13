@@ -1,0 +1,5 @@
+/* Custom Styles*/
+
+#alltags span[id^='tag_'] {
+  margin: 3px;
+}

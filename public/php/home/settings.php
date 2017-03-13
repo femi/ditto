@@ -79,7 +79,7 @@
               while ( $row = $usertags->fetch_assoc()){
                 $name = $row['name'];
                 // echo $name;
-                echo ("<span id=\"tag_$name\" class=\"tag is-info is-large\">$name<button class=\"delete is-small\" onclick=\"removeInterest('tag_$name')\" ></button></span>");
+                echo ("<span id=\"tag_$name\" class=\"tag is-info is-medium\">$name<button class=\"delete is-small\" onclick=\"removeInterest('tag_$name')\" ></button></span>");
               }
               ?>
               </div>

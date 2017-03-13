@@ -68,7 +68,7 @@ $('#taginput').on('keyup keypress', function(e) {
 
 $("#myselect").change(function() {
   var text = $('#myselect').find(":selected").text();
-  $("#alltags").append(`<span id=\"tag_${text}\" class=\"tag is-info is-large\">${text}<button class=\"delete is-small\" onclick=\"removeInterest('tag_${text}')\" ></button></span>`);
+  $("#alltags").append(`<span id=\"tag_${text}\" class=\"tag is-info is-medium\">${text}<button class=\"delete is-small\" onclick=\"removeInterest('tag_${text}')\"></button></span>`);
   $(`#myselect option[value='${text}']`).remove();
   addInterest(text);
 });
