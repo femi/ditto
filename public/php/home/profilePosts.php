@@ -1,9 +1,10 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
 
 if (isset($_POST['comment']) && isset($_POST['submit'] )) {
+  $userId = $_SESSION['userId'];
   $comment = addslashes($_POST['comment']);
   $blogId = $_POST['blogId'];
-  db_query("INSERT INTO comments (message, userId, blogId) VALUES ('$comment', '$userId', $blogId)");
+  db_query("INSERT INTO comments (message, userId, blogId) VALUES ('$comment', $userId, $blogId)");
 }
 
 $pathArray = explode('/', $_GET['uri']);
