@@ -26,9 +26,9 @@ include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
 if (isset($_SESSION['userId'])) {
     // User is logged in - create a new Route object
     $route = new Route();
-    
+
 // Routes for blogs
-    
+
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
@@ -128,7 +128,7 @@ if (isset($_SESSION['userId'])) {
             }
         } else {
             echo "<br />";
-            echo "Invalid username given"; 
+            echo "Invalid username given";
         }
         // check if the session user has the same username
     });
@@ -242,21 +242,21 @@ if (isset($_SESSION['userId'])) {
 // Routes for tags
     $route->add("^tags/(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
-        $tag = $pathArray[1]; // 
+        $tag = $pathArray[1]; //
 
         if (isValidTag($tag)) {
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
-            viewTagUsers($pathArray[1]);
+            displayAllResults($pathArray[1]);
         } else {
             // TODO redirect to 404
             echo "Not a proper tag";
         }
-        
+
     });
 
 
 // Routes for profile
-    
+
     $route->add("^(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
 
@@ -269,7 +269,7 @@ if (isset($_SESSION['userId'])) {
             }
         }
     });
-  
+
     try {
         $route->submit();
     } catch (RouteException $e) {

@@ -26,7 +26,7 @@
               <?php
                 while ( $row = $usertags->fetch_assoc()){
                   $name = $row['name'];
-                  echo ("<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"#\">$name</a></span>");
+                  echo ("<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>");
                 }
               ?>
             </div>
