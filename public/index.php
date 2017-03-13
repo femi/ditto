@@ -237,6 +237,14 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/viewCircleMessages.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
     });
+    $route->add("^(\w+)/messageSingleUserSearch.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageSingleUserSearch.php";
+    });
+    $route->add("^(\w+)/messageCircleSearch.php/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
+    });
+
+
 
 // Routes for profile
     
