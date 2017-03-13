@@ -26,14 +26,15 @@ $query = mysqli_real_escape_string($connection, $_POST['query']);
 if(isset($query)){
 
     // get the logged in user's friends
-        $friends = db_query("SELECT userId FROM users WHERE userId IN (
+        $friends = db_query("SELECT * FROM users WHERE userId IN (
             SELECT userId FROM friendcircle_users WHERE circleId=(
                 SELECT circleId from friendCircles WHERE name='everyone' AND userId=$userId))");
 
-
         while($col = $friends->fetch_assoc()){
                     //gets friend of friends
-                    $friendsoffriends = db_query("SELECT userId FROM users WHERE userId IN (
+                    // changed to select * from users
+
+                    $friendsoffriends = db_query("SELECT * FROM users WHERE CONCAT(fName, ' ', lName) LIKE '%$query%' AND userId IN (
                         SELECT userId FROM friendcircle_users WHERE circleId=(
                             SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$col['userId']."))");
 
@@ -41,11 +42,10 @@ if(isset($query)){
 
 
                             if ($row['userId'] == $_SESSION['userId']){
-                                 echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of friend:'.$col['userId'].'->'.$row['userId'].'<br>';
-                                 echo 'Returned: ';
-                                return 1;
+                                 //echo 'Logged in user: '.$_SESSION['userId'].' is a friend:'.$col['fName'].'->'.$row['fName'].'<br>';
+                                //return 1;
                             } else {
-                                echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of friend '.$col['userId'].'->'.$row['userId'].'<br>';
+                                echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
                                 //Do nothing
                             }
                         }
