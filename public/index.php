@@ -5,6 +5,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/userIdHasUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidAlbum.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidPhoto.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidTag.php");
 
 /**
  * Apache redirects every server request to this file.
@@ -237,6 +238,22 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/viewCircleMessages.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
     });
+
+// Routes for tags
+    $route->add("^tags/(\w+)/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        $tag = $pathArray[1]; // 
+
+        if (isValidTag($tag)) {
+            require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
+            viewTagUsers($pathArray[1]);
+        } else {
+            // TODO redirect to 404
+            echo "Not a proper tag";
+        }
+        
+    });
+
 
 // Routes for profile
     
