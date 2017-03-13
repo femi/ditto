@@ -50,10 +50,23 @@ function update_details($fName, $lName, $username, $city, $mobileNumber, $email)
   $result = db_query($query);
 }
 
+function add_tag($userId, $tag) {
+  $tag_id = intval(mysqli_fetch_assoc(db_query("SELECT * FROM `tags` WHERE `name` = '$tag'"))['tagId']);
+  $query = "INSERT INTO `tag_users` (`tagId`, `userId`) VALUES ($tag_id, $userId)";
+  return $result = db_query($query);
+}
+
+function delete_tag($userId, $tag) {
+  $tag_id = intval(mysqli_fetch_assoc(db_query("SELECT * FROM `tags` WHERE `name` = '$tag'"))['tagId']);
+  $query = "DELETE FROM tag_users WHERE tagId = $tag_id AND userId = $userId";
+  return $result = db_query($query);
+}
+
 if( $_POST['updateDetails'] ) {
   update_details($_POST['fName'], $_POST['lName'], $_POST['username'], $_POST['city'], $_POST['mobileNumber'], $_POST['email']);
   header("Location: /settings");
 }
+
 else if( $_POST['changePassword'] ) {
   change_password($_SESSION['userId'], $_POST['oldPassword'], $_POST['newPassword']);
   header("Location: /settings");
@@ -68,6 +81,22 @@ if (isset($_REQUEST['username'])) {
   }
 }
 
+if (isset($_REQUEST['tag'])) {
+  if (add_tag($_SESSION['userId'], $_REQUEST['tag']) === true) {
+    echo "success";
+  } else {
+    echo "failure";
+  }
+}
+
+if (isset($_REQUEST['deltag'])) {
+  if (delete_tag($_SESSION['userId'], $_REQUEST['deltag']) === true) {
+    echo "deletion success";
+  } else {
+    echo "delition failure";
+  }
+}
+
 if (isset($_REQUEST['email'])) {
   if (validate_email($_REQUEST['email']) === true) {
     echo "false";
@@ -75,4 +104,4 @@ if (isset($_REQUEST['email'])) {
     echo "true";
   }
 }
- ?>
+?>

@@ -83,19 +83,19 @@ function createAlbum($userId) {
 
       // need to retrieve the albumId and make a directory
       $newQuery = "SELECT * FROM albums WHERE userId = $userId ORDER BY createdAt DESC LIMIT 1";
-      echo $newQuery;
+      // echo $newQuery;
       $newQueryResult = db_query($newQuery);
 
       if ($newQueryResult === false) {
         mysqli_error(db_connect());
       }
 
-      while ($row = $newQueryResult->fetch_assoc()) { 
+      while ($row = $newQueryResult->fetch_assoc()) {
         //print_r($row);
         $albumId = $row['albumId'];
       }
 
-      echo $albumId;
+      // echo $albumId;
 
       if (!file_exists("../resources/album_content/$userId/$albumId")) {
         try {
