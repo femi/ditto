@@ -11,7 +11,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 
 function getUsersCircles() {
     $userId = $_SESSION['userId'];
-    $result = db_query("SELECT DISTINCT friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE friendcircle_users.userId = $userId OR friendcircles.userId = $userId");
+    $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE friendcircle_users.userId = $userId OR friendcircles.userId = $userId");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -22,10 +22,32 @@ function getUsersCircles() {
 
 function printUsersCircles() {
     $usersCircles = getUsersCircles();
-    print_r($usersCircles);
     while($row = $usersCircles->fetch_assoc()) {
-        echo '<option>'.$row['circleId'].'</option>';
+        $circleName = $row['name'];
+        $circleId = $row['circleId'];
+        echo "<option value=\"$circleId\">$circleName</option>";
     };
+}
+
+function getUsersSingleThreadNames() {
+    $userId = $_SESSION['userId'];
+    $query = "SELECT DISTINCT fName, lName, users.userId FROM messages JOIN users WHERE (senderId = $userId OR receiverId = $userId) AND userId != $userId ORDER BY updatedAt DESC";
+    $result = db_query($query);
+    if ($result === false) {
+        echo mysqli_error(db_connect());
+        return;
+    }
+    return $result;
+}
+
+function printUsersSingleThreadNames() {
+    $usersSingleThreadNames = getUsersSingleThreadNames();
+    while ($row = $usersSingleThreadNames->fetch_assoc()) {
+        $fName = $row['fName'];
+        $lName = $row['lName'];
+        $userId = $row['userId'];
+        echo "<option value=\"userId\">$fName $lName</option>";
+    }
 }
 
 
@@ -152,17 +174,8 @@ function printUsersCircles() {
 
 </script>
 
-
-
-current userId: <?php echo $_SESSION['userId']; ?> <br><br>
-Here are your messages:<br><br>
-
+<p>Message inbox</p>
 <div id="ajaxResult">Message status appears here</div>
-
-
-
-
-<br><br>
 
 <form id="singleMessageForm" data-recipientUserId="">
     <p class="control">
@@ -171,38 +184,47 @@ Here are your messages:<br><br>
             <input class="input" type="text" placeholder="Who do you want to send a message to?" onkeyup="messageSingleUserSearch(this.value)"></input><br>
             <div id="singleUserMessageSearchResult"></div>
         </div>
-        <textarea class="textarea" placeholder="Enter your message" style="width: 300px; height: 200px" id="message"></textarea><br>
+        <textarea class="textarea" rows="2" placeholder="Enter your message" style="width: 300px; height: 200px" id="message"></textarea><br>
         <button id="singleMessageSubmit" class="button is-primary" type="submit" onclick="sendMessage(<?php echo $_SESSION['userId'] ?>, document.getElementById('message').value)">Send</button>
     </p>
 </form>
 
-Show messages in your friendCircles:
-
-<form>
-    <select id="selectedCircle">
-        <?php printUsersCircles(); ?>
-    </select>
-</form>
 
 
 <br><br>
-<div id="circleMessages">Circle messages appear here</div>
-<br><br>
+<div class="container">
+    <div class="columns is-gapless">
+        <div class="column is-half">
+            <p>Choose a circle message thread:</p>
+            <form>
+                <p class="control">
+                    <span class="select">
+                        <select id="selectedCircle">
+                            <?php printUsersCircles(); ?>
+                        </select>
+                    </span>
+                </p>
+            </form>
+        </div>
+        <div class="column is-half">
+            <div id="circleMessages"></div>
+        </div>
+    </div>
+</div>
 
-
-
-
+<div class="container">
 <form id="circleMessageForm" data-recipientCircleId="">
     <p class="control">
         <div id="circleMessageSearchContainer">
-            <p>Send a message to a friendCircle:</p>
+            <p>Send a message to one of your circles:</p>
             <input class="input" type="text" placeholder="Which circle do you want to send a message to?" id="circleId" onkeyup="messageCircleSearch(this.value)"></input><br>
             <div id="circleMessageSearchResult"></div>
         </div>
-        <textarea class="textarea" placeholder="Enter your message" style="width: 300px; height: 200px" id="circleMessage"></textarea><br>
+        <textarea class="textarea" rows="2" placeholder="Enter your message" style="width: 300px; height: 200px" id="circleMessage"></textarea><br>
         <button class="button is-primary" type="submit" onclick="sendCircleMessage(<?php echo $_SESSION['userId'] ?>, document.getElementById('circleMessage').value)">Send</button>
     </p>
 </form>
+</div>
 
 
 <script type="text/javascript">
