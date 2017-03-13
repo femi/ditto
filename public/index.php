@@ -240,6 +240,9 @@ if (isset($_SESSION['userId'])) {
     });
 
 // Routes for tags
+    $route->add("^tags/recommendByTags/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php";
+    });
     $route->add("^tags/(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
         $tag = $pathArray[1]; //
