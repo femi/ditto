@@ -221,6 +221,9 @@ if (isset($_SESSION['userId'])) {
        $route->add("^(\w+)/friends/request/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
     });
+    $route->add("^friendz/?$", function() {
+         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
+     });
 
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
