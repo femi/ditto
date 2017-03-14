@@ -24,7 +24,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 /*
  * This file is called from the album browse page and will load the clicked photo to the screen dimensions, and include comments below.
  */
-function get_photo_page_with_comments($username, $albumId, $photoName) {
+function get_photo_page_with_comments_nonowner($username, $albumId, $photoName) {
     $connection = db_connect(); // Try and connect to the database
 
     // If connection was not successful, handle the error

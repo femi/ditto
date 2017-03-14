@@ -19,29 +19,29 @@ function userCanViewAlbum ($albumId){
     if ($restrictionLevel == 0){
         // This means the album can only be viewed by friends
         if (isUserFriend($albumId)){
-            echo 'Access Granted<br>';
+            // echo 'Access Granted<br>';
             return true;
         }else{
-            echo 'Album restricted to friends only<br>';
+            // echo 'Album restricted to friends only<br>';
             return false;
         }
 
     } else if ($restrictionLevel == 1){
         // This means the album can only be viewed by specific friendcircles
         if (isUserInCircle($albumId)){
-            echo 'Access Granted<br>';
+            // echo 'Access Granted<br>';
             return true;
         }else{
-            echo 'Album restricted to certain circles only<br>';
+            // echo 'Album restricted to certain circles only<br>';
             return false;
         }
     } else if ($restrictionLevel == 2){
         // This means the album can only be viewed by friends and friends of friends.
         if (isUserFriend($albumId) OR isUserFriendofFriend($albumId)){
-            echo 'Access Granted<br>';
+            // echo 'Access Granted<br>';
             return true;
         }else{
-            echo 'Album restricted to Friends of Friends<br>';
+            // echo 'Album restricted to Friends of Friends<br>';
             return false;
         }
     }
@@ -61,12 +61,12 @@ function isUserOwner($albumId){
     $oId = $row['userId'];
 
     if ($oId == $_SESSION['userId']){
-        echo 'Yes, Owner: '.$oId.' Logged in: '.$_SESSION['userId'].'<br>';
-        echo 'Returned: ';
+        // echo 'Yes, Owner: '.$oId.' Logged in: '.$_SESSION['userId'].'<br>';
+        // echo 'Returned: ';
         return true;
     } else {
-        echo 'No, Owner: '.$oId.' Logged in: '.$_SESSION['userId'].'<br>';
-        echo 'Returned: ';
+        // echo 'No, Owner: '.$oId.' Logged in: '.$_SESSION['userId'].'<br>';
+        // echo 'Returned: ';
         return false;
     }
 }
@@ -80,12 +80,12 @@ function isUserFriend($albumId){
     while($row =$friends->fetch_assoc()){
         // echo $row['userId'];
         if ($row['userId'] == $_SESSION['userId']){
-            echo '<br>';
-            echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of owner<br>';
-            echo 'Returned: ';
+            // echo '<br>';
+            // echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of owner<br>';
+            // echo 'Returned: ';
             return true;
         } else {
-            echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of owner<br>';
+            // echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of owner<br>';
         }
     }
     return false;
@@ -104,11 +104,11 @@ function isUserInCircle($albumId){
 
         while ($row=$circleMembers ->fetch_assoc()){
             if ($row['userId'] == $_SESSION['userId']){
-                echo 'Yes, logged in user: '.$_SESSION['userId'].' is member of circle: '.$circleId.'<br>';
-                echo 'Returned: ';
+                // echo 'Yes, logged in user: '.$_SESSION['userId'].' is member of circle: '.$circleId.'<br>';
+                // echo 'Returned: ';
                 return true;
             } else {
-                echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a member of circle: '.$circleId.'<br>';
+                // echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a member of circle: '.$circleId.'<br>';
                 // echo 'Returned: ';
 
                 // return false;
@@ -130,11 +130,11 @@ function isUserFriendofFriend($albumId){
 
 
             if ($row['userId'] == $_SESSION['userId']){
-                echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of friend:'.$col['userId'].'->'.$row['userId'].'<br>';
-                echo 'Returned: ';
+                // echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of friend:'.$col['userId'].'->'.$row['userId'].'<br>';
+                // echo 'Returned: ';
                 return true;
             } else {
-                echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of friend '.$col['userId'].'->'.$row['userId'].'<br>';
+                // echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of friend '.$col['userId'].'->'.$row['userId'].'<br>';
                 //Do nothing
             }
         }
