@@ -8,7 +8,7 @@
     require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
     ?>
     <script src="/js/searchfof.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
 
 </head>
 <body>
@@ -87,8 +87,13 @@
 <input id="fofsearch" class="input" type="text" placeholder="Search" style="top: 6px; width: 200px">
 <div id="fofresult" class="box" style="display: none; z-index: 100000000;"></div>
 
+<p>Search through all users</p>
+<input id="usersearch" class="input" type="text" placeholder="Search" style="top: 6px; width: 200px">
+<div id="userresult" class="box" style="display: none; z-index: 100000000;"></div>
+
 <script>
     $(document).ready(setupFofSearch());
+    $(document).ready(setupUserSearch());
 </script>
 
 </body>

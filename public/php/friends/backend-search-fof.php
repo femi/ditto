@@ -45,8 +45,11 @@ if(isset($query)){
                                  //echo 'Logged in user: '.$_SESSION['userId'].' is a friend:'.$col['fName'].'->'.$row['fName'].'<br>';
                                 //return 1;
                             } else {
-                                echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
-                                //Do nothing
+                                // uncomment the below line for debugging, see how friends of friends are connected
+                                // echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
+
+                                // print the user's name and link to their profile
+                                echo '<a href=/'.$row['username'].'>'.$row['fName'].' '.$row['lName'].'<br></a>';
                             }
                         }
 
