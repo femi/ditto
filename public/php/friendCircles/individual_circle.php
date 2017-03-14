@@ -2,17 +2,14 @@
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friends-in-circle.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/get-all-users.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+
+
+
 $currentCircle = $_SESSION['circleId'];
+
 ?>
 
-dsajopjdklefklrwnkwlfrewr
-<?php
 
-
-echo all_noncircle_friends($currentCircle, $_SESSION['userId']);
-
-
- ?>
 
 <div class="container">
   <br><h2 class="title is-2">Circle Name</h2><hr>
@@ -22,26 +19,16 @@ echo all_noncircle_friends($currentCircle, $_SESSION['userId']);
         <div class="content">
           Use this area to add your friends to your existing circles.
         </div>
-        <p class="control">
-          <span class="select">
-            <select>
-
-              <option>Friend</option>
-              <option>Friend 1</option>
-              <option>Friend 2</option>
-              <option>Friend 3</option>
+        <span class="select">
+         <form action="addFriend" method="post">
+            <select name="userId">
+            <?php 
+            all_noncircle_friends($currentCircle);
+            ?>
             </select>
-          </span>
-          <span class="select">
-            <select>
-              <option>Circle</option>
-              <option>Friend 1</option>
-            </select>
-          </span>
-        </p>
-        <p class="control">
-          <a class="button">Add</a><br>
-        </p>
+          <input class="button" type="submit" value="Add"><br>
+         </form>
+        </span>
     </div>
     <div class="column is-1"></div>
     <div class="column">
@@ -120,8 +107,8 @@ function getTags($userId) {
 	return $tags;
 }
 
-echo $currentCircle;
-echo $_SESSION['userId'];
+// echo $currentCircle;
+// echo $_SESSION['userId'];
 
 // add_friend($circleId, $userId); // ass a user to the circle
 
