@@ -19,6 +19,7 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
 /*
  * This file is called from the album browse page and will load the clicked photo to the screen dimensions, and include comments below.
