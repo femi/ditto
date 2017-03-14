@@ -5,6 +5,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/userIdHasUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidAlbum.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidPhoto.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 
 /**
  * Apache redirects every server request to this file.
@@ -16,8 +17,9 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidPhoto.php");
  * A route is added like this: $route->add(regular expression, anonymous function); where $route is an instance of the Route class.
  * The anonymous function can call a php function, include a php file, or readfile (for html pages).
  */
-
-session_start(); // import session.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // import session.
+}
 include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
 
 
@@ -55,6 +57,8 @@ if (isset($_SESSION['userId'])) {
                 echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/delete_photo.php");
                 delete_photo($pathArray[0], $_SESSION['userId'], $pathArray[2], $pathArray[3]);
+            } else {
+                echo "403...";
             }
         }
 
@@ -68,15 +72,15 @@ if (isset($_SESSION['userId'])) {
             echo "Valid username, album, and photo given";
 
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0]))  {
-                echo "<br />";
-                echo "User is visiting their own page";
+                // User is visiting their own page
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments.php");
                 get_photo_page_with_comments($pathArray[0], $pathArray[2], $pathArray[3]);
-            } else {
-                echo "<br />";
-                echo "User is not visiting their own page";
+            } else if (userCanViewAlbum($pathArray[2])) {
+                // User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments_nonowner.php");
                 get_photo_page_with_comments_nonowner($pathArray[0], $pathArray[2], $pathArray[3]);
+            } else {
+                echo "403";
             }
         } else {
             echo "Invalid"; // TODO redirect to error
@@ -89,19 +93,22 @@ if (isset($_SESSION['userId'])) {
         // Check that the path is valid
         if (isValidUsername($pathArray[0]) && isValidAlbum($pathArray[2])) { // TODO check that user is allowed  to view album
             echo "Valid username and album given";
+            // check the permissions
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 echo "<br />";
                 echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos.php");
                 non_ajax_get_album_photos($pathArray[2], $pathArray[0]);
-            } else {
+            } else if (userCanViewAlbum($pathArray[2])) {
                 echo "<br />";
                 echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos_nonowner.php");
                 non_ajax_get_album_photos_nonowner($pathArray[2], $pathArray[0]);
+            } else {
+                echo "403...";
             }
         } else {
-            echo "Invalid path given"; // TODO redirect to 404
+            echo "404..."; // TODO redirect to 404
         }
     });
     $route->add("^(\w+)/albums/?$", function() {
