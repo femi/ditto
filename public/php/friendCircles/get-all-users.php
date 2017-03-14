@@ -36,7 +36,7 @@ function all_users() {
 function all_noncircle_friends() {
 
     //returns all members of everyone circle but not those already in the current circle
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId'].")))");
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId'].")))");
 
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -60,7 +60,7 @@ function all_noncircle_friends() {
 // gets all current users in a circle and echo's option for each user
 function all_circle_friends() {
 
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId']."))");
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId']."))");
 
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -97,7 +97,7 @@ function all_circles() {
 // gets user's circles and echo's option for each circle
 function users_circles() {
 
-    $result = db_query("SELECT * FROM friendCircles WHERE userId = ". $_SESSION['userId']);
+    $result = db_query("SELECT * FROM friendcircles WHERE userId = ". $_SESSION['userId']);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -148,7 +148,7 @@ function get_outgoingrequests() {
 //gets a list of all members that are already friends with the user and echo's option for each request
 function get_friends() {
 
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'))");
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'))");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -167,7 +167,7 @@ function get_friends() {
 //gets a list of all members that are not already friends with the user and echo's option for each request
 function get_nonfriends() {
 
-    $result = db_query("SELECT * FROM users WHERE userId NOT IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'))");
+    $result = db_query("SELECT * FROM users WHERE userId NOT IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'))");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {

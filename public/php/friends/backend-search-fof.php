@@ -28,7 +28,7 @@ if(isset($query)){
     // get the logged in user's friends
         $friends = db_query("SELECT * FROM users WHERE userId IN (
             SELECT userId FROM friendcircle_users WHERE circleId=(
-                SELECT circleId from friendCircles WHERE name='everyone' AND userId=$userId))");
+                SELECT circleId FROM friendcircles WHERE name='everyone' AND userId=$userId))");
 
         while($col = $friends->fetch_assoc()){
                     //gets friend of friends
@@ -36,7 +36,7 @@ if(isset($query)){
 
                     $friendsoffriends = db_query("SELECT * FROM users WHERE CONCAT(fName, ' ', lName) LIKE '%$query%' AND userId IN (
                         SELECT userId FROM friendcircle_users WHERE circleId=(
-                            SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$col['userId']."))");
+                            SELECT circleId FROM friendcircles WHERE name='everyone' AND userId=".$col['userId']."))");
 
                         while($row =$friendsoffriends->fetch_assoc()){
 
