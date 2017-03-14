@@ -9,6 +9,41 @@ require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_connect.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_query.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_quote.php");
 
+/**
+ * This function returns true if the user making the incoming request is allowed to view the profile with the given username,
+ * and false otherwise.
+ * @param $username: the username of the profile to be viewed.
+ */
+function userCanViewProfile($username) {
+    $connection = db_connect();
+
+    if ($connection === false) {
+        // oh dear
+    }
+
+    $username = db_quote($username);
+
+    $query = "SELECT privacy, userId FROM users WHERE username = $username";
+    $result = db_query($query);
+
+    $row = mysqli_fetch_assoc($result);
+    $privacy = $row['privacy'];
+    $userId= $row['userId'];
+
+    if ($privacy == 0) {
+        // Everyone can see this profile
+        return true;
+    } else if ($privacy == 1 && isUserUsersFriend($userId)) {
+        // Only friends can see this profile
+        return true;
+    } else if ($privacy == 2 && (isUserUsersFriend($userId) || isUserUsersFriendofFriend($userId))) {
+        // Only friends and friends of friends can see this profile
+        return true;
+    } else {
+        // No one can view this profile
+        return false;
+    }
+}
 
 /**
  *   This function returns true if the user making the incoming request is allowed to view the album with the given
@@ -25,7 +60,6 @@ function userCanViewAlbum ($albumId){
             // echo 'Album restricted to friends only<br>';
             return false;
         }
-
     } else if ($restrictionLevel == 1){
         // This means the album can only be viewed by specific friendcircles
         if (isUserInCircle($albumId)){
@@ -86,6 +120,20 @@ function isUserFriend($albumId){
             return true;
         } else {
             // echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of owner<br>';
+            // echo 'Returned: ';
+            // return false;
+        }
+    }
+    return false;
+}
+
+function isUserUsersFriend($userId){
+    $query ="SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId IN (SELECT circleId FROM friendcircles WHERE name='everyone' AND userId= '$userId'))";
+    $friends = db_query($query);
+
+    while ($row = $friends->fetch_assoc()) {
+        if ($row['userId'] == $_SESSION['userId']) {
+            return true;
         }
     }
     return false;
@@ -115,7 +163,6 @@ function isUserInCircle($albumId){
             }
         }
         return false;
-
     }
 }
 
@@ -129,6 +176,29 @@ function isUserFriendofFriend($albumId){
         while($row =$friendsoffriends->fetch_assoc()){
 
 
+            if ($row['userId'] === $_SESSION['userId']){
+                // echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of friend:'.$col['userId'].'->'.$row['userId'].'<br>';
+                // echo 'Returned: ';
+                return true;
+            } else {
+                // echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of friend '.$col['userId'].'->'.$row['userId'].'<br>';
+                //Do nothing
+            }
+        }
+        return false;
+    }
+}
+
+function isUserUsersFriendofFriend($userId) {
+    $query = "SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId IN (SELECT circleId FROM friendcircles WHERE name = 'everyone' AND userId = '$userId'))";
+    $friends = db_query($query);
+    
+    while($col = $friends->fetch_assoc()){
+        //gets friend of friends
+        $colUserId = $col['userId'];
+        $friendsoffriends = db_query("SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId IN (SELECT circleId FROM friendcircles WHERE name = 'everyone' AND userId= $colUserId))");
+
+        while($row = $friendsoffriends->fetch_assoc()){
             if ($row['userId'] == $_SESSION['userId']){
                 // echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of friend:'.$col['userId'].'->'.$row['userId'].'<br>';
                 // echo 'Returned: ';
