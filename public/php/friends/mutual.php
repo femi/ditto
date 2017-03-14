@@ -4,41 +4,59 @@
     require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_connect.php");
     require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_query.php");
     require_once("$_SERVER[DOCUMENT_ROOT]/../resources/db/db_quote.php");
-    INCLUDE("$_SERVER[DOCUMENT_ROOT]/php/permissions.php");
+
 
 // functions
 
 //function checks how many mutual friends a user(anonId) has with session.user(userId)
     function mutualFriends ($anonId){
     
-    //Checks if user is currently a friend	
-    	if (isUserFriend($anonId)){
-        echo 'You are friends with '.$anonId.'<br>';
-      }
+    // Checks if user is currently a friend	
+    	// if (isUserFriend($anonId)){
+     //    echo 'You are friends with '.$anonId.'<br>';
+     //  } else {
+     //    echo 'You are NOT friends with this user <br>';
+     //  }
 
     //Checks how many mutual friends session.user has with anonId  
-      echo "You have ".countMutual($anonId)." mutual friends with ".$anonId."<br>";
+        return countMutual($anonId);
+
 
 
     }
 
     //function returns how many mutual friend
     function countMutual ($anonId){
-    	$count= 0;
-        // echo "session Id: ".$_SESSION['userId'];
-        // echo "<br>anon Id: ".$anonId;
+    
+        $results = db_query("SELECT COUNT(*) AS mutualcount FROM (SELECT fcu.userId, COUNT(fcu.userId) AS mutual FROM ((SELECT circleId FROM friendcircles AS fc1 WHERE name = 'everyone' AND fc1.userId = {$anonId}) UNION (SELECT circleId FROM friendcircles AS fc2 WHERE name ='everyone' AND fc2.userId = {$_SESSION['userId']})) AS joined_circles INNER JOIN friendcircle_users AS fcu ON joined_circles.circleId = fcu.circleId GROUP BY fcu.userId HAVING mutual > 1) AS mutualfriends ");
 
-        $results = db_query(" SELECT userId, COUNT(userId) as mutual FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$_SESSION['userId'].") OR circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$anonId.") GROUP BY userId having count(userId) > 1 ");
-
-        while ($row = $results->fetch_assoc()) {
-        $mutualFriend = $row['userId'];
-        // echo "<br>Mutual friend Id: ".$mutualFriend." <br>";
-        $count++;
+        if($results === false) {
+            echo mysqli_error(db_connect());
+        } else {
+            $row = $results->fetch_assoc();
+            $count = $row['mutualcount'];
+            return $count;
         }
 
-    	return $count;
+    	
     }
 
-echo mutualFriends(7);
+    function isUserFriend($anonId){
+            // (userId of all in (everyone circle of (owner of given albumId)))
+            $friends = db_query("SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE name='everyone' AND userId=".$_SESSION['userId'].")");
+
+
+                while($row =$friends->fetch_assoc()){
+
+                    if ($row['userId'] == $anonId){
+
+
+                        return 1;
+                    } else {
+                            echo 'run';
+                    }
+                }
+}
+
 
 ?>

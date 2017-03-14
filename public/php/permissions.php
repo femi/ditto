@@ -85,8 +85,8 @@ function isUserFriend($albumId){
                 while($row =$friends->fetch_assoc()){
                     // echo $row['userId'];
                     if ($row['userId'] == $_SESSION['userId']){
-                        // echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of owner<br>';
-                        // echo 'Returned: ';
+                        echo 'Yes, logged in user: '.$_SESSION['userId'].' is friend of owner<br>';
+                        echo 'Returned: ';
                         return 1;
                     } else {
                         echo 'No, logged in user: '.$_SESSION['userId'].' is NOT a friend of owner<br>';
@@ -147,50 +147,11 @@ function isUserFriendofFriend($albumId){
 }
 
 
-
-
-function allFriendsOfFriends(){
-
-
-// get the logged in user's friends
-        $friends = db_query("SELECT * FROM users WHERE userId IN (
-            SELECT userId FROM friendcircle_users WHERE circleId=(
-                SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$_SESSION['userId']."))");
-
-
-        while($col = $friends->fetch_assoc()){
-                    //gets friend of friends
-                    $friendsoffriends = db_query("SELECT DISTINCT * FROM users WHERE userId IN (
-                        SELECT userId FROM friendcircle_users WHERE circleId=(
-                            SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$col['userId']."))");
-                            $fuserId = $col['userId'];
-                            $ffName = $col['fName'];
-                            $flName = $col['lName'];
-                        
-                        while($row =$friendsoffriends->fetch_assoc()){
-
-                            $userId = $row['userId'];
-                            $fName = $row['fName'];
-                            $lName = $row['lName'];
-
-                            echo $userId.". ".$fName." ".$lName." is a friend of friend(".$fuserId.". ".$ffName." ".$flName.")<br>";
-
-                           
-                        }
-
-        }
-
-}
-
-
 /////////// Issues
 // returning 0 only loops once so need to get rid of it or implement some other way
 
 ?>
 
-
-
-<!-- FOR TESTING PURPOSES ONLY
 Album Restriction Level:<br>
 <?php echo getRestrictionLevel(5)?><br><br>
 
@@ -208,7 +169,3 @@ Is user a friend of a friend?<br>
 <br><br>
 User Authentication:: <br>
 <?php echo userCanviewAlbum(5) ?>
--->
-
-
-
