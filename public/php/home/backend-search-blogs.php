@@ -55,8 +55,9 @@ if(isset($query)){
     // could probably user their everyone friendCircle but should be same
     $sql = "select * from users as u
             inner join friendcircle_users as fcu on fcu.userId = u.userId
-            inner join friendcircles as fc on fc.circleId = fcu.circleId
-            where fc.userId = $userId and concat(fName, ' ', lName) like '%".$query."%'";
+            inner join friendcircles as fc on fc.circleId =
+            fcu.circleId
+            where fc.userId = $userId and fc.name = 'everyone' and concat(fName, ' ', lName) like '%".$query."%'";
 
 
     if($result = mysqli_query($connection, $sql)){
