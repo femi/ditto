@@ -25,7 +25,6 @@
               <p>Modify your personal information</p>
               <form action="/validate.php"  method="post">
                 <div class="control is-horizontal">
-
                   <div class="control is-grouped">
                     <p class="control is-expanded">
                       <input class="input is-medium" type="text" name="fName" value="<?php echo $user_data['fName'];?>" placeholder="First name" required>
@@ -37,6 +36,9 @@
                 </div>
                 <p class="control">
                   <input class="input is-medium" type="text" name="city" value="<?php echo $user_data['city'];?>" placeholder="City" required>
+                </p>
+                <p class="control">
+                  <textarea class="textarea is-medium" type="text" name="description" placeholder="Biography"><?php echo $user_data['description'];?></textarea>
                 </p>
                 <p class="control">
                   <input class="input is-medium" type="text" name="mobileNumber" value="<?php echo $user_data['mobileNumber'];?>" placeholder="Mobile Number" required>
@@ -68,11 +70,6 @@
 
             <h3 class="title-3">Interests 🖌</h3>
             <p>Show your uniqueness.</p>
-
-              <p class="control">
-                <textarea class="textarea is-medium" placeholder="Biography"></textarea>
-              </p>
-
 
               <div id="alltags" class="content">
               <?php
