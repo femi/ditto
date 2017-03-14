@@ -33,24 +33,18 @@ function all_users() {
 }
 
 // gets all current users not in this circle and echo's option for each user
-function all_noncircle_friends() {
+function all_noncircle_friends($session_user, $session_circle) {
 
     //returns all members of everyone circle but not those already in the current circle
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId'].")))");
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$session_user." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$session_user." AND circleId=".$session_circle.")))");
 
-    if($result === false) {
-        echo mysqli_error(db_connect());
-    } else {
+    while($row = $result->fetch_assoc()){
 
-        while($row = $result->fetch_assoc()){
+        echo $row['userId'];
+        echo $row['fName'];
+      }
+      
 
-            $userId = $row['userId'];
-            $fName = $row['fName'];
-
-            //only displays users apart from the logged in user
-             if ($userId != $_SESSION['userId']){echo '<option value="'.$userId.'">'.$userId.'. '.$fName.'</option>';}
-        }
-    }
 
 }
 

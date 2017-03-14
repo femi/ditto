@@ -1,8 +1,18 @@
 <?php
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friends-in-circle.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/get-all-users.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 $currentCircle = $_SESSION['circleId'];
 ?>
+
+dsajopjdklefklrwnkwlfrewr
+<?php
+
+
+echo all_noncircle_friends($currentCircle, $_SESSION['userId']);
+
+
+ ?>
 
 <div class="container">
   <br><h2 class="title is-2">Circle Name</h2><hr>
@@ -15,6 +25,7 @@ $currentCircle = $_SESSION['circleId'];
         <p class="control">
           <span class="select">
             <select>
+
               <option>Friend</option>
               <option>Friend 1</option>
               <option>Friend 2</option>
@@ -108,5 +119,10 @@ function getTags($userId) {
 	}
 	return $tags;
 }
+
+echo $currentCircle;
+echo $_SESSION['userId'];
+
+// add_friend($circleId, $userId); // ass a user to the circle
 
 ?>

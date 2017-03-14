@@ -226,7 +226,7 @@ if (isset($_SESSION['userId'])) {
     });
 
     $route->add("^circlez/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/circles_layout.php");
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/backup.php");
     });
     $route->add("^circlezz/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");

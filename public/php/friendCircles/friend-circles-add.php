@@ -29,6 +29,7 @@ function add_friend($circleId, $userId) {
 add_friend($_SESSION['circleId'], $_POST['userId']);
 
 ?>
+
 <br>
 <form action="../../circles" method="post">
     <input type="submit" value="Back to friends in circle">

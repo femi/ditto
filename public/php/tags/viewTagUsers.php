@@ -33,7 +33,6 @@ function displayAllResults($tag) {
 }
 
 function displaySearchResult($user) {
-
 	$image = "";
 	$full_name = $user['fName'] .  " " . $user['lName'];
 	$biography = $user['description'];
