@@ -1,65 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>FriendCircle CRUD</title>
-    <?php
-    // session_start();
+<?php
     require_once(__DIR__.'/get-all-users.php');
     require_once(__DIR__.'/friend-circles-R.php');
-require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
-    ?> 
-</head>
-<body>
+    require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+?>
 
-<h1>F/C CRUD</h1>    
+<div class="container">
+  <br><h2 class="title is-2">Circles</h2><hr>
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <h4 class="title is-4"><strong>New</strong></h4>
+        <div class="content">
+          Use this area create new circles for the people you want to connect with.
+        </div>
+        <form action="circles/addCircle" method="post">
+          <p class="control">
+            <input class="input" type="text" placeholder="Enter a circle name e.g. Colleagues" name="circleName"></input>
+          </p>
+          <p class="control">
+            <input class="button is-primary" type="submit" value="Create">
+          </p>
+        </form>
+        <hr>
+      </div>
+      <div class="column is-1"></div>
+      <div class="column">
+        <h4 class="title is-4"><strong>Your Circles</strong></h4>
+        <?php displayAllCircles($_SESSION['userId']); ?>
+      </div>
+    </div>
+</div>
 
-<!-- retrieve a user's friend-circles -->
-<br>
-List of user's friend-circles:
-    <?php
-    print_users_FC($_SESSION['userId']);
-    ?>
-<br>
-<!-- To create a new circle for user that is logged in -->
-Create new circle for a user:
-<form action="circles/addCircle" method="post">
-    <input type="text" placeholder="Enter a circleName" name="circleName"></input>
-    <input type="submit" value="Create">
-</form>
+<?php
+  /* Displays a circle when given a mysqli result */
+  function displayCircle($circle) {
 
-<!-- Update the name of logged in users friend circle -->
-Update friend-circles name:
-<form action="circles/updateCircle" method="post">
-    <select name="circleId">
-        <?php
-        users_circles();
-        ?>   
-    </select>
-    <input type="text" placeholder="Enter new name" name="newName"></input>
-    <input type="submit" value="Rename">
-</form>
+    $circle_id = $circle['circleId'];
+    $circle_name = $circle['name'];
+    $username = $_SESSION['username'];
 
+    $circle_html = "
+            <article id=\"ci_$circle_id\" class=\"media\">
+              <figure class=\"media-left\">
+                <p class=\"image is-64x64\">
+                  <img class=\"img-circle\" src=\"http://bulma.io/images/placeholders/128x128.png\">
+                </p>
+              </figure>
+              <div class=\"media-content\">
+                <div class=\"content\">
+                  <p>
+                    <a href=\"/$username/circles/$circle_id\"><strong>$circle_name</strong></a><br>
+                    Hello
+                  </p>
+                </div>
+              <div id=\"alltags\">
+              </div>
+              </div>
+              <div class=\"media-right\">
+                <button class=\"delete\" onclick=\"deleteCircle($circle_id)\"></button>
+              </div>
+            </article>";
+    return $circle_html;
+  }
 
-<!-- Retrieve friends from a logged in user's circle -->
-Retrieve 'friends' form friend-circles :
-<form action="circles/friends" method="post">
-    <select name="circleId">
-        <?php
-         users_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Retrieve">
-</form>
+  function displayAllCircles($userId) {
+    $all_circles = retrieve_friend_circles($userId);
+    $all_circles_html = "";
 
-Delete circle:
-<form action="circles/deleteCircle" method="post">
-    <select name="circleId">
-        <?php
-        users_circles();
-        ?>   
-    </select>
-    <input type="submit" value="Delete">
-</form>
-
-</body>
-</html>
+    while($circle = $all_circles->fetch_assoc()){
+      $all_circles_html = $all_circles_html . displayCircle($circle);
+    }
+    echo $all_circles_html;
+    }
+?>

@@ -19,7 +19,7 @@ function all_users() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
     	while($row = $result->fetch_assoc()){
 
 	    	$userId = $row['userId'];
@@ -41,7 +41,7 @@ function all_noncircle_friends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
 
             $userId = $row['userId'];
@@ -65,7 +65,7 @@ function all_circle_friends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
 
             $userId = $row['userId'];
@@ -101,7 +101,7 @@ function users_circles() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $circleId = $row['circleId'];
             $name = $row['name'];
@@ -120,7 +120,7 @@ function get_incomingrequests() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $friendId = $row['friendId'];
             echo '<option value="'.$friendId.'">'.$friendId.'</option>';
@@ -136,7 +136,7 @@ function get_outgoingrequests() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             echo '<option value="'.$userId.'">'.$userId.'</option>';
@@ -152,7 +152,7 @@ function get_friends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             if ($userId != $_SESSION['userId']){
@@ -171,7 +171,7 @@ function get_nonfriends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             if ($userId != $_SESSION['userId']){

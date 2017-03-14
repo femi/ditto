@@ -29,7 +29,7 @@ function remove_all_friend($circleId) {
 // Delete a circle by circleId
 function delete_circle($circleId) {
     $result = db_query("DELETE FROM friendcircles WHERE circleId = ".db_quote($circleId));
-   
+
     if($result === false) {
         echo mysqli_error(db_connect());
         echo '<br>PLEASE REMOVE ALL USERS WITHIN FRIEND CIRCLE FIRST';
