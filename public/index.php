@@ -211,6 +211,16 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
     });
 
+    // delete this after implementing
+    //-------------------------------------
+    $route->add("^circlez/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/circles_layout.php");
+    });
+    $route->add("^circlezz/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
+    });
+    //-------------------------------------
+
 // Routes for friends
    $route->add("^(\w+)/friends/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
