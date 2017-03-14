@@ -23,7 +23,7 @@
 </tr>
 <?php
 
-    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
+    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
     if ($friends) {
         while($row = $friends->fetch_assoc()){
             echo '<tr>

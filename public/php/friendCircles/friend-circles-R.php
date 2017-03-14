@@ -14,7 +14,7 @@ $connection = db_connect(); // the db connection
 
 // Retrieve all friend circles for a given userId
 function retrieve_friend_circles($userId) {
-    $result = db_query("SELECT * FROM friendCircles WHERE userId = ". $userId);
+    $result = db_query("SELECT * FROM friendcircles WHERE userId = ". $userId);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {

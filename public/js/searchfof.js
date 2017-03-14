@@ -13,6 +13,10 @@ function setupFofSearch() {
         if(term.length){
             $.post("/php/friends/backend-search-fof.php", {query: term}).done(function(data){
                 // Display the returned data in browser
+                if(data.length == 0) {
+                    data = "No users found matching <b>" + term + "</b>";
+                }
+
                 fofResultDropdown.html(data);
                 fofResultDropdown.show();
             });
@@ -45,6 +49,10 @@ function setupUserSearch() {
         if(term.length){
             $.post("/php/friends/backend-search-user.php", {query: term}).done(function(data){
                 // Display the returned data in browser
+                if(data.length == 0) {
+                    data = "No users found matching <b>" + term + "</b>";
+                }
+
                 userResultDropdown.html(data);
                 userResultDropdown.show();
             });
