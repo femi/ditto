@@ -39,7 +39,7 @@ if(isset($query)){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S BLOG
                 // assuming url is /username/#blogId
-                echo "<i class='fa fa-newspaper-o' aria-hidden='true'></i><a href=/".$row['username']."#b_".$row['blogId']."><p>". $row['fName']." ".$row['lName']." - <i>". $row['trimcontent'] ."...</i></p></a>";
+                echo "<div class = level-left><i class='fa fa-newspaper-o' aria-hidden='true' style='font-size: 15px; padding-right: 5px;'></i><a href=/".$row['username']."#b_".$row['blogId']."><p> ". $row['fName']." ".$row['lName']." - <i>". $row['trimcontent'] ."...</i></p></a></div>";
             }
             // Close result set
             mysqli_free_result($result);
@@ -63,7 +63,7 @@ if(isset($query)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S PROFILE
-                echo "<i class='fa fa-user-o' aria-hidden='true'></i><a href=".$row['username']."><p>" . $row['fName'] . " ". $row['lName'] ."</p></a>";
+                echo "<div class = level-left><i class='fa fa-user-o' aria-hidden='true' style='font-size: 15px; padding-left: 3px; padding-right: 8px;'></i><a href=".$row['username']."><p> " . $row['fName'] . " ". $row['lName'] ."</p></a></div>";
             }
             // Close result set
             mysqli_free_result($result);
