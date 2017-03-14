@@ -75,7 +75,7 @@ if (isset($_SESSION['userId'])) {
                 // User is visiting their own page
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments.php");
                 get_photo_page_with_comments($pathArray[0], $pathArray[2], $pathArray[3]);
-            } else if (userCanViewAlbum($pathArray[2])) {
+            } else if (userCanViewProfile($pathArray[0]) && userCanViewAlbum($pathArray[2])) {
                 // User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments_nonowner.php");
                 get_photo_page_with_comments_nonowner($pathArray[0], $pathArray[2], $pathArray[3]);
@@ -99,7 +99,7 @@ if (isset($_SESSION['userId'])) {
                 echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos.php");
                 non_ajax_get_album_photos($pathArray[2], $pathArray[0]);
-            } else if (userCanViewAlbum($pathArray[2])) {
+            } else if (userCanViewProfile($pathArray[0]) && userCanViewAlbum($pathArray[2])) {
                 echo "<br />";
                 echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos_nonowner.php");
@@ -125,16 +125,19 @@ if (isset($_SESSION['userId'])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums.php");
                 retrieve_user_albums($_SESSION['userId'], $pathArray[0]);
                 // new_retrieve_user_albums.php($userId);
-            } else {
+            } else if (userCanViewProfile($pathArray[0])) {
                 echo "<br />";
                 echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums_nonowner.php");
                 retrieve_user_albums_nonowner($pathArray[0]);
                 // show all albums for which the session user is part of the username's friend circles.
+            } else {
+                echo "403";
             }
         } else {
             echo "<br />";
             echo "Invalid username given"; 
+            echo "404";
         }
         // check if the session user has the same username
     });
@@ -219,30 +222,105 @@ if (isset($_SESSION['userId'])) {
 
 // Routes for friends
    $route->add("^(\w+)/friends/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+            } else {
+                echo "403";
+            }
+        } else {
+            echo "404";
+        }
     });
-     $route->add("^(\w+)/friends/accept/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
+    $route->add("^(\w+)/friends/accept/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
+            } else {
+                echo "403";
+            }
+        } else {
+            echo "404";
+        }
     });
-       $route->add("^(\w+)/friends/request/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
+    $route->add("^(\w+)/friends/request/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
+            } else {
+                echo "403";
+            }
+        } else {
+            echo "404";
+        }
+
     });
 
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
     });
     $route->add("^(\w+)/sendUserMessage.php/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
+
     });
     $route->add("^(\w+)/viewUserReceived.php/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
     });
     $route->add("^(\w+)/sendCircleMessage.php/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
+
     });
     $route->add("^(\w+)/viewCircleMessages.php/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+            include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
     });
 
 // Routes for profile
