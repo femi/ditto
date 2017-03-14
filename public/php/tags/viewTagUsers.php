@@ -5,6 +5,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 ?>
 
 <?php
@@ -19,7 +20,7 @@ function displayAllResults($tag) {
 			mysqli_error(db_connect());
 	}
 	else if (mysqli_num_rows($result) === 0) {
-			echo "There are currently no users interested in this...lol.";
+			echo "There are currently no users interested in this...that's a bit awkward! lol.";
 	}
 	else {
 
@@ -27,7 +28,11 @@ function displayAllResults($tag) {
 		echo "<div class=\"container\">";
 		echo "<br><h2 class=\"title is-2\">#$tag</h2><hr>";
 		while ($user = $result->fetch_assoc()) {
+		//ommits user is already a friend 
+			if ($user['userId'] === $_SESSION['userId'] /*OR isUserFriend($user['userId'])*/){ 
+			}else{
 			displaySearchResult($user);
+			}
 		}
 		echo "<div class=\"container\">";
 	}
@@ -42,6 +47,12 @@ function displaySearchResult($user) {
 	$userId = $user['userId'];
 	$username = $user['username'];
 	$tags = getTags($userId);
+	$mutualFriends = countMutual($userId);
+	if (isUserFriend($user['userId'])){
+	$button = "<button class=\"button is-info\">Add Friend</button>";
+	}else{
+	$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
+	}
 
 	$search_result = "
 			<article class=\"media\">
@@ -53,8 +64,7 @@ function displaySearchResult($user) {
 				<div class=\"media-content\">
 					<div class=\"content\">
 						<p>
-							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br>
-							$biography
+							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>$mutualFriends Mutual Friends</small><br>$biography
 						</p>
 					</div>
 				<div id=\"alltags\">
@@ -62,7 +72,7 @@ function displaySearchResult($user) {
 				</div>
 				</div>
 				<div class=\"media-right\">
-					<button class=\"button is-info\">Add Friend</button>
+					$button
 				</div>
 			</article>";
 
