@@ -35,6 +35,7 @@
   <body>
     <a href="../albums"><p>Back to albums</p></a>
     <?php 
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
         function showAlbumPrivacySettings($albumId) {
 
             $connection = db_connect();

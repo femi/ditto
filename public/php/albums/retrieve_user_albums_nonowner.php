@@ -13,6 +13,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photo.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
 /**
  * @param $userId: used to get the user's album data.
