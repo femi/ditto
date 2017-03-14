@@ -184,7 +184,7 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/validate.php");
     });
     $route->add("permission/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/permissions.php");
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
     });
 
 // Routes for circles
