@@ -49,9 +49,9 @@ function displaySearchResult($user) {
 	$tags = getTags($userId);
 	$mutualFriends = countMutual($userId);
 	if (isUserFriend($user['userId'])){
-	$button = "<button class=\"button is-info\">Add Friend</button>";
-	}else{
-	$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
+		$button = "<button class=\"button is-info\">Add Friend</button>";
+		}else{
+		$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
 	}
 
 	$search_result = "
