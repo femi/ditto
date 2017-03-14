@@ -187,6 +187,12 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/permissions.php");
     });
 
+// Routes for mutual friends
+    $route->add("mutual/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
+    });
+
+
 // Routes for circles
     $route->add("^(\w+)/circles/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-CRUD.php");
@@ -220,6 +226,7 @@ if (isset($_SESSION['userId'])) {
        $route->add("^(\w+)/friends/request/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
     });
+
 
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
