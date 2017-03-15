@@ -1,5 +1,6 @@
 <?php
   require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+  require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/get-all-users.php");
 ?>
 
 
@@ -19,42 +20,7 @@
             <br><br><a href="#">View recommendations</a>
           </div>
         <h4 class="title is-4"><strong>Requests</strong></h4>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-24x24">
-              <img src="http://bulma.io/images/placeholders/128x128.png">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Full Name</strong>
-              </p>
-            </div>
-          </div>
-          <div class="media-right">
-            <a class="button is-small is-success is-outlined">Accept</a>
-            <a class="button is-small is-danger is-outlined">Reject</a>
-          </div>
-        </article>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-24x24">
-              <img src="http://bulma.io/images/placeholders/128x128.png">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>Full Name</strong>
-              </p>
-            </div>
-          </div>
-          <div class="media-right">
-            <a class="button is-small is-success is-outlined">Accept</a>
-            <a class="button is-small is-danger is-outlined">Reject</a>
-          </div>
-        </article><br>
+        <?php  get_incomingFrequests() ?><br>
       </div>
       <div class="column is-1"></div>
       <div class="column">

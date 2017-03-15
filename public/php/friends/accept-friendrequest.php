@@ -16,9 +16,9 @@ $connection = db_connect(); // the db connection
 function accept_request($friendId) {
 
 	 
-    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
+    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
 
-    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
+    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendcircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
 
     if($result === false OR $result1 === false) {
         echo mysqli_error(db_connect());
@@ -79,27 +79,32 @@ function delete_friend($friendId) {
 
 }
 
+$username = $_SESSION['username'];
+
 if (isset($_POST['accept'])) {
     accept_request($_POST['friendId']);
     delete_request($_POST['friendId']);
+    header ("Location: /$username/friends");
 }
 
 if (isset($_POST['delete'])) {
     delete_request($_POST['friendId']);
-
+    header ("Location: /$username/friends");
 }
 
 if (isset($_POST['retract'])) {
     retract_request($_POST['friendId']);
+    header ("Location: /$username/friends");
 }
 
 if (isset($_POST['abolish'])) {
 
     delete_friend($_POST['friendId']);
+    header ("Location: /$username/friends");
 }
 
 ?>
-<br>
+<!-- <br>
 <form action="../friends" method="post">
     <input type="submit" value="Back to friend-requests">
-</form>
+</form> -->

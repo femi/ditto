@@ -213,7 +213,8 @@ if (isset($_SESSION['userId'])) {
 
 // Routes for friends
    $route->add("^(\w+)/friends/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+        
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
     });
      $route->add("^(\w+)/friends/accept/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
@@ -221,8 +222,8 @@ if (isset($_SESSION['userId'])) {
        $route->add("^(\w+)/friends/request/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
     });
-    $route->add("^friendz/?$", function() {
-         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
+    $route->add("^(\w+)/friendz/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
      });
 
 // Routes for messages
