@@ -13,6 +13,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_album_photo.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
 /**
  * @param $userId: used to get the user's album data.
@@ -41,38 +42,23 @@ function retrieve_user_albums_nonowner($userId, $username) {
     }
 
     if ($qry_result->num_rows > 0) {
-        // $json = Array();
-        // while($row = $qry_result->fetch_assoc()){
-        //    $json[] = array(
-        //        'albumId' => $row['albumId'],
-        //        'userId' => $row['userId'],
-        //        'albumName' => $row['albumName'],
-        //        'createdAt' => $row['createdAt'],
-        //            'updatedAt' => $row['updatedAt']
-        //    );
-        // }
-        // $jsonstring = json_encode($json);
-        // echo $jsonstring;
-        //
-        $first = true;
-
+        echo "<div class=\"container\">";
+        echo "<h1 class=\"title\">Albums</h1>";
+        echo "<div class=\"columns\">";
         while ($row = $qry_result->fetch_assoc()){
             $albumName = $row['albumName'];
             $albumId = $row['albumId'];
-            if ($first === true) {
-                echo "<h1>Your Albums</h1>";   
-                $first = false;
-            }
             try {
                 $photo = get_album_photo($userId, $albumId, $username);
-                echo "<div class=\"album-thumbnail\"><p>$albumName</p>$photo</div>";
+                echo "<div class=\"column is-3\"><div class=\"card\"><div class=\"card-image\"><figure class=\"image is-2by1\">$photo</figure></div><div class=\"card-content\"><div class=\"media\"><div cl      ass=\"media-left\"><p class=\"title is-4\">$albumName</p></div></div></div></div></div>";
             } catch (Exception $e) {
                 // do something
                 echo "Get_album_photo is broken";
             }
         }
-
+        echo "</div>"; // close columns div
         echo "<div id=\"ajaxResult\"><a id=\"albumCreator\" class=\"button is-info\" onclick=\"setupCreateAlbum($userId)\">Create another album?</a></div>";
+        echo "</div>"; // close container div
 
     } else {
         // no rows found, offer to create album?

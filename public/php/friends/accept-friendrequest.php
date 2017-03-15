@@ -16,9 +16,9 @@ $connection = db_connect(); // the db connection
 function accept_request($friendId) {
 
 	 
-    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
+    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
 
-    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendCircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
+    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId FROM friendcircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
 
     if($result === false OR $result1 === false) {
         echo mysqli_error(db_connect());
@@ -65,9 +65,9 @@ function retract_request($friendId) {
 //to delete a friend for both users everyone circle.
 function delete_friend($friendId) {
 
-    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId =(SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId']." AND name='everyone')");
+    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone')");
 
-    $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId from friendCircles WHERE userId =".$friendId." AND name='everyone')");
+    $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$friendId." AND name='everyone')");
     
     if($result === false OR $result1 === false)  {
         echo mysqli_error(db_connect());
