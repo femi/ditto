@@ -17,16 +17,21 @@ $currentCircle = $_SESSION['circleId'];
     <div class="column is-one-quarter">
       <h4 class="title is-4"><strong>Add member</strong></h4>
         <div class="content">
-          Use this area to add your friends to your existing circles.
+          Use this area to add friends to your existing circles.
         </div>
         <span class="select">
          <form action="addFriend" method="post">
+           <p class="control">
             <select name="userId">
-            <?php 
+              <option selected="true" disabled="disabled">Select a friend</option>
+            <?php
             all_noncircle_friends($currentCircle);
             ?>
             </select>
-          <input class="button" type="submit" value="Add"><br>
+          </p>
+          <p class="control">
+            <input class="button is-primary" type="submit" value="Add"><br>
+          </p>
          </form>
         </span>
     </div>

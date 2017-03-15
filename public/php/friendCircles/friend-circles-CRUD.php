@@ -36,14 +36,13 @@
 
     $circle_id = $circle['circleId'];
     $circle_name = $circle['name'];
+    $letter = substr($circle_name, 0, 1);
     $username = $_SESSION['username'];
 
     $circle_html = "
             <article id=\"ci_$circle_id\" class=\"media\">
               <figure class=\"media-left\">
-                <p class=\"image is-64x64\">
-                  <img class=\"img-circle\" src=\"http://bulma.io/images/placeholders/128x128.png\">
-                </p>
+                <a class=\"circle button is-primary\" href=\"/$username/circles/$circle_id\"><strong><h1 class=\"title is-5\">$letter</h1></strong></a>
               </figure>
               <div class=\"media-content\">
                 <div class=\"content\">

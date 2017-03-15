@@ -25,6 +25,9 @@ function insert_blog($userId, $content) {
 
 }
 
-// insert_blog($_POST['userId'], $_POST['blogEntry']);
+if (isset($_POST['blogEntry'])) {
+  insert_blog($_SESSION['userId'], $_POST['blogEntry']);
+  header("Location: /");
+}
 
 ?>
