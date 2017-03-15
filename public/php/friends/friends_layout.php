@@ -21,7 +21,7 @@
         <h4 class="title is-4"><strong>People who you may know</strong></h4>
           <div class="content">
             You can view friend recomnendations using our black box algorithm.
-            <br><br><a href="#">View recommendations</a>
+            <br><br><a href="friends/recommendations">View recommendations</a>
           </div>
         <h4 class="title is-4"><strong>Requests</strong></h4>
         <?php  get_incomingFrequests() ?><br>
