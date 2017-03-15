@@ -44,9 +44,9 @@ function change_password($userId, $old_password, $new_password) {
   }
 }
 
-function update_details($fName, $lName, $username, $city, $mobileNumber, $email) {
+function update_details($fName, $lName, $username, $city, $mobileNumber, $email, $description) {
   $userId = $_SESSION['userId'];
-  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city' WHERE `userId` = $userId";
+  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`='$description' WHERE `userId` = $userId";
   $result = db_query($query);
 }
 
@@ -63,7 +63,7 @@ function delete_tag($userId, $tag) {
 }
 
 if( $_POST['updateDetails'] ) {
-  update_details($_POST['fName'], $_POST['lName'], $_POST['username'], $_POST['city'], $_POST['mobileNumber'], $_POST['email']);
+  update_details($_POST['fName'], $_POST['lName'], $_POST['username'], $_POST['city'], $_POST['mobileNumber'], $_POST['email'], $_POST['description']);
   header("Location: /settings");
 }
 

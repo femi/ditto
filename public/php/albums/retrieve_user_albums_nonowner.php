@@ -43,8 +43,10 @@ function retrieve_user_albums_nonowner($username) {
     }
 
     if ($qry_result->num_rows > 0) {
-
-        echo "<h1 class=\"title\">Albums</h1>";   
+        echo "<div class=\"container\">";
+        echo "<br>";
+        echo "<h1 class=\"title\">Albums</h1>";
+        echo "<div class=\"columns\">";
         while ($row = $qry_result->fetch_assoc()){
             $userId = $row['userId'];
             $albumName = $row['albumName'];
@@ -52,13 +54,14 @@ function retrieve_user_albums_nonowner($username) {
             if (userCanViewAlbum($albumId)) {
                 try {
                     $photo = get_album_photo($userId, $albumId, $username);
-                    echo "<div class=\"album-thumbnail\"><h6 class=\"title is-4\">$albumName</h6>$photo</div>";
-                } catch (Exception $e) {
+                    echo "<div class=\"column is-3\"><div class=\"card\"><div class=\"card-image\"><figure class=\"image is-2by1\">$photo</figure></div><div class=\"card-content\"><div class=\"media\"><div class=\"media-left\"><p class=\"title is-4\">$albumName</p></div></div></div></div></div>";                } catch (Exception $e) {
                     // do something
                     echo "Get_album_photo is broken";
                 }
             }
         }
+        echo "</div>"; // close columns div TODO might delete
+        echo "</div>"; // close container div TODO might delete
 
     } else {
         // no rows found, offer to create album?

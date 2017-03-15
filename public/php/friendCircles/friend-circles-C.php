@@ -19,19 +19,22 @@ function insert_circle($circleName) {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-    	echo 'Circle Added';
     }
 
 }
 
 if (strlen($_POST['circleName'])>0 && $_POST['circleName'] != "everyone"){
 	insert_circle($_POST['circleName']);
+  $username = $_SESSION['username'];
+  header ("Location: /$username/circles");
 } else {
 	echo "Please enter a valid circle name. <br>'everyone' is a reserved name.";
 }
 
+
+
 ?>
 
-<form action="../circles" method="post">
+<!-- <form action="../circles" method="post">
     <input type="submit" value="Back to CRUD">
-</form>
+</form> -->

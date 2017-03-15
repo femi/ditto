@@ -55,15 +55,16 @@ if(isset($query)){
     // could probably user their everyone friendCircle but should be same
     $sql = "select * from users as u
             inner join friendcircle_users as fcu on fcu.userId = u.userId
-            inner join friendcircles as fc on fc.circleId = fcu.circleId
-            where fc.userId = $userId and concat(fName, ' ', lName) like '%".$query."%'";
+            inner join friendcircles as fc on fc.circleId =
+            fcu.circleId
+            where fc.userId = $userId and fc.name = 'everyone' and concat(fName, ' ', lName) like '%".$query."%'";
 
 
     if($result = mysqli_query($connection, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S PROFILE
-                echo "<div class = level-left><i class='fa fa-user-o' aria-hidden='true' style='font-size: 15px; padding-left: 3px; padding-right: 8px;'></i><a href=".$row['username']."><p> " . $row['fName'] . " ". $row['lName'] ."</p></a></div>";
+                echo "<div class = level-left><i class='fa fa-user-o' aria-hidden='true' style='font-size: 15px; padding-left: 3px; padding-right: 8px;'></i><a href=/".$row['username']."><p> " . $row['fName'] . " ". $row['lName'] ."</p></a></div>";
             }
             // Close result set
             mysqli_free_result($result);
