@@ -11,7 +11,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 
 function getUsersCircles() {
     $userId = $_SESSION['userId'];
-    $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE friendcircle_users.userId = $userId OR friendcircles.userId = $userId");
+    $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE (friendcircles.name != 'everyone')  AND (friendcircle_users.userId = $userId OR friendcircles.userId = $userId)");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -216,7 +216,7 @@ function printUsersSingleThreadNames() {
 <form id="circleMessageForm" data-recipientCircleId="">
     <p class="control">
         <div id="circleMessageSearchContainer">
-            <p>Send a message to one of your circles:</p>
+            <p>Send a message to one of your circles, or one you have been included in:</p>
             <input class="input" type="text" placeholder="Which circle do you want to send a message to?" id="circleId" onkeyup="messageCircleSearch(this.value)"></input><br>
             <div id="circleMessageSearchResult"></div>
         </div>

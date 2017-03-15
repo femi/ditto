@@ -11,7 +11,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 function messageSingleUserSearch() {
-    
+
     $searchQuery = $_REQUEST['name'];
     $userId = $_SESSION['userId'];
 
@@ -23,15 +23,20 @@ function messageSingleUserSearch() {
         // something went wrong
     }
 
+    // search is empty, no results
+    if ($searchQuery == "") {
+        return;
+    }
+
     $query = "SELECT fName, lName, userId FROM users WHERE (fName LIKE '%$searchQuery%' OR lName LIKE '%$searchQuery%') AND userId IN (SELECT userId FROM friendcircle_users WHERE circleId IN (SELECT circleId FROM friendcircles WHERE userId = $userId))";
-    
+
     $result = db_query($query);
 
     if ($result === false) {
         echo mysqli_error(db_connect());
     } else {
         if (mysqli_num_rows($result) === 0) {
-            echo "No results found."; 
+            echo "No results found.";
         } else {
             while ($row = $result->fetch_assoc()) {
                 $fName = $row['fName'];
