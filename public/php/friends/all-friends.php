@@ -20,7 +20,10 @@ function displayAllResults($userId) {
 			mysqli_error(db_connect());
 	}
 	else if (mysqli_num_rows($result) === 0) {
+		echo "<div class=\"container\">";
+		echo "<br><h2 class=\"title is-2\">Friends List</h2><hr>";
 			echo "Sorry you have no friends...lol.";
+			echo "<div class=\"container\">";
 	}
 	else {
 
@@ -44,6 +47,7 @@ function displaySearchResult($user) {
 	$tags = getTags($userId);
 
 	$search_result = "
+			<form action=\"accept\" method=\"post\">
 			<article class=\"media\">
 				<figure class=\"media-left\">
 					<p class=\"image is-64x64\">
@@ -62,9 +66,10 @@ function displaySearchResult($user) {
 				</div>
 				</div>
 				<div class=\"media-right\">
-					<button class=\"button is-info\">Delete Friend</button>
+					<input name=\"friendId\" type=\"hidden\" value=\"".$userId." \">
+					<Input name =\"abolish\" type=\"submit\" class=\"button is-danger\" value=\"Delete\">
 				</div>
-			</article>";
+			</article></form>";
 
 	echo $search_result;
 }

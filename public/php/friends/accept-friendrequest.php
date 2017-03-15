@@ -100,7 +100,7 @@ if (isset($_POST['retract'])) {
 if (isset($_POST['abolish'])) {
 
     delete_friend($_POST['friendId']);
-    header ("Location: /$username/friends");
+    header ("Location: /$username/friends/all");
 }
 
 ?>
