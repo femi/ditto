@@ -26,8 +26,8 @@ $query = mysqli_real_escape_string($connection, $_POST['query']);
 if(isset($query)){
     // Attempt select query execution
 
-    // search content of currently logged in user's friends' blogs
-    // uses a user's 'everyone' friendCircle for search
+    // search content of the currently logged in user's friends' blogs
+    // uses the user's 'everyone' friendCircle for search
     $sql =  "select substr(b.content, 1, 50) as trimcontent, fName, lName, username, blogId from blogs as b
             inner join users as u on b.userId = u.userId
             inner join friendcircle_users as fcu on fcu.userId = b.userId
@@ -37,7 +37,6 @@ if(isset($query)){
     if($result = mysqli_query($connection, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
-                // TODO: INSERT CORRECT URL FOR USER'S BLOG
                 // assuming url is /username/#blogId
                 echo "<div class = level-left><i class='fa fa-newspaper-o' aria-hidden='true' style='font-size: 15px; padding-right: 5px;'></i><a href=/".$row['username']."#b_".$row['blogId']."><p> ". $row['fName']." ".$row['lName']." - <i>". $row['trimcontent'] ."...</i></p></a></div>";
             }
@@ -51,19 +50,19 @@ if(isset($query)){
         echo "ERROR: Could not execute $sql. " . mysqli_error($connection);
     }
 
-    // search all of a user's friends (in all of their friendCircles)
-    // could probably user their everyone friendCircle but should be same
-    $sql = "select * from users as u
-            inner join friendcircle_users as fcu on fcu.userId = u.userId
-            inner join friendcircles as fc on fc.circleId =
-            fcu.circleId
-            where fc.userId = $userId and fc.name = 'everyone' and concat(fName, ' ', lName) like '%".$query."%'";
+    // this is a useful query to search all a user's friends.
+    // search all of a user's friends (in their everyone circle)
+    // $sql = "select * from users as u
+    //         inner join friendcircle_users as fcu on fcu.userId = u.userId
+    //         inner join friendcircles as fc on fc.circleId =
+    //         fcu.circleId
+    //         where fc.userId = $userId and fc.name = 'everyone' and concat(fName, ' ', lName) like '%".$query."%'";
 
+    $sql = "SELECT * FROM users WHERE CONCAT(fName, ' ', lName) like '%".$query."%'";
 
     if($result = mysqli_query($connection, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
-                // TODO: INSERT CORRECT URL FOR USER'S PROFILE
                 echo "<div class = level-left><i class='fa fa-user-o' aria-hidden='true' style='font-size: 15px; padding-left: 3px; padding-right: 8px;'></i><a href=/".$row['username']."><p> " . $row['fName'] . " ". $row['lName'] ."</p></a></div>";
             }
             // Close result set
