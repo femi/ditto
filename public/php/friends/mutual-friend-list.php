@@ -18,26 +18,45 @@ function getMutualFriends($friendId) {
 			mysqli_error(db_connect());
 	}
 	else if (mysqli_num_rows($result) === 0) {
-			echo "There are currently no users interested in this...that's a bit awkward! lol.";
+			echo "You currently have no mutual friends";
 	}
 	else {
 
-		echo "<div class=\"container\">";
-		echo "<br><h2 class=\"title is-2\">#$tag</h2><hr>";
 		while ($user = $result->fetch_assoc()) {
 		//ommits logged in user
 			if ($user['userId'] === $_SESSION['userId']){ 
 			}else{
-			displayMutualFriends($user);
+			displayMutualFriends($user['userId']);
 			}
 		}
 		echo "<div class=\"container\">";
 	}
 }
 
+function getUsernameFromUserId($userId){
+	$results = db_query("SELECT username FROM users WHERE userId =".$userId);
+	if ($results === false) {
+		mysqli_error(db_connect());
+	}
+	else {
+		$row = $results->fetch_assoc();
+		$username = $row['username'];
+		return $username;
+	}
+}
 
 
-function displayMutualFriends($user) {
+function displayMutualFriends($userId) {
+
+$results = db_query("SELECT * FROM users WHERE userId =".$userId);
+
+if ($results === false) {
+		mysqli_error(db_connect());
+	}
+	else {
+		$user = $results->fetch_assoc();
+		}
+
 
 	$image = "";
 	$full_name = $user['fName'] .  " " . $user['lName'];
@@ -45,13 +64,8 @@ function displayMutualFriends($user) {
 	$location = $user['city'];
 	$userId = $user['userId'];
 	$username = $user['username'];
-	$tags = getTags($userId);
 	$mutualFriends = countMutual($userId);
-	if (isUserFriend($user['userId'])){
-		$button = "<button class=\"button is-info\">Add Friend</button>";
-		}else{
-		$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
-	}
+
 
 	$search_result = "
 			<article class=\"media\">
@@ -66,12 +80,6 @@ function displayMutualFriends($user) {
 							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>$mutualFriends Mutual Friends</small><br>$biography
 						</p>
 					</div>
-				<div id=\"alltags\">
-					$tags
-				</div>
-				</div>
-				<div class=\"media-right\">
-					$button
 				</div>
 			</article>";
 
@@ -81,6 +89,7 @@ function displayMutualFriends($user) {
 
 
 <div class="container">
-<br><h2 class="title is-2">Mutual friends with <?php //username ?> </h2><hr>
+<br><h2 class="title is-2">Mutual friends with <?php echo getUsernameFromUserId(2) ?> </h2><hr>
 	
 <div class="container">
+<?php getMutualFriends(2);?>
