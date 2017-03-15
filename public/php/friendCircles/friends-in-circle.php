@@ -97,7 +97,7 @@ echo '<br>';
 // print_users_FC($_POST['circleId']);
 
 ?>
-
+<!--
 Add a friend to current circle:
 
 <form action="friends/add" method="post">
@@ -122,4 +122,4 @@ Remove a friend from circle:
 
 <form action="../circles" method="post">
     <input type="submit" value="Back to CRUD">
-</form>
+</form> -->
