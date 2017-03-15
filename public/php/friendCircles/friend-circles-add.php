@@ -13,23 +13,27 @@ $connection = db_connect(); // the db connection
 // CUSTOM FUNCTIONS FOR THIS FILE
 
 // Insert content into blogs table
-function add_friend($circleId, $userId) {
+function add_friend($userId) {
 
-    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES (".db_quote($circleId).", ".db_quote($userId).")");
+    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES (".$_SESSION['circleId'].", ".db_quote($userId).")");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-        // insertion was successful, ooer.
-        echo "<br>successfully inserted<br>";
+        header("Location: /".$_SESSION['username']."/circles/".$_SESSION['circleId']);
+        exit();
+
 
     }
 
 }
 
-add_friend($_SESSION['circleId'], $_POST['userId']);
+
+add_friend($_POST['userId']);
 
 ?>
-<br>
+
+<!-- <br>
 <form action="../../circles" method="post">
     <input type="submit" value="Back to friends in circle">
 </form>
+ -->

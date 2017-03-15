@@ -5,6 +5,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/userIdHasUsername.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidAlbum.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidPhoto.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/isValidTag.php");
 
 /**
  * Apache redirects every server request to this file.
@@ -25,9 +26,9 @@ include "$_SERVER[DOCUMENT_ROOT]/php/routing/Route.php";
 if (isset($_SESSION['userId'])) {
     // User is logged in - create a new Route object
     $route = new Route();
-    
+
 // Routes for blogs
-    
+
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
@@ -42,6 +43,9 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^delete_blog.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
+    });
+    $route->add("^add_blog.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/userbloginsert.php");
     });
 // album routes
     $route->add("^(\w+)/albums/(\d+)/(.+)/delete/?$", function() {
@@ -172,6 +176,15 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/circles/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-CRUD.php");
     });
+    $route->add("^(\w+)/circles/(\d+)/", function() {
+        $pathArray = (explode('/', $_GET['uri']));
+        $_SESSION['circleId'] = $pathArray[2];
+
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
+    });
+    $route->add("^(\w+)/circles/addFriend/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
+    });
     $route->add("^(\w+)/circles/addCircle/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-C.php");
     });
@@ -187,9 +200,11 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/circles/friends/add/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
     });
-    $route->add("^(\w+)/circles/friends/remove/?$", function() {
+    $route->add("^(\w+)/circles/(\d+)/remove/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
     });
+
+
 
 // Routes for friends
    $route->add("^(\w+)/friends/?$", function() {
@@ -219,8 +234,27 @@ if (isset($_SESSION['userId'])) {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
     });
 
+// Routes for tags
+    $route->add("^tags/recommendByTags/?$", function() {
+        include "$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php";
+    });
+    $route->add("^tags/(\w+)/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        $tag = $pathArray[1]; //
+
+        if (isValidTag($tag)) {
+            require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
+            displayAllResults($pathArray[1]);
+        } else {
+            // TODO redirect to 404
+            echo "Not a proper tag";
+        }
+
+    });
+
+
 // Routes for profile
-    
+
     $route->add("^(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
 
@@ -233,7 +267,7 @@ if (isset($_SESSION['userId'])) {
             }
         }
     });
-  
+
     try {
         $route->submit();
     } catch (RouteException $e) {
