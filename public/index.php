@@ -44,6 +44,9 @@ if (isset($_SESSION['userId'])) {
     $route->add("^delete_blog.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_blog.php");
     });
+    $route->add("^add_blog.php/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/userbloginsert.php");
+    });
 // album routes
     $route->add("^(\w+)/albums/(\d+)/(.+)/delete/?$", function() {
         // Deletes the photo
@@ -195,7 +198,7 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/circles/(\d+)/", function() {
         $pathArray = (explode('/', $_GET['uri']));
         $_SESSION['circleId'] = $pathArray[2];
-   
+
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
     });
     $route->add("^(\w+)/circles/addFriend/?$", function() {
