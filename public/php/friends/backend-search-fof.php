@@ -49,7 +49,37 @@ if(isset($query)){
                                 // echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
 
                                 // print the user's name and link to their profile
-                                echo '<a href=/'.$row['username'].'>'.$row['fName'].' '.$row['lName'].'<br></a>';
+            
+                                $fName = $row['fName'];
+                                $lName = $row['lName'];
+                                $username = $row['username'];
+
+                                $output = <<<HEREDOC
+
+                                <article class="media">
+                                  <figure class="media-left">
+                                    <p class="image is-64x64">
+                                      <img src="http://bulma.io/images/placeholders/128x128.png">
+                                    </p>
+                                  </figure>
+                                  <div class="media-content">
+                                    <div class="content">
+                                      <p>
+                                        <a href="/$username"><strong>$fName $lName</strong></a><br><small>Location</small><br>
+                                        Biography goes here
+                                      </p>
+                                    </div>
+                                  <div id="alltags">
+                                  </div>
+                                  </div>
+                                  <div class="media-right">
+                                    <button class="button is-info">Add Friend</button>
+                                  </div>
+                                </article>
+
+HEREDOC;
+
+                                echo $output;
                             }
                         }
 

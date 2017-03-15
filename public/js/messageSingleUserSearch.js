@@ -1,10 +1,10 @@
-function getAlbumPhotos(albumId, username) {
+function messageSingleUserSearch(name) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE) {
       if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
-        //document.getElementById('ajaxResult').innerHTML = this.responseText;
-        document.getElementById('albumPhotos').innerHTML = this.responseText;
+        var div = document.getElementById('singleUserMessageSearchResult');
+        div.innerHTML = this.responseText;
       } else if (this.status == 400) {
         console.log("There was an error 400.");
       } else {
@@ -12,8 +12,7 @@ function getAlbumPhotos(albumId, username) {
       }
     };
   };
-  // gets the values from the page
-  var querystring = "?albumId=" + albumId + '&username=' + username;
-  xmlhttp.open("GET", '/php/photos/get_album_photos.php' + querystring, true);
+  var querystring = '?name=' + name; 
+  xmlhttp.open("POST", "/php/messages/messageSingleUserSearch.php" + querystring, true);
   xmlhttp.send();
 }

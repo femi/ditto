@@ -26,20 +26,16 @@ function viewCircleMessages($circleId) {
 
 // print users messages
 function printCircleMessages($circleId) {
-    echo 'Message table: <br>';
-    echo '<table>';
+    // echo 'Message table: <br>';
     $circleMessages = viewCircleMessages(db_quote($circleId));
     while($row = $circleMessages->fetch_assoc()){
-        echo '<tr>';
-        echo '<td>'.$row['content'].'</td>';
-        echo '<td>'.$row['createdAt'].'</td>';
-        echo '</tr>';
-        echo '<tr>';
-        echo '<td>'.$row['fName'];
-        echo ' '.$row['lName'].'</td>';
-        echo '</tr>';
+        $fName = $row['fName'];
+        $lName = $row['lName'];
+        $content = $row['content'];
+        $username = $row ['username'];
+        $updatedAt = $row['updatedAt'];
+        echo "<div class=\"box\"><article class=\"media\"><div class=\"media-left\"><figure class=\"image is-32x32\"><img src=\"\"></figure></div><div class=\"media-content\"><div class=\"content\"><p><strong>$fName $lName</strong><small>$username</small><small>$updatedAt</small><br>$content</p></div></div></article></div>";
     }
-    echo '</table>';
 }
 
 printCircleMessages($_POST['circleId']);

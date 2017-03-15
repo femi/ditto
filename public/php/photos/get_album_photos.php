@@ -39,11 +39,6 @@ function get_album_photos() {
   $first = true;
 	while($row = $qry_result->fetch_assoc()){
 		// scan the directory given
-        if ($first === true) {
-            $albumName = $row['albumName'];
-            echo "<p>$albumName</p>";
-            $first = false;
-        } 
 		$userId = $row['userId'];
 		$photo_files = scandir("../../../resources/album_content/$userId/$albumId");
 	}
@@ -52,9 +47,9 @@ function get_album_photos() {
 
 	foreach($photo_files as $photoName) {
 		$file = "../../album_content/$userId/$albumId/$photoName";
-		echo "<div class=\"photo-thumbnail\"><a href=\"/$username/albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></div>"; // TODO get captions
+		echo "<div class=\"column is-3\"><div class=\"card\"><div class=\"card-image\"><figure class=\"image is-2by1\"><a href=\"/$username/albums/$albumId/$photoName\"><img class=\"photo-thumbnail\" src=\"$file\" alt=\"Test\"></a></figure></div></div></div>"; // TODO get captions
 	}
-	
+    echo "</div>"; // close the columns div
 	// IGNORE FOR NOW - probably not a good idea to serve json files here.
 	//$json_string = json_encode($photo_files);
 	//echo $json_string;

@@ -5,39 +5,36 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
-require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
-?>
 
-<?php
-
-function displayAllResults($tag) {
+    
+    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
+ 
+function displayAllResults($userId) {
 	$connection = db_connect();
-	$query = "SELECT * FROM users WHERE userId IN (SELECT userId FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE name = '$tag');";
-	$result = db_query($query);
+
+	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$userId." AND name='everyone'))";
+
+	$result = db_query($query2);
 
 	if ($result === false) {
 			mysqli_error(db_connect());
 	}
 	else if (mysqli_num_rows($result) === 0) {
-			echo "There are currently no users interested in this...that's a bit awkward! lol.";
+			echo "Sorry you have no friends...lol.";
 	}
 	else {
 
-		$tag = strtolower($tag);
 		echo "<div class=\"container\">";
-		echo "<br><h2 class=\"title is-2\">#$tag</h2><hr>";
+		echo "<br><h2 class=\"title is-2\">Friends List</h2><hr>";
 		while ($user = $result->fetch_assoc()) {
-		//ommits logged in user
-			if ($user['userId'] === $_SESSION['userId']){ 
-			}else{
 			displaySearchResult($user);
-			}
 		}
 		echo "<div class=\"container\">";
 	}
 }
 
 function displaySearchResult($user) {
+
 	$image = "";
 	$full_name = $user['fName'] .  " " . $user['lName'];
 	$biography = $user['description'];
@@ -45,12 +42,6 @@ function displaySearchResult($user) {
 	$userId = $user['userId'];
 	$username = $user['username'];
 	$tags = getTags($userId);
-	$mutualFriends = countMutual($userId);
-	if (isUserFriend($user['userId'])){
-		$button = "<button class=\"button is-info\">Add Friend</button>";
-		}else{
-		$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
-	}
 
 	$search_result = "
 			<article class=\"media\">
@@ -62,7 +53,8 @@ function displaySearchResult($user) {
 				<div class=\"media-content\">
 					<div class=\"content\">
 						<p>
-							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>$mutualFriends Mutual Friends</small><br>$biography
+							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br>
+							$biography
 						</p>
 					</div>
 				<div id=\"alltags\">
@@ -70,7 +62,7 @@ function displaySearchResult($user) {
 				</div>
 				</div>
 				<div class=\"media-right\">
-					$button
+					<button class=\"button is-info\">Delete Friend</button>
 				</div>
 			</article>";
 
@@ -87,4 +79,8 @@ function getTags($userId) {
 	}
 	return $tags;
 }
+
+displayAllResults($_SESSION['userId']);
+
+
 ?>

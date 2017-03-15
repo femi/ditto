@@ -31,7 +31,7 @@ function get_photo_caption() {
 
     while($row = $qry_result->fetch_assoc()) {
         $caption = $row['caption'];
-        echo "<p>$caption</p>";
+        echo "<h5 id=\"currentCaption\" class=\"title is-5\">$caption</h5>";
     }
 
 }

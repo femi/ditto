@@ -19,7 +19,7 @@ function all_users() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
     	while($row = $result->fetch_assoc()){
 
 	    	$userId = $row['userId'];
@@ -33,10 +33,13 @@ function all_users() {
 }
 
 // gets all current users not in this circle and echo's option for each user
-function all_noncircle_friends() {
+function all_noncircle_friends($circleId) {
+
+
 
     //returns all members of everyone circle but not those already in the current circle
-    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND circleId=".$_SESSION['circleId'].")))");
+
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone')) AND userId NOT IN (SELECT userId FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId FROM friendcircles WHERE userId=".$_SESSION['userId']." AND circleId=".$circleId.")))");
 
     if($result === false) {
         echo mysqli_error(db_connect());
@@ -56,7 +59,6 @@ function all_noncircle_friends() {
 
 
 
-
 // gets all current users in a circle and echo's option for each user
 function all_circle_friends() {
 
@@ -65,7 +67,7 @@ function all_circle_friends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
 
             $userId = $row['userId'];
@@ -101,7 +103,7 @@ function users_circles() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $circleId = $row['circleId'];
             $name = $row['name'];
@@ -120,7 +122,7 @@ function get_incomingrequests() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $friendId = $row['friendId'];
             echo '<option value="'.$friendId.'">'.$friendId.'</option>';
@@ -129,6 +131,51 @@ function get_incomingrequests() {
 
 }
 
+//gets user's pending friend requests and echo's option for each request
+function get_incomingFrequests() {
+
+    $result = db_query("SELECT * FROM users WHERE userId IN (SELECT friendId FROM friend_requests WHERE userId = ". $_SESSION['userId'].")");
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else if(mysqli_num_rows($result) === 0){
+        echo "You have no pending friend requests";
+    }else{
+     
+        while($row = $result->fetch_assoc()){
+            $friendId = $row['userId'];
+            $friendName = $row['fName']." ".$row['lName'];
+
+        echo "<form action=\"friends/accept\" method=\"post\">
+                <article class=\"media\">
+                
+                  <figure class=\"media-left\">
+                    <p class=\"image is-24x24\">
+                      <img src=\"http://bulma.io/images/placeholders/128x128.png\">
+                    </p>
+                  </figure>
+                  <div class=\"media-content\">
+                    <div class=\"content\">
+                      <p>
+                        <strong>".$friendName."</strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div class=\"media-right\">
+                    <input name=\"friendId\" type=\"hidden\" value=\"".$friendId." \">
+                    <Input name =\"accept\" type=\"submit\" class=\"button is-small is-success is-outlined\" value= \"Accept\">
+                    <Input name =\"delete\" type=\"submit\" class=\"button is-small is-danger is-outlined\" value=\"Decline\">
+                  </div>
+                
+                </article>
+            </form>";
+
+        }
+    }
+
+}
+
+
+
 //gets user's pending friend requests and echo's option for each request (ougoing)
 function get_outgoingrequests() {
 
@@ -136,7 +183,7 @@ function get_outgoingrequests() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             echo '<option value="'.$userId.'">'.$userId.'</option>';
@@ -152,7 +199,7 @@ function get_friends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             if ($userId != $_SESSION['userId']){
@@ -171,7 +218,7 @@ function get_nonfriends() {
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-     
+
         while($row = $result->fetch_assoc()){
             $userId = $row['userId'];
             if ($userId != $_SESSION['userId']){

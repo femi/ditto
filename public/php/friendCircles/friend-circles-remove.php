@@ -18,21 +18,21 @@ function remove_friend($circleId, $userId) {
     $result = db_query("DELETE FROM friendcircle_users WHERE circleId =".db_quote($circleId)." AND userId=".db_quote($userId));
 
     if($result === false) {
-    	
+
         echo mysqli_error(db_connect());
     } else {
         // insertion was successful, ooer.
         echo "<br>successfully deleted<br>" . $userId . "from " . $circleId;
-   
+
     }
 
 }
-
-remove_friend($_SESSION['circleId'], $_POST['userId']);
-$_SESSION['circleId'] = null;
+echo "Hello";
+remove_friend($_POST['circleId'], $_POST['userId']);
+// $_SESSION['circleId'] = null;
 ?>
 
-<br>
+<!-- <br>
 <form action="../../circles" method="post">
     <input type="submit" value="Back to CRUD">
-</form>
+</form> -->

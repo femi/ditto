@@ -14,7 +14,9 @@ $connection = db_connect(); // the db connection
 
 // Retrieve all friend circles for a given userId
 function retrieve_friend_circles($userId) {
-    $result = db_query("SELECT * FROM friendcircles WHERE userId = ". $userId);
+  
+    $result = db_query("SELECT * FROM friendcircles WHERE userId = $userId ORDER BY circleId DESC");
+
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
@@ -22,7 +24,7 @@ function retrieve_friend_circles($userId) {
     }
     return $result;
 }
- 
+
 
 // Print all a user's friend circles given a userId
 function print_users_FC($userId) {
@@ -34,7 +36,7 @@ function print_users_FC($userId) {
     		<th>Created At</th>
     		<th>UpdatedAt</th>
 		   </tr>';
-	
+
     // Print each entry as table row
     $usersFC = retrieve_friend_circles(db_quote($userId));
     while($row = $usersFC->fetch_assoc()){
@@ -55,4 +57,3 @@ function print_users_FC($userId) {
 
 
 ?>
-
