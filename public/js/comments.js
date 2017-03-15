@@ -88,20 +88,13 @@ function addComment(blogId, userId, message) {
      xmlhttp.onreadystatechange = function() {
        if (this.readyState == XMLHttpRequest.DONE) {
          if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
-           document.getElementById("ajaxResult").innerHTML = this.responseText;
-         } else if (this.status == 400) {
-           document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
-         } else {
-           document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+           console.log("success");
          }
        };
      };
-     //gets the values from the page
-     //console.log(userId);
+
      var querystring = "blogId=" + blogId + "&userId=" + userId + "&message=" + message;
-     xmlhttp.open("POST", "../../php/blogs/add_comment.php", true);
-     //Send the proper header information along with the request
-     // POST DOESN'T WORK WITHOUT THIS
+     xmlhttp.open("POST", "/add_comment.php", true);
      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
      console.log(querystring);
      xmlhttp.send(querystring);
@@ -194,5 +187,5 @@ function deleteCircleUser(userId, circleId) {
      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
      console.log(querystring);
      xmlhttp.send(querystring);
-     
+
 }

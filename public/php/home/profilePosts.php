@@ -1,12 +1,5 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
 
-if (isset($_POST['comment']) && isset($_POST['submit'] )) {
-  $userId = $_SESSION['userId'];
-  $comment = addslashes($_POST['comment']);
-  $blogId = $_POST['blogId'];
-  db_query("INSERT INTO comments (message, userId, blogId) VALUES ('$comment', $userId, $blogId)");
-}
-
 $pathArray = explode('/', $_GET['uri']);
 $userIdFnameLname = getUserFromUsername($pathArray[0]); // override the userId;
 $userId = $userIdFnameLname['userId'];
@@ -51,7 +44,7 @@ while ( $row = $usersblogs->fetch_assoc()){
           <div class=\"level-item\">
 
           <div class=\"media-content\">
-          <form action\"\" method=\"POST\" id=\"$blogId\">
+          <form action\"\" method=\"POST\" id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $blog_user, document.forms['bl_$blogId'].elements['comment'].value);\">
             <div class=\"control is-grouped\">
             <figure class=\"media-left\">
             </figure>
