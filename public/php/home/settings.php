@@ -25,7 +25,6 @@
               <p>Modify your personal information</p>
               <form action="/validate.php"  method="post">
                 <div class="control is-horizontal">
-
                   <div class="control is-grouped">
                     <p class="control is-expanded">
                       <input class="input is-medium" type="text" name="fName" value="<?php echo $user_data['fName'];?>" placeholder="First name" required>
@@ -37,6 +36,9 @@
                 </div>
                 <p class="control">
                   <input class="input is-medium" type="text" name="city" value="<?php echo $user_data['city'];?>" placeholder="City" required>
+                </p>
+                <p class="control">
+                  <textarea class="textarea is-medium" type="text" name="description" placeholder="Biography"><?php echo $user_data['description'];?></textarea>
                 </p>
                 <p class="control">
                   <input class="input is-medium" type="text" name="mobileNumber" value="<?php echo $user_data['mobileNumber'];?>" placeholder="Mobile Number" required>
@@ -66,18 +68,42 @@
               <input class="button is-primary is-medium" type="submit" name="changePassword" value="Change Password" onclick="alert('Password Changed');"><hr>
             </form>
 
+            <h3 class="title-3">Interests 🖌</h3>
+            <p>Show your uniqueness.</p>
+
+              <div id="alltags" class="content">
+              <?php
+              while ( $row = $usertags->fetch_assoc()){
+                $name = $row['name'];
+                // echo $name;
+                echo ("<span id=\"tag_$name\" class=\"tag is-info is-medium\">$name<button class=\"delete is-small\" onclick=\"removeInterest('tag_$name')\" ></button></span>");
+              }
+              ?>
+              </div>
+
+              <p class="control">
+                <span class="select is-medium">
+                  <select id="myselect">
+                    <option value="Interests" disabled selected style="display: none;">Interests</option>
+
+                    <?php
+                      while ( $row = $alltags->fetch_assoc()){
+                        $tag = $row['name'];
+                        echo ("<option value=\"$tag\">$tag</option>");
+                      }
+                     ?>
+                  </select>
+                </span>
+              </p><hr>
+
+              <!-- <input class="button is-primary is-medium" id="buttonSubmit2" type="submit" name="updateInterests" value="Update Interests"><hr> -->
+
             <h3 class="title-3">Deactivate your account 🤔</h3>
             <p>It's going to be sad to see you go.</p>
             <a class="button is-danger is-medium" onclick="alert('Ha, no!')">Deactivate</a>
 
           </div>
-
-          <div class="column is-one-quarter">
-            <figure class="image">
-              <img class="img-rounded" src="https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg">
-            </figure>
-            <br><a class="button is-outline is-medium">Change your photo</a>
-          </div>
+          <div class="column is-one-quarter"></div>
         </div>
       </div>
 

@@ -14,6 +14,7 @@ while ( $row = $usersblogs->fetch_assoc()){
   $fullname = $user_data['fName'] . " " . $user_data['lName'];
   $uname = $user_data['username'];
   $blogcontent = $row['content'];
+  $blog_user = $row['userId'];
 
     echo "<article id=\"b_$blogId\" class=\"media\">
       <figure class=\"media-left\">
@@ -24,16 +25,11 @@ while ( $row = $usersblogs->fetch_assoc()){
 
       <div class=\"media-content\">
         <div class=\"content\">
-
-          <!-- Blogpost content -->
           <p>
             <strong> $fullname </strong> <small> @$uname </small><br>
           </p>
           $blogcontent <br>
-
-
           "
-
           ;
 
       viewComments($row['blogId']);
@@ -43,21 +39,17 @@ while ( $row = $usersblogs->fetch_assoc()){
 
         <nav class=\"level\">
           <div class=\"level-item\">
-
           <div class=\"media-content\">
           <form action\"\" method=\"POST\" id=\"$blogId\">
             <div class=\"control is-grouped\">
             <figure class=\"media-left\">
-              <p class=\"image is-24x24\">
-                <img src=\"http://bulma.io/images/placeholders/128x128.png\">
-              </p>
             </figure>
               <p class=\"control is-expanded\">
                 <input id=\"comment\" class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say $firstname?\" required>
                 <input type=\"hidden\" name=\"blogId\" value=\"$blogId\"/>
               </p>
               <p class=\"control\">
-                <input class=\"button is-primary\" type=\"submit\" style=\"display: none;\" name=\"submit\">
+                <input class=\"button is-primary\" type=\"submit\" style=\"display: none;\" name=\"submit\" onclick=\"addComment($blogId, $blog_user, document.getElementById('comment').value)\" >
               </p>
             </div>
           </form>
@@ -92,9 +84,6 @@ function viewComments($blogId) {
       $comments_html ="
       <article id=\"c_$commentId\" class=\"media\">
         <figure class=\"media-left\">
-          <p class=\"image is-24x24\">
-            <img src=\"http://bulma.io/images/placeholders/128x128.png\">
-          </p>
         </figure>
         <div class=\"media-content\">
           <div class=\"content\">

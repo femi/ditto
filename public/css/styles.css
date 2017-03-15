@@ -1,0 +1,11 @@
+/* Custom Styles*/
+
+#alltags span[id^='tag_'] {
+  margin: 3px;
+}
+
+.circle {
+	border-radius: 50%;
+	width: 64px;
+	height: 64px;
+}

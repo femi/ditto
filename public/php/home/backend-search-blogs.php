@@ -28,7 +28,7 @@ if(isset($query)){
 
     // search content of currently logged in user's friends' blogs
     // uses a user's 'everyone' friendCircle for search
-    $sql =  "select substr(b.content, 1, 15) as trimcontent, fName, lName, username, blogId from blogs as b
+    $sql =  "select substr(b.content, 1, 50) as trimcontent, fName, lName, username, blogId from blogs as b
             inner join users as u on b.userId = u.userId
             inner join friendcircle_users as fcu on fcu.userId = b.userId
             inner join friendcircles as fc on fc.circleId = fcu.circleId
@@ -39,13 +39,14 @@ if(isset($query)){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S BLOG
                 // assuming url is /username/#blogId
-                echo "<a href=/".$row['username']."#b_".$row['blogId']."><p>". $row['fName']." ".$row['lName']." ". $row['trimcontent'] ."...</p></a>";
+                echo "<div class = level-left><i class='fa fa-newspaper-o' aria-hidden='true' style='font-size: 15px; padding-right: 5px;'></i><a href=/".$row['username']."#b_".$row['blogId']."><p> ". $row['fName']." ".$row['lName']." - <i>". $row['trimcontent'] ."...</i></p></a></div>";
             }
             // Close result set
             mysqli_free_result($result);
         } else{
             echo "<p>No blogs found containing <b>$query</b></p>";
         }
+        echo '<br>';
     } else{
         echo "ERROR: Could not execute $sql. " . mysqli_error($connection);
     }
@@ -54,15 +55,16 @@ if(isset($query)){
     // could probably user their everyone friendCircle but should be same
     $sql = "select * from users as u
             inner join friendcircle_users as fcu on fcu.userId = u.userId
-            inner join friendcircles as fc on fc.circleId = fcu.circleId
-            where fc.userId = $userId and concat(fName, ' ', lName) like '%".$query."%'";
+            inner join friendcircles as fc on fc.circleId =
+            fcu.circleId
+            where fc.userId = $userId and fc.name = 'everyone' and concat(fName, ' ', lName) like '%".$query."%'";
 
 
     if($result = mysqli_query($connection, $sql)){
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_array($result)){
                 // TODO: INSERT CORRECT URL FOR USER'S PROFILE
-                echo "<a href=".$row['username']."><p>" . $row['fName'] . " ". $row['lName'] ."</p></a>";
+                echo "<div class = level-left><i class='fa fa-user-o' aria-hidden='true' style='font-size: 15px; padding-left: 3px; padding-right: 8px;'></i><a href=/".$row['username']."><p> " . $row['fName'] . " ". $row['lName'] ."</p></a></div>";
             }
             // Close result set
             mysqli_free_result($result);

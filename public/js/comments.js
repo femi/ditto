@@ -147,3 +147,52 @@ function updatePrivacy() {
    console.log(querystring);
    xmlhttp.send(querystring);
 }
+
+// delete a circle
+function deleteCircle(circleId) {
+  var xmlhttp = new XMLHttpRequest();
+     xmlhttp.onreadystatechange = function() {
+       if (this.readyState == XMLHttpRequest.DONE) {
+         if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+           // remove the commnet from the
+           var elem = document.getElementById(`ci_${circleId}`);
+           elem.parentNode.removeChild(elem);
+         } else if (this.status == 400) {
+           document.getElementById("ajaxResult").innerHTML = "There was an error 400.";
+         } else {
+           document.getElementById("ajaxResult").innerHTML = "Something else other than 200 was returned.";
+         }
+       };
+     };
+
+     var querystring = "circleId=" + circleId;
+     xmlhttp.open("POST", "circles/deleteCircle", true);
+     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     console.log(querystring);
+     xmlhttp.send(querystring);
+}
+
+// delete a circle user
+function deleteCircleUser(userId, circleId) {
+  location.reload();
+  var xmlhttp = new XMLHttpRequest();
+     xmlhttp.onreadystatechange = function() {
+       if (this.readyState == XMLHttpRequest.DONE) {
+         if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
+           // remove the commnet from the
+           var elem = document.getElementById(`cu_${userId}`);
+           elem.parentNode.removeChild(elem);
+
+           console.log(this.responseText);
+
+         }
+       };
+     };
+
+     var querystring = "userId=" + userId + "&circleId=" + circleId;
+     xmlhttp.open("POST", `${circleId}/remove`, true);
+     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     console.log(querystring);
+     xmlhttp.send(querystring);
+     
+}
