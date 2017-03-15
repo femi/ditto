@@ -216,6 +216,10 @@ if (isset($_SESSION['userId'])) {
         
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
     });
+   $route->add("^(\w+)/friends/all/?$", function() {
+         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/all-friends.php");
+
+    });
      $route->add("^(\w+)/friends/accept/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
     });

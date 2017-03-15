@@ -12,7 +12,7 @@
         <h4 class="title is-4"><strong>Friends</strong></h4>
         <div class="content">
           You can view all of your friends here, you have so many.
-          <br><br><a href="#">View all friends</a>
+          <br><br><a href="friends/all">View all friends</a>
         </div>
         <h4 class="title is-4"><strong>People who you may know</strong></h4>
           <div class="content">
