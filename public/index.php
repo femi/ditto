@@ -49,10 +49,8 @@ if (isset($_SESSION['userId'])) {
         $pathArray = explode('/', $_GET['uri']);
         // check that path is valid
         if (isValidUsername($pathArray[0]) === true && isValidAlbum($pathArray[2]) === true && isValidPhoto($pathArray[3]) === true) {
-            echo "Valid username, album, and photo given";
             // check that user owns their photo
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/delete_photo.php");
                 delete_photo($pathArray[0], $_SESSION['userId'], $pathArray[2], $pathArray[3]);
             }
@@ -65,21 +63,15 @@ if (isset($_SESSION['userId'])) {
 
         // check validity of path
         if (isValidUsername($pathArray[0]) && isValidAlbum($pathArray[2]) && isValidPhoto($pathArray[3])) {
-            echo "Valid username, album, and photo given";
-
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0]))  {
-                echo "<br />";
-                echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments.php");
                 get_photo_page_with_comments($pathArray[0], $pathArray[2], $pathArray[3]);
             } else {
-                echo "<br />";
-                echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments_nonowner.php");
                 get_photo_page_with_comments_nonowner($pathArray[0], $pathArray[2], $pathArray[3]);
             }
         } else {
-            echo "Invalid"; // TODO redirect to error
+            echo "404";
         }
     });
     $route->add("^(\w+)/albums/(\d+)/?$", function() {
@@ -88,20 +80,15 @@ if (isset($_SESSION['userId'])) {
 
         // Check that the path is valid
         if (isValidUsername($pathArray[0]) && isValidAlbum($pathArray[2])) { // TODO check that user is allowed  to view album
-            echo "Valid username and album given";
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                echo "<br />";
-                echo "User is visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos.php");
                 non_ajax_get_album_photos($pathArray[2], $pathArray[0]);
             } else {
-                echo "<br />";
-                echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos_nonowner.php");
                 non_ajax_get_album_photos_nonowner($pathArray[2], $pathArray[0]);
             }
         } else {
-            echo "Invalid path given"; // TODO redirect to 404
+            echo "404";
         }
     });
     $route->add("^(\w+)/albums/?$", function() {
@@ -110,24 +97,18 @@ if (isset($_SESSION['userId'])) {
 
         // Check that the given username is valid
         if (isValidUsername($pathArray[0])) {
-            echo "Valid username given";
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                echo "<br />";
-                echo "User is visiting their own page";
                 // readfile('./html/albums.html');
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums.php");
                 retrieve_user_albums($_SESSION['userId'], $pathArray[0]);
                 // new_retrieve_user_albums.php($userId);
             } else {
-                echo "<br />";
-                echo "User is not visiting their own page";
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/retrieve_user_albums_nonowner.php");
                 retrieve_user_albums_nonowner($_SESSION['userId'], $pathArray[0]);
                 // show all albums for which the session user is part of the username's friend circles.
             }
         } else {
-            echo "<br />";
-            echo "Invalid username given"; 
+            echo "404";
         }
         // check if the session user has the same username
     });

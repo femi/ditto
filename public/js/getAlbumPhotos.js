@@ -3,7 +3,8 @@ function getAlbumPhotos(albumId, username) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == XMLHttpRequest.DONE) {
       if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
-        document.getElementById('ajaxResult').innerHTML = this.responseText;
+        //document.getElementById('ajaxResult').innerHTML = this.responseText;
+        document.getElementById('albumPhotos').innerHTML = this.responseText;
       } else if (this.status == 400) {
         console.log("There was an error 400.");
       } else {
