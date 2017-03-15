@@ -265,7 +265,7 @@ if (isset($_SESSION['userId'])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
             } else {
                 echo "403";
-            } 
+            }
         } else {
             echo "404";
         }
@@ -277,7 +277,7 @@ if (isset($_SESSION['userId'])) {
                 include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
             } else {
                 echo "403";
-            } 
+            }
         } else {
             echo "404";
         }
@@ -290,7 +290,7 @@ if (isset($_SESSION['userId'])) {
                 include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
             } else {
                 echo "403";
-            } 
+            }
         } else {
             echo "404";
         }
@@ -302,7 +302,7 @@ if (isset($_SESSION['userId'])) {
                 include "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
             } else {
                 echo "403";
-            } 
+            }
         } else {
             echo "404";
         }
@@ -315,7 +315,7 @@ if (isset($_SESSION['userId'])) {
             include "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
             } else {
                 echo "403";
-            } 
+            }
         } else {
             echo "404";
         }
@@ -345,6 +345,12 @@ if (isset($_SESSION['userId'])) {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
     });
 
+    // temporary route - delete after messages complete
+    // --------------------------------------------------------
+    $route->add("^m/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messages_layout.php");
+    });
+    // --------------------------------------------------------
 
 
 
@@ -352,7 +358,7 @@ if (isset($_SESSION['userId'])) {
 
     $route->add("^(\w+)/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
-        
+
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 // user is viewing their own page
