@@ -337,21 +337,30 @@ if (isset($_SESSION['userId'])) {
     });
 
 // Routes for tags
-    $route->add("^tags/recommendByTags/?$", function() {
-        include "$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php";
-    });
-    $route->add("^tags/(\w+)/?$", function() {
+    $route->add("^(\w+)/friends/recommendations/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
-        $tag = $pathArray[1]; //
-
-        if (isValidTag($tag)) {
+        if (isValidUsername($pathArray[0])) {
+            if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php");
+                recommendByTags($_SESSION['userId'], 2);
+            } else {
+                echo "403";
+            } 
+        } else {
+            echo "404";
+        }
+                
+    });
+    $route->add("tags/(\w+)/?", function() {
+        $pathArray = explode('/', $_GET['uri']);
+        if (isValidTag($pathArray[1])) {
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
             displayAllResults($pathArray[1]);
         } else {
             // TODO redirect to 404
             echo "Not a proper tag";
+            echo "404";
         }
-
     });
     $route->add("^(\w+)/messageSingleUserSearch.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageSingleUserSearch.php";
