@@ -190,7 +190,7 @@ if (isset($_SESSION['userId'])) {
 
 // Routes for mutual friends
     $route->add("mutual/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual-friend-list.php");
     });
 
 

@@ -6,14 +6,12 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
-?>
 
-<?php
 
-function displayAllResults($tag) {
+function getMutualFriends($friendId) {
 	$connection = db_connect();
-	$query = "SELECT * FROM users";
-	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE name = '$tag');";
+	$query2 = "SELECT userId, COUNT(userId) as mutual FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$_SESSION['userId'].") OR circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$friendId.") GROUP BY userId having count(userId) > 1";
+
 	$result = db_query($query2);
 
 	if ($result === false) {
@@ -24,21 +22,22 @@ function displayAllResults($tag) {
 	}
 	else {
 
-		$tag = strtolower($tag);
 		echo "<div class=\"container\">";
 		echo "<br><h2 class=\"title is-2\">#$tag</h2><hr>";
 		while ($user = $result->fetch_assoc()) {
 		//ommits logged in user
 			if ($user['userId'] === $_SESSION['userId']){ 
 			}else{
-			displaySearchResult($user);
+			displayMutualFriends($user);
 			}
 		}
 		echo "<div class=\"container\">";
 	}
 }
 
-function displaySearchResult($user) {
+
+
+function displayMutualFriends($user) {
 
 	$image = "";
 	$full_name = $user['fName'] .  " " . $user['lName'];
@@ -78,15 +77,10 @@ function displaySearchResult($user) {
 
 	echo $search_result;
 }
-
-function getTags($userId) {
-	$usertags = db_query("SELECT * FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE userId = '$userId'");
-	$tags = "";
-	while ( $row = $usertags->fetch_assoc()){
-		$name = $row['name'];
-		$tags = $tags . "<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>" . "\r\n";
-		echo ("<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>");
-	}
-	return $tags;
-}
 ?>
+
+
+<div class="container">
+<br><h2 class="title is-2">Mutual friends with <?php //username ?> </h2><hr>
+	
+<div class="container">
