@@ -193,7 +193,13 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-CRUD.php");
     });
     $route->add("^(\w+)/circles/(\d+)/", function() {
+        $pathArray = (explode('/', $_GET['uri']));
+        $_SESSION['circleId'] = $pathArray[2];
+   
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
+    });
+    $route->add("^(\w+)/circles/addFriend/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
     });
     $route->add("^(\w+)/circles/addCircle/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-C.php");
@@ -214,24 +220,7 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
     });
 
-    // delete this after implementing
-    //-------------------------------------
 
-    $route->add("^(\w+)/cc/(\d+)/", function() {
-      $pathArray = (explode('/', $_GET['uri']));
-      $_SESSION['circleId'] = $pathArray[2];
-      // echo $pathArray[2];
-      require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
-      $_SESSION['circleId'] = $pathArray[2];
-    });
-
-    $route->add("^circlez/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/backup.php");
-    });
-    $route->add("^circlezz/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
-    });
-    //-------------------------------------
 
 // Routes for friends
    $route->add("^(\w+)/friends/?$", function() {

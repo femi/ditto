@@ -174,6 +174,7 @@ function deleteCircle(circleId) {
 
 // delete a circle user
 function deleteCircleUser(userId, circleId) {
+  location.reload();
   var xmlhttp = new XMLHttpRequest();
      xmlhttp.onreadystatechange = function() {
        if (this.readyState == XMLHttpRequest.DONE) {
@@ -181,7 +182,9 @@ function deleteCircleUser(userId, circleId) {
            // remove the commnet from the
            var elem = document.getElementById(`cu_${userId}`);
            elem.parentNode.removeChild(elem);
+
            console.log(this.responseText);
+
          }
        };
      };
@@ -191,4 +194,5 @@ function deleteCircleUser(userId, circleId) {
      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
      console.log(querystring);
      xmlhttp.send(querystring);
+     
 }
