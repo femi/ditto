@@ -1,3 +1,7 @@
+
+
+<?php require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php"); ?>
+
 <?php
 
 // REQUIRE THE DATABASE FUNCTIONS
