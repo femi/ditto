@@ -365,7 +365,6 @@ if (isset($_SESSION['userId'])) {
         if (!isset($_GET['uri'])) {
             // homepage requested
             include "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
-            echo "logged in ";
         } else {
             echo "routeException but logged in:";
             print_r($_GET['uri']);
@@ -401,7 +400,6 @@ else {
     } catch(RouteException $e) {
         if (!isset($_GET['uri'])) {
             // homepage requested
-            echo "logged out";
             include "$_SERVER[DOCUMENT_ROOT]/php/home/publicHomepage.php";
         } else {
             // TODO redirect to error page
