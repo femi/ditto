@@ -230,7 +230,7 @@ if (isset($_SESSION['userId'])) {
         } else {
             echo "404";
         }
-        // old friends functionality here if you need it
+        // old friends functionality here if you need it for debug
         // require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
     });
    $route->add("^(\w+)/friends/all/?$", function() {
