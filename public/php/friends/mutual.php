@@ -41,7 +41,7 @@
     	
     }
 
-    function isUserFriend($anonId){
+    function isUserAFriend($anonId){
             // (userId of all in (everyone circle of (owner of given albumId)))
             $friends = db_query("SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE name='everyone' AND userId=".$_SESSION['userId'].")");
 

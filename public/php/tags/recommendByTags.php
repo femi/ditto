@@ -29,6 +29,8 @@ function recommendByTags($userId, $threshold) {
     if (mysqli_num_rows($result) === 0) {
         echo "No one to recommend at the moment";
     } else {
+                    echo "<div class=\"container\">";
+            echo "<br><h2 class=\"title is-2\">People you might know:</h2><hr>";
         while ($row = $result->fetch_assoc()) {
             $fName = $row['fName'];
             $lName = $row['lName'];
@@ -39,11 +41,12 @@ function recommendByTags($userId, $threshold) {
 
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
             echo "<div class=\"container\">";
-            echo "<br><h2 class=\"title is-2\">People you might know:</h2><hr>";
             displaySearchResult($row);
-            echo "<div class=\"container\">";
+            echo "<hr>";
+            echo "</div>";
 
         } 
+        
     }
 }
 ?>
