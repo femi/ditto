@@ -85,7 +85,7 @@ function getTags($userId) {
 	while ( $row = $usertags->fetch_assoc()){
 		$name = $row['name'];
 		$tags = $tags . "<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>" . "\r\n";
-		echo ("<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>");
+		// echo ("<span id=\"tag_$name\" class=\"tag is-medium is-light\"><a href=\"/tags/$name\">$name</a></span>");
 	}
 	return $tags;
 }
