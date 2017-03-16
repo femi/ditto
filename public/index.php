@@ -34,10 +34,12 @@ if (isset($_SESSION['userId'])) {
     $route->add("^404/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/error/404.html");
     });
-
-    $route->add("^backend-search.php/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
+    $route->add("^403/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/error/403.html");
     });
+    // $route->add("^backend-search.php/?$", function() {
+    //     require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
+    // });
     $route->add("^backend-search-blogs.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search-blogs.php");
     });
@@ -70,10 +72,10 @@ if (isset($_SESSION['userId'])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/delete_photo.php");
                 delete_photo($pathArray[0], $_SESSION['userId'], $pathArray[2], $pathArray[3]);
             } else {
-                echo "403...";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
 
     });
@@ -92,10 +94,10 @@ if (isset($_SESSION['userId'])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/get_photo_page_with_comments_nonowner.php");
                 get_photo_page_with_comments_nonowner($pathArray[0], $pathArray[2], $pathArray[3]);
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/albums/(\d+)/?$", function() {
@@ -111,10 +113,10 @@ if (isset($_SESSION['userId'])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/non_ajax_get_album_photos_nonowner.php");
                 non_ajax_get_album_photos_nonowner($pathArray[2], $pathArray[0]);
             } else {
-                echo "403...";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/albums/?$", function() {
@@ -133,10 +135,10 @@ if (isset($_SESSION['userId'])) {
                 retrieve_user_albums_nonowner($pathArray[0]);
                 // show all albums for which the session user is part of the username's friend circles.
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
         // check if the session user has the same username
     });
@@ -223,10 +225,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-CRUD.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/(\d+)/", function() {
@@ -236,10 +238,10 @@ if (isset($_SESSION['userId'])) {
                 $_SESSION['circleId'] = $pathArray[2];
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/individual_circle.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/addFriend/?$", function() {
@@ -248,10 +250,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/addCircle/?$", function() {
@@ -259,10 +261,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-C.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/deleteCircle/?$", function() {
@@ -270,10 +272,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-D.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/updateCircle/?$", function() {
@@ -281,10 +283,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-U.php");
             } else {
-                echo "403";
+                header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/friends/?$", function() {
@@ -292,10 +294,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friends-in-circle.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
 
@@ -304,10 +306,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-add.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/circles/friends/remove/?$", function() {
@@ -315,10 +317,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-remove.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
 
@@ -329,10 +331,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
         // old friends functionality here if you need it
         // require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
@@ -345,10 +347,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/accept-friendrequest.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
        $route->add("^(\w+)/friends/request/?$", function() {
@@ -356,15 +358,12 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/make-friendrequest.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
-    $route->add("^(\w+)/friendz/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
-     });
 
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
@@ -373,10 +372,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/sendUserMessage.php/?$", function() {
@@ -385,10 +384,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/sendUserMessage.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
 
     });
@@ -398,10 +397,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/viewUserReceived.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/sendCircleMessage.php/?$", function() {
@@ -410,10 +409,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/sendCircleMessage.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
 
     });
@@ -423,10 +422,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/viewCircleMessages.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^(\w+)/messageSingleUserSearch.php/?$", function() {
@@ -434,10 +433,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/messageSingleUserSearch.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
 
@@ -450,10 +449,10 @@ if (isset($_SESSION['userId'])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
     $route->add("^tags/(\w+)/?$", function() {
@@ -463,7 +462,7 @@ if (isset($_SESSION['userId'])) {
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
             displayAllResults($pathArray[1]);
         } else {
-            echo "404";
+            header('Location: /404');
         }
 
     });
@@ -489,10 +488,10 @@ if (isset($_SESSION['userId'])) {
             } else if (userCanViewProfile($pathArray[0])){
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/profile.php");
             } else {
-                echo "403";
+            header('Location: /403');
             }
         } else {
-            echo "404";
+            header('Location: /404');
         }
     });
 
@@ -503,8 +502,9 @@ if (isset($_SESSION['userId'])) {
             // homepage requested
             require_once "$_SERVER[DOCUMENT_ROOT]/php/home/home.php";
         } else {
-            echo "routeException but logged in:";
-            print_r($_GET['uri']);
+            // echo "routeException but logged in:";
+            // print_r($_GET['uri']);
+            header('Location: /404');
         }
     }
 
@@ -514,6 +514,13 @@ else {
     // User is logged out
     // define API routes you can see while not logged in.
     $public_route = new Route();
+
+    $route->add("^404/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/error/404.html");
+    });
+    $route->add("^403/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/error/403.html");
+    });
 
     $public_route->add("^register/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/register.php");
@@ -540,7 +547,8 @@ else {
             require_once "$_SERVER[DOCUMENT_ROOT]/php/home/publicHomepage.php";
         } else {
             // TODO redirect to error page
-            echo "Route Exception - logged out";
+            //echo "Route Exception - logged out";
+            header('Location: /404');
         }
     }
 }
