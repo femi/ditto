@@ -101,12 +101,12 @@ function getPhotoComments($albumId, $photoName) {
     } else {
         $row = mysqli_fetch_row($queryResult);
         $photoId = $row[0];
-        $newQuery = "SELECT * FROM comments WHERE photoId = $photoId ORDER BY createdAt DESC";
+        $newQuery = "SELECT u.userId, u.username, c.message, c.updatedAt FROM comments AS c INNER JOIN users AS u ON u.userId = c.userId WHERE c.photoId = $photoId ORDER BY c.createdAt DESC";
 
         $newResult = db_query($newQuery);
 
         if ($newResult === false) {
-
+            echo $newQuery;
             mysqli_error(db_connect());
         } else {
             echo "<div id=\"comments-list\">";
@@ -114,7 +114,7 @@ function getPhotoComments($albumId, $photoName) {
                 $userId = $newRow['userId'];
                 $message = $newRow['message'];
                 $updatedAt = $newRow['updatedAt'];
-                $userName = $_SESSION['username'];
+                $userName = $newRow['username'];
 
                 // echo stuff
                 echo "<div id=\"comments-list\"class=\"box\"><article class=\"media\"><div class=\"media-left\"></div><div class=\"media-content\"><div class=\"content\"><p><strong>$userName</strong><small>$updatedAt</small><br>$message</p></div></div></article></div>";
