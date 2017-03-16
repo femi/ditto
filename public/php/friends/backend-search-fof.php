@@ -58,7 +58,9 @@ HEREDOC
                                 $username = $row['username'];
                                 $userId = $row['userId'];
                                 $button = buttonSelector($userId);
-
+                                $biography = $row['description'];
+                                $location = $row['city'];
+  
                                 $output = <<<HEREDOC
 
                                 <article class="media">
@@ -70,8 +72,8 @@ HEREDOC
                                   <div class="media-content">
                                     <div class="content">
                                       <p>
-                                        <a href="/$username"><strong>$fName $lName</strong></a><br><small>Location</small><br>
-                                        Biography goes here
+                                        <a href="/$username"><strong>$fName $lName</strong></a><br><small>$location</small><br>
+                                        $biography
                                       </p>
                                     </div>
                                   <div id="alltags">
