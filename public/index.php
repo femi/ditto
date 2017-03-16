@@ -31,6 +31,10 @@ if (isset($_SESSION['userId'])) {
 
 // Routes for blogs
 
+    $route->add("^404/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/error/404.html");
+    });
+
     $route->add("^backend-search.php/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search.php");
     });
