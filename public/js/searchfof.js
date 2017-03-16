@@ -16,7 +16,7 @@ function setupFofSearch() {
             $.post("/php/friends/backend-search-fof.php", {query: term}).done(function(data){
                 // Display the returned data in browser
                 if(data.length == 0) {
-                    data = "No users found matching <b>" + term + "</b>";
+                    data = "No friends of friends found matching <b>" + term + "</b>";
                 }
 
                 fofResult.html(data);
@@ -28,13 +28,6 @@ function setupFofSearch() {
         }
     });
 
-    // // Set search input value on click of result item
-    // $(document).on("click", "#fofresult p", function(){
-    //     console.log($(this).text());
-    //     $(this).parents(".control").find('input[type="text"]').val($(this).text());
-    //     fofResult.empty();
-    //     fofResult.hide();
-    // });
 }
 
 //
