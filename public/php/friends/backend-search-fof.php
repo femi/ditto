@@ -3,6 +3,7 @@
 //include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
 require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -10,7 +11,7 @@ server with default setting (user 'root' with no password) */
 $connection = db_connect();
 
 
-session_start();
+// session_start();
 
 $userId = $_SESSION['userId'];
 
@@ -25,34 +26,77 @@ $query = mysqli_real_escape_string($connection, $_POST['query']);
 // search friends first name of last name like input
 if(isset($query)){
 
-    // get the logged in user's friends
-        $friends = db_query("SELECT * FROM users WHERE userId IN (
-            SELECT userId FROM friendcircle_users WHERE circleId=(
-                SELECT circleId FROM friendcircles WHERE name='everyone' AND userId=$userId))");
-
-        while($col = $friends->fetch_assoc()){
-                    //gets friend of friends
-                    // changed to select * from users
-
-                    $friendsoffriends = db_query("SELECT * FROM users WHERE CONCAT(fName, ' ', lName) LIKE '%$query%' AND userId IN (
-                        SELECT userId FROM friendcircle_users WHERE circleId=(
-                            SELECT circleId FROM friendcircles WHERE name='everyone' AND userId=".$col['userId']."))");
-
-                        while($row =$friendsoffriends->fetch_assoc()){
+    // select * from users
+    // join friendcircle_users on users.userId = friendcircle_users.userId
+    //     join friendcircles as fcouter on fcouter.circleId = fcuouter.circleId where name = 'everyone' and (fcuouter.userId != $userId) and fcouter.userId in (
+    //         select fcu.userId from friendcircle_users as fcu
+    //         join friendcircles as fc on fc.circleId = fcu.circleId where name='everyone' and fc.userId = $userId))
 
 
-                            if ($row['userId'] == $_SESSION['userId']){
-                                 //echo 'Logged in user: '.$_SESSION['userId'].' is a friend:'.$col['fName'].'->'.$row['fName'].'<br>';
-                                //return 1;
-                            } else {
-                                // uncomment the below line for debugging, see how friends of friends are connected
-                                // echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
+    $friendsoffriends = db_query(<<<HEREDOC
 
-                                // print the user's name and link to their profile
-            
+    select * from users where concat(users.fName, ' ', users.lName) like '%$query%' and users.userId not in (
+        select fcu.userId from friendcircle_users as fcu
+        join friendcircles as fc on fc.circleId = fcu.circleId where name='everyone' and fc.userId = $userId
+    ) and users.userId in (
+    select fcuouter.userId from friendcircle_users as fcuouter
+    join friendcircles as fcouter on fcouter.circleId = fcuouter.circleId where name = 'everyone' and (fcuouter.userId != $userId) and fcouter.userId in (
+        select fcu.userId from friendcircle_users as fcu
+        join friendcircles as fc on fc.circleId = fcu.circleId where name='everyone' and fc.userId = $userId));
+
+
+HEREDOC
+);
+
+
+                        if ($friendsoffriends) {
+                            while($row =$friendsoffriends->fetch_assoc()){
+
                                 $fName = $row['fName'];
                                 $lName = $row['lName'];
                                 $username = $row['username'];
+                                $userId = $row['userId'];
+
+                                $addFriendButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Add Friend</span>
+              </Button>
+              </center>
+BUTTON;
+  
+
+  $requestSentButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Request Sent</span>
+              </Button>
+              </center>
+BUTTON;
+
+  $alreadyFriendButton = "<button class=\"button is-medium is-disabled\"> Already a Friend</button>";
+
+  
+
+  if (isUserUsersFriend($userId)){
+    //if user is friend
+    $button = $alreadyFriendButton;
+      
+    }else if(isFriendRequestSent($userId)){
+    // if user is not friend but a friend request has been sent
+    $button = $requestSentButton;
+
+            }else{
+        //if user is not a friend and a friend request has NOT been sent
+    $button = $addFriendButton;
+
+  }
 
                                 $output = <<<HEREDOC
 
@@ -73,7 +117,7 @@ if(isset($query)){
                                   </div>
                                   </div>
                                   <div class="media-right">
-                                    <button class="button is-info">Add Friend</button>
+                                    $button
                                   </div>
                                 </article>
 
@@ -83,27 +127,22 @@ HEREDOC;
                             }
                         }
 
+
+                            // if ($row['userId'] == $_SESSION['userId']){
+                            //      //echo 'Logged in user: '.$_SESSION['userId'].' is a friend:'.$col['fName'].'->'.$row['fName'].'<br>';
+                            //     //return 1;
+                            // } else {
+                            //     // uncomment the below line for debugging, see how friends of friends are connected
+                            //     // echo 'Logged in user: '.$_SESSION['userId'].' is a friend of friend '.$row['fName'].' '.$row['lName'].' through '.$col['fName'].' '.$col['lName'].'<br>';
+                            //
+                            //     // print the user's name and link to their profile
+
+
         }
-
-    // Attempt select query execution
-
-
-    // if($result = mysqli_query($connection, $sql)){
-    //     if(mysqli_num_rows($result) > 0){
-    //         while($row = mysqli_fetch_array($result)){
-    //             // TODO: INSERT CORRECT URL FOR USER'S PROFILE
-    //             echo "<a href=".$row['username']."><p>" . $row['fName'] . " ". $row['lName'] ."</p></a>";
-    //         }
-    //         // Close result set
-    //         mysqli_free_result($result);
-    //     } else{
-    //         echo "<p>No friends found for <b>$query</b></p>";
-    //     }
-    // } else{
-    //     echo "ERROR: Could not execute $sql. " . mysqli_error($connection);
-    // }
-}
 
 // close connection
 mysqli_close($connection);
 ?>
+<head>
+<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
+</head>
