@@ -3,6 +3,8 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
+
 
 /**
  * This function recommends anyone who a user is not already friends with, and who has more than 2 interets in common.
@@ -43,10 +45,15 @@ function recommendByTags($userId, $threshold) {
             
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
 
+           if (isUserUsersFriend($friendId)){
+
+            } else{
                 echo "<div class=\"container\">";
                 displaySearchResult($row);
                 echo "<hr>";
                 echo "</div>";
+
+            }
             }
 
         }
