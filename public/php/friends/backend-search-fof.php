@@ -3,6 +3,7 @@
 //include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
 require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -10,7 +11,7 @@ server with default setting (user 'root' with no password) */
 $connection = db_connect();
 
 
-session_start();
+// session_start();
 
 $userId = $_SESSION['userId'];
 
@@ -54,6 +55,48 @@ HEREDOC
                                 $fName = $row['fName'];
                                 $lName = $row['lName'];
                                 $username = $row['username'];
+                                $userId = $row['userId'];
+
+                                $addFriendButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Add Friend</span>
+              </Button>
+              </center>
+BUTTON;
+  
+
+  $requestSentButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Request Sent</span>
+              </Button>
+              </center>
+BUTTON;
+
+  $alreadyFriendButton = "<button class=\"button is-medium is-disabled\"> Already a Friend</button>";
+
+  
+
+  if (isUserUsersFriend($userId)){
+    //if user is friend
+    $button = $alreadyFriendButton;
+      
+    }else if(isFriendRequestSent($userId)){
+    // if user is not friend but a friend request has been sent
+    $button = $requestSentButton;
+
+            }else{
+        //if user is not a friend and a friend request has NOT been sent
+    $button = $addFriendButton;
+
+  }
 
                                 $output = <<<HEREDOC
 
@@ -74,7 +117,7 @@ HEREDOC
                                   </div>
                                   </div>
                                   <div class="media-right">
-                                    <button class="button is-info">Add Friend</button>
+                                    $button
                                   </div>
                                 </article>
 
@@ -100,3 +143,6 @@ HEREDOC;
 // close connection
 mysqli_close($connection);
 ?>
+<head>
+<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
+</head>

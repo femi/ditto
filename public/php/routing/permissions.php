@@ -217,7 +217,7 @@ function isUserUsersFriendofFriend($userId) {
 function isFriendRequestSent($userId){
     $query = "SELECT * FROM friend_requests";
     $result = db_query($query);
-echo "checking to see prior friend request";
+
 if ($result === false) {
             mysqli_error(db_connect());
     }
