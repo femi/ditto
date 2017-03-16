@@ -4,6 +4,7 @@
 require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/add-friend-button.php");
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -56,47 +57,7 @@ HEREDOC
                                 $lName = $row['lName'];
                                 $username = $row['username'];
                                 $userId = $row['userId'];
-
-                                $addFriendButton = <<<BUTTON
-              <center>
-              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium">
-               <span class="icon">
-                  <i class="fa fa-user"></i>
-                </span>
-                <span>Add Friend</span>
-              </Button>
-              </center>
-BUTTON;
-  
-
-  $requestSentButton = <<<BUTTON
-              <center>
-              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
-               <span class="icon">
-                  <i class="fa fa-user"></i>
-                </span>
-                <span>Request Sent</span>
-              </Button>
-              </center>
-BUTTON;
-
-  $alreadyFriendButton = "<button class=\"button is-medium is-disabled\"> Already a Friend</button>";
-
-  
-
-  if (isUserUsersFriend($userId)){
-    //if user is friend
-    $button = $alreadyFriendButton;
-      
-    }else if(isFriendRequestSent($userId)){
-    // if user is not friend but a friend request has been sent
-    $button = $requestSentButton;
-
-            }else{
-        //if user is not a friend and a friend request has NOT been sent
-    $button = $addFriendButton;
-
-  }
+                                $button = buttonSelector($userId);
 
                                 $output = <<<HEREDOC
 

@@ -1,6 +1,8 @@
 <?php require_once("$_SERVER[DOCUMENT_ROOT]/php/home/session.php"); 
 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/add-friend-button.php");
+
 
 function getUserIdFromUsername($username) {
     $connection = db_connect();
@@ -37,41 +39,14 @@ function getUserIdFromUsername($username) {
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3>
             <?php 
-
             echo "You have <b>".mutualFriends($userId)."</b> mutual friends!<hr>";
             
-
-            if (isUserUsersFriend($userId)){
-            }else if(isFriendRequestSent($userId)){
-                            $addFriendButton = <<<BUTTON
-              <center>
-              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
-               <span class="icon">
-                  <i class="fa fa-user"></i>
-                </span>
-                <span>Request Sent</span>
-              </Button><hr>
-              </center>
-BUTTON;
-
-              echo $addFriendButton;
-            } else{
-              $addFriendButton = <<<BUTTON
-              <center>
-              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-primary is-outlined is-medium">
-               <span class="icon">
-                  <i class="fa fa-user"></i>
-                </span>
-                <span>Add Friend</span>
-              </Button><hr>
-              </center>
-BUTTON;
-
-              echo $addFriendButton;
+            if (!isUserUsersFriend($userId)){
+            echo buttonSelector($userId);
+            echo '<hr>';
             }
             ?>
-        
-            
+          
             <?php include ("circles.php") ?>
             <?php include ("albums.php") ?>
 
