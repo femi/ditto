@@ -1,6 +1,6 @@
 
 <?php
-// session_start();
+session_start();
 // REQUIRE THE DATABASE FUNCTIONS
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
@@ -24,13 +24,13 @@ function make_request($userId) {
 
 }
 
-make_request($_POST['friendId']);
+make_request($_REQUEST['friendId']);
 
 ?>
-
+<!-- 
 <form action="../friends" method="post">
     <input type="submit" value="Back to friend-requests">
-</form>
+</form> -->
 
 
 

@@ -16,6 +16,9 @@ function getUserIdFromUsername($username) {
 ?>
 
 <html>
+  <head>
+  <script type="text/javascript" src="/js/sendFriendRequest.js"></script>
+  </head>
   <body>
 
     <?php include ("header.php") ?><br>
@@ -33,12 +36,29 @@ function getUserIdFromUsername($username) {
                 ?>
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3>
-
             <?php 
-        
-            echo "You have <b>".mutualFriends($userId)."</b> mutual friends!"; ?>
-            <hr>
 
+            echo "You have <b>".mutualFriends($userId)."</b> mutual friends!<hr>";
+            
+
+            if (isUserUsersFriend($userId)){
+            }else {
+              $addFriendButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-primary is-outlined is-medium">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Add Friend</span>
+              </Button><hr>
+              </center>
+BUTTON;
+
+              echo $addFriendButton;
+            }
+            ?>
+        
+            
             <?php include ("circles.php") ?>
             <?php include ("albums.php") ?>
 
