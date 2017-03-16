@@ -38,6 +38,7 @@ if ( isset($_POST['submit']) ) {
 
     } else {
       $error = "Email address or Password is invalid";
+      echo "<br><strong><center>Your email address and/or password is incorrect 😭</p></center></strong>";
     }
     mysqli_close($connection); // Closing Connection
   }
