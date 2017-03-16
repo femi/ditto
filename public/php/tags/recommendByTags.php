@@ -36,14 +36,24 @@ function recommendByTags($userId, $threshold) {
             $lName = $row['lName'];
             $username = $row['username'];
             $description = $row['description'];
+            $friendId = $row['userId'];
             
             // echo "<div class=\"box\"><article class=\"media\"><div class=\"media-left\"> <figure class=\"image is-64x64\"><img src=\"\"></figure></div><div class=\"media-content\"><div class=\"content\">            <p><strong>$fName $lName</strong> <a href=\"/$username\"><small>@$username</small></a><br>$description</p></div></div></article></div>";
 
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
-            echo "<div class=\"container\">";
-            displaySearchResult($row);
-            echo "<hr>";
-            echo "</div>";
+           
+
+            if (!isUserFriend($friendId)){
+                   
+                    }else{
+                        echo "<div class=\"container\">";
+                        displaySearchResult($row);
+                        echo "<hr>";
+                        echo "</div>"; 
+
+                }
+            
+             
 
         } 
         
