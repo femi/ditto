@@ -46,7 +46,7 @@ function change_password($userId, $old_password, $new_password) {
 
 function update_details($fName, $lName, $username, $city, $mobileNumber, $email, $description) {
   $userId = $_SESSION['userId'];
-  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`='$description' WHERE `userId` = $userId";
+  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`=" . db_quote($description) . " WHERE `userId` = $userId";
   $result = db_query($query);
 }
 
