@@ -15,7 +15,8 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 
 function getUsersCircles() {
     $userId = $_SESSION['userId'];
-    $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE (friendcircles.name != 'everyone')  AND (friendcircle_users.userId = $userId OR friendcircles.userId = $userId)");
+    $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE (
+        friendcircles.name != 'everyone')  AND (friendcircle_users.userId = $userId OR friendcircles.userId = $userId)");
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
