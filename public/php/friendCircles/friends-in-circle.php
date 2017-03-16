@@ -97,3 +97,29 @@ echo '<br>';
 // print_users_FC($_POST['circleId']);
 
 ?>
+<!--
+Add a friend to current circle:
+
+<form action="friends/add" method="post">
+    <select name="userId">
+                    <?php
+                    all_noncircle_friends();
+                    ?>
+    </select>
+    <input type="submit" value="Add">
+</form>
+
+Remove a friend from circle:
+<form action="friends/remove" method="post">
+    <select name="userId">
+        <?php
+        all_circle_friends();
+        ?>
+    </select>
+    <input type="submit" value="Remove">
+</form>
+
+
+<form action="../circles" method="post">
+    <input type="submit" value="Back to CRUD">
+</form> -->

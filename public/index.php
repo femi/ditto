@@ -223,13 +223,18 @@ if (isset($_SESSION['userId'])) {
         $pathArray = explode('/', $_GET['uri']);
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friends_layout.php");
             } else {
                 echo "403";
             }
         } else {
             echo "404";
         }
+        // old friends functionality here if you need it
+        // require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+    });
+   $route->add("^(\w+)/friends/all/?$", function() {
+         require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/all-friends.php");
     });
     $route->add("^(\w+)/friends/accept/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
@@ -256,6 +261,9 @@ if (isset($_SESSION['userId'])) {
         }
 
     });
+    $route->add("^(\w+)/friendz/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
+     });
 
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
