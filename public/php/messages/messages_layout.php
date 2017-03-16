@@ -14,7 +14,7 @@
   function getUsersCircles() {
       $userId = $_SESSION['userId'];
       $result = db_query("
-          select name from friendcircles where circleId in(
+          select name, circleId from friendcircles where circleId in(
           select circleId from friendcircles where userId = $userId and (name != 'everyone'))
           or circleId in (
           select circleId from friendcircle_users where userId = $userId and (name != 'everyone'));
