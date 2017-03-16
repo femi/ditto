@@ -46,10 +46,45 @@ function displaySearchResult($user) {
 	$username = $user['username'];
 	$tags = getTags($userId);
 	$mutualFriends = countMutual($userId);
-	if (isUserFriend($user['userId'])){
-		$button = "<button class=\"button is-info\">Add Friend</button>";
-		}else{
-		$button = "<button class=\"button is-disabled\"> Already a Friend</button>";
+	$addFriendButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Add Friend</span>
+              </Button>
+              </center>
+BUTTON;
+	
+
+	$requestSentButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Request Sent</span>
+              </Button>
+              </center>
+BUTTON;
+
+	$alreadyFriendButton = "<button class=\"button is-medium is-disabled\"> Already a Friend</button>";
+
+	
+
+	if (isUserUsersFriend($user['userId'])){
+		//if user is friend
+		$button = $alreadyFriendButton;
+			
+		}else if(isFriendRequestSent($userId)){
+		// if user is not friend but a friend request has been sent
+		$button = $requestSentButton;
+
+            }else{
+        //if user is not a friend and a friend request has NOT been sent
+		$button = $addFriendButton;
+
 	}
 
 	$search_result = "
@@ -88,3 +123,7 @@ function getTags($userId) {
 	return $tags;
 }
 ?>
+
+<head>
+<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
+</head>

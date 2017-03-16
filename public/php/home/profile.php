@@ -42,7 +42,20 @@ function getUserIdFromUsername($username) {
             
 
             if (isUserUsersFriend($userId)){
-            }else {
+            }else if(isFriendRequestSent($userId)){
+                            $addFriendButton = <<<BUTTON
+              <center>
+              <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-success is-medium is-disabled">
+               <span class="icon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span>Request Sent</span>
+              </Button><hr>
+              </center>
+BUTTON;
+
+              echo $addFriendButton;
+            } else{
               $addFriendButton = <<<BUTTON
               <center>
               <Button value="$userId" onclick="sendFriendRequest(this)" class="button is-primary is-outlined is-medium">
