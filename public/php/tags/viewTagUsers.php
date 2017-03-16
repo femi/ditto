@@ -5,6 +5,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
 ?>
 
 <?php
@@ -45,7 +46,7 @@ function displaySearchResult($user) {
 			<article class=\"media\">
 				<figure class=\"media-left\">
 					<p class=\"image is-64x64\">
-						<img src=\"http://bulma.io/images/placeholders/128x128.png\">
+                        
 					</p>
 				</figure>
 				<div class=\"media-content\">

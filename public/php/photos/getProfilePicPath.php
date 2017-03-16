@@ -11,7 +11,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
  * This function queries the database to find the most recent photo in the users profile album.  If there are no results found, it returns a link
  * to a default profile picture image, else it returns a link to the profile picture.
  */
-function getProfilePic($userId) {
+function getProfilePicPath($userId) {
 	$connection = db_connect(); // Try and connect to the database
     
     db_quote($userId);
@@ -30,7 +30,7 @@ function getProfilePic($userId) {
 	}
 
     if (mysqli_num_rows($qry_result) === 0) {
-        echo "<img src=\"/img/invalid.png\">";
+        echo "/img/invalid.png";
     } else {
         while($row = $qry_result->fetch_assoc()){
             $caption = $row['caption'];
@@ -41,7 +41,7 @@ function getProfilePic($userId) {
             // echo "<img src='$path'>";
             //echo "<img src='/img/invalid.png'>";
             // echo "<img src='$path'>";
-            echo "<img src='/album_content/$userId/$albumId/$filename'>";
+            echo "/album_content/$userId/$albumId/$filename";
 	    }
     }
 }

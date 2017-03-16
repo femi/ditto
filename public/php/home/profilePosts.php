@@ -1,4 +1,5 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
 
 if (isset($_POST['comment']) && isset($_POST['submit'] )) {
   $userId = $_SESSION['userId'];
@@ -23,8 +24,9 @@ while ( $row = $usersblogs->fetch_assoc()){
 
     echo "<article id=\"b_$blogId\" class=\"media\">
       <figure class=\"media-left\">
-        <p class=\"image is-32x32\">
-          <img class=\"img-rounded\" src=\"https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg\">
+        <p class=\"image is-32x32\">";
+    echo getProfilePic($userId);
+    echo "
         </p>
       </figure>
 
