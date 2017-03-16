@@ -3,7 +3,7 @@
     <?php include ("header.php"); ?>
     <body>
       <div class="container">
-      <br><br><h3 class="title is-3"><strong>Settings</strong></h3>
+      <br><h2 class="title is-2">Settings</h2>
       <hr>
       </div>
       <div class="container">

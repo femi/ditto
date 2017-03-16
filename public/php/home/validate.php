@@ -46,8 +46,21 @@ function change_password($userId, $old_password, $new_password) {
 
 function update_details($fName, $lName, $username, $city, $mobileNumber, $email, $description) {
   $userId = $_SESSION['userId'];
-  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`=" . db_quote($description) . " WHERE `userId` = $userId";
-  $result = db_query($query);
+
+  if ( clean($username) !== "" ) {
+      $username = clean($username);
+      $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`=" . db_quote($description) . " WHERE `userId` = $userId";
+      $result = db_query($query);
+  } else {
+    // dont complete query
+    // echo "Username cannot be empty or cantain symbols";
+  }
+
+
+
+
+
+
 }
 
 function add_tag($userId, $tag) {
@@ -60,6 +73,12 @@ function delete_tag($userId, $tag) {
   $tag_id = intval(mysqli_fetch_assoc(db_query("SELECT * FROM `tags` WHERE `name` = '$tag'"))['tagId']);
   $query = "DELETE FROM tag_users WHERE tagId = $tag_id AND userId = $userId";
   return $result = db_query($query);
+}
+
+function clean($string) {
+   $string = str_replace(' ', '', $string);
+   $string = strtolower($string);
+   return preg_replace('/[^A-Za-z]/', '', $string); // Removes special chars.
 }
 
 if( $_POST['updateDetails'] ) {
