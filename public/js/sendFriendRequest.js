@@ -6,9 +6,9 @@
         if (this.status == 200) {
           // this is called when the server issues a 200 response i.e. it processed the request (and potentially completed it).
 
-          var newButton = '<Button value="$userId" onclick="sendFriendRequest(this)" class="button is-primary is-outlined is-medium"><span class="icon"><i class="fa fa-user"></i></span><span>Request Sent</span></Button>';
-          // this = newButton;
-          console.log(Object.getOwnPropertyNames(buttonObject));
+          buttonObject.innerHTML = "Request Sent";
+          buttonObject.className = "button is-disabled";
+
           
           // this is where you want to change the button status to sent or whatever
         } else if (this.status == 400) {
