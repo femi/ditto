@@ -58,14 +58,19 @@
                 <button class=\"delete\" onclick=\"deleteCircle($circle_id)\"></button>
               </div>
             </article>";
+            if($circle_name != "everyone"){
     return $circle_html;
+  }
   }
 
   function displayAllCircles($userId) {
     $all_circles = retrieve_friend_circles($userId);
     $all_circles_html = "";
-
+    if(mysqli_num_rows($all_circles) === 1){
+      echo "You currently have no friend circles :( <br>";
+    }
     while($circle = $all_circles->fetch_assoc()){
+
       $all_circles_html = $all_circles_html . displayCircle($circle);
     }
     echo $all_circles_html;
