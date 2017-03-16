@@ -43,7 +43,7 @@ function recommendByTags($userId, $threshold) {
             require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
            
 
-            if (!isUserFriend($friendId)){
+            if (isUserUsersFriend($friendId)){
                    
                     }else{
                         echo "<div class=\"container\">";
