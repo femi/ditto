@@ -42,7 +42,7 @@ $connection = db_connect(); // Try and connect to the database
 
     if ($qry_result->num_rows > 0) {
         echo "<div class=\"container\">";
-        echo "<h1 class=\"title\">Your Albums</h1>";   
+        echo "<br><h2 class=\"title is-2\">Albums</h2><hr>";   
         echo "<div class=\"columns\">";
         while ($row = $qry_result->fetch_assoc()){
             $albumName = $row['albumName'];
