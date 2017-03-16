@@ -34,7 +34,28 @@ function printCircleMessages($circleId) {
         $content = $row['content'];
         $username = $row ['username'];
         $updatedAt = $row['updatedAt'];
-        echo "<div class=\"box\"><article class=\"media\"><div class=\"media-left\"><figure class=\"image is-32x32\"><img src=\"\"></figure></div><div class=\"media-content\"><div class=\"content\"><p><strong>$fName $lName</strong><small>$username</small><small>$updatedAt</small><br>$content</p></div></div></article></div>";
+
+        $output = <<<HEREDOC
+
+        <div class="notification">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>$fName $lName</strong> <small>@$username</small> <small>$updatedAt</small>
+                  <br>
+                  $content
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+
+HEREDOC;
+
+        echo $output;
+        // echo "<div class=\"box\"><article class=\"media\"><div class=\"media-left\"><figure class=\"image is-32x32\"><img src=\"\"></figure></div><div class=\"media-content\"><div class=\"content\"><p><strong>$fName $lName</strong><small>$username</small><small>$updatedAt</small><br>$content</p></div></div></article></div>";
     }
 }
 
