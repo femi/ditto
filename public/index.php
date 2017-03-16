@@ -354,14 +354,6 @@ if (isset($_SESSION['userId'])) {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
     });
 
-    // temporary route - delete after messages complete
-    // --------------------------------------------------------
-    $route->add("^m/?$", function() {
-        require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messages_layout.php");
-    });
-    // --------------------------------------------------------
-
-
 
 // Routes for profile
 
