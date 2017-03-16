@@ -8,11 +8,17 @@
   require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
   require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
-
+  // get circles that..
+  // 1. a user owns
+  // 2. a user has been added to by another user (else they can't reply..)
   function getUsersCircles() {
       $userId = $_SESSION['userId'];
-      $result = db_query("SELECT DISTINCT name, friendcircles.circleId FROM friendcircles JOIN friendcircle_users WHERE (
-          friendcircles.name != 'everyone')  AND (friendcircle_users.userId = $userId OR friendcircles.userId = $userId)");
+      $result = db_query("
+          select name from friendcircles where circleId in(
+          select circleId from friendcircles where userId = $userId and (name != 'everyone'))
+          or circleId in (
+          select circleId from friendcircle_users where userId = $userId and (name != 'everyone'));
+      ");
       if($result === false) {
           echo mysqli_error(db_connect());
       } else {
@@ -21,6 +27,7 @@
       return $result;
   }
 
+  // populate the option box with the users relevant circles
   function printUsersCircles() {
       echo "<option>Select a circle</option>";
       echo "printing users circles";
@@ -78,7 +85,14 @@ function printCircleMessages() {
    xmlhttp.onreadystatechange = function() {
      if (this.readyState == XMLHttpRequest.DONE) {
        if (this.status == 200) { // this bit of the function is executed upon a succesful response from the server
-         document.getElementById("circleMessages").innerHTML = this.responseText;
+
+            if (this.responseText == "" && $("#selectedCircle option:selected").text() !== "Select a circle")
+            {
+              document.getElementById("circleMessages").innerHTML = "No messages found. Say something!"
+            } else {
+              document.getElementById("circleMessages").innerHTML = this.responseText;
+            }
+
 
             if ($("#selectedCircle option:selected").text() == "Select a circle") {
                 document.getElementById("circleTitle").innerHTML =  "<strong>Please choose a circle</strong>";
@@ -139,9 +153,9 @@ function printCircleMessages() {
     <button class="button is-primary" type="submit" onclick="sendCircleMessage(<?php echo $_SESSION['userId'] ?>, document.getElementById('circleMessage').value)">Send</button> -->
 
 
-    <!-- TODO: here is the message sending bit -->
+    <!-- the sending message mechanism -->
     <p class="control">
-      <textarea id="circleMessage" class="textarea " placeholder="Write you message here :)"></textarea>
+      <textarea id="circleMessage" class="textarea " placeholder="Write your message here :)"></textarea>
     </p>
     <p class="control">
       <a class="button is-primary is-medium" onclick="sendCircleMessage(<?php echo $_SESSION['userId'] ?>, document.getElementById('circleMessage').value)">Send</a>
@@ -163,7 +177,7 @@ function printCircleMessages() {
 </div>
 </div>
 
-
+<!-- the jQuery polling chat mechanism -->
 <script type="text/javascript">
 $(document).ready(function() {
     //    setInterval(getMessages, 1000);  // to retreive users individual messages
