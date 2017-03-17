@@ -330,6 +330,8 @@ function isValidCircle($circleId) {
         return true;
     } else {
         return false; 
+    }
+}
 
 function isFriendRequestSent($userId){
     $query = "SELECT * FROM friend_requests";

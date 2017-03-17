@@ -33,7 +33,10 @@ function recommendByTags($userId, $threshold) {
     if (mysqli_num_rows($result) === 0) {
         $result = db_query($fallbackQuery);
         if (mysqli_num_rows($result) === 0) {
-            echo "No one to recommend at the moment";
+            require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
+            echo "<div class=\"container\">";
+            echo "<br><h2 class=\"title is-2\">No one to recommend at the moment</h2>";
+            echo "</div>"; // end the containter div.
         } else {
             echo "<div class=\"container\">";
             echo "<br><h2 class=\"title is-2\">People you might know:</h2><hr>";
