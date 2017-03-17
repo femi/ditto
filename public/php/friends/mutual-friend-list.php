@@ -77,7 +77,8 @@ if ($results === false) {
 				<div class=\"media-content\">
 					<div class=\"content\">
 						<p>
-							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>$mutualFriends Mutual Friends</small><br>$biography
+							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>
+							<a href=\"mutual?id=".$userId."\" >You have <b>".mutualFriends($userId)."</b> mutual friends!</a></small><br>$biography
 						</p>
 					</div>
 				</div>
@@ -89,7 +90,9 @@ if ($results === false) {
 
 
 <div class="container">
-<br><h2 class="title is-2">Mutual friends with <?php echo getUsernameFromUserId(2) ?> </h2><hr>
+<br><h2 class="title is-2">Mutual friends with <?php $mutualId= $_GET['id']; echo getUsernameFromUserId($mutualId); ?> </h2><hr>
 	
 <div class="container">
-<?php getMutualFriends(2);?>
+<?php 
+
+getMutualFriends($mutualId);?>

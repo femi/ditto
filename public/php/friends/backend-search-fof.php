@@ -5,6 +5,7 @@ require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/add-friend-button.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -60,6 +61,7 @@ HEREDOC
                                 $button = buttonSelector($userId);
                                 $biography = $row['description'];
                                 $location = $row['city'];
+                                $count = mutualFriends($userId);
   
                                 $output = <<<HEREDOC
 
@@ -73,7 +75,7 @@ HEREDOC
                                     <div class="content">
                                       <p>
                                         <a href="/$username"><strong>$fName $lName</strong></a><br><small>$location</small><br>
-                                        $biography
+                                        $biography<br><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a>
                                       </p>
                                     </div>
                                   <div id="alltags">

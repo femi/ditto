@@ -3,7 +3,7 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
     
@@ -42,6 +42,7 @@ function displaySearchResult($user) {
 	$userId = $user['userId'];
 	$username = $user['username'];
 	$tags = getTags($userId);
+	$count = mutualFriends($userId);
 
 	$search_result = "
 			<article class=\"media\">
@@ -54,7 +55,7 @@ function displaySearchResult($user) {
 					<div class=\"content\">
 						<p>
 							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br>
-							$biography
+							$biography<br><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a><br>
 						</p>
 					</div>
 				<div id=\"alltags\">

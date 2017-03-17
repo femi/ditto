@@ -49,6 +49,8 @@ function displaySearchResult($user) {
 	$tags = getTags($userId);
 	$mutualFriends = countMutual($userId);
 	$button = buttonSelector($userId);
+    $count = countMutual($userId);
+
 
 	$search_result = "
 			<article class=\"media\">
@@ -60,7 +62,7 @@ function displaySearchResult($user) {
 				<div class=\"media-content\">
 					<div class=\"content\">
 						<p>
-							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small>$mutualFriends Mutual Friends</small><br>$biography
+							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br><small><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a><br></small>$biography
 						</p>
 					</div>
 				<div id=\"alltags\">

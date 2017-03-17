@@ -39,7 +39,7 @@ function getUserIdFromUsername($username) {
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3>
             <?php 
-            echo "You have <b>".mutualFriends($userId)."</b> mutual friends!<hr>";
+            echo "<a href=\"mutual?id=".$userId."\" >You have <b>".mutualFriends($userId)."</b> mutual friends!<hr></a>";
             
             if (!isUserUsersFriend($userId)){
             echo buttonSelector($userId);

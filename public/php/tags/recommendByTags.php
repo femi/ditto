@@ -42,6 +42,7 @@ function recommendByTags($userId, $threshold) {
                 $username = $row['username'];
                 $description = $row['description'];
                 $friendId = $row['userId'];
+                $mutualFriends = countMutual($userId);
             
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/viewTagUsers.php");
 
