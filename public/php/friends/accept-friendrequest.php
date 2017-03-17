@@ -65,7 +65,7 @@ function retract_request($friendId) {
 function delete_friend($friendId) {
 
 
-    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId IN (SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId'].")");
+    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId IN (SELECT circleId from friendcircles WHERE userId =".$_SESSION['userId'].")");
 
 
     $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$friendId." AND name='everyone')");
