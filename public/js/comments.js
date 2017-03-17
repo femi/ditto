@@ -175,9 +175,10 @@ function deleteCircleUser(userId, circleId) {
            // remove the commnet from the
            var elem = document.getElementById(`cu_${userId}`);
            elem.parentNode.removeChild(elem);
-
            console.log(this.responseText);
 
+         } else {
+           console.log("Here we go");
          }
        };
      };
@@ -185,7 +186,6 @@ function deleteCircleUser(userId, circleId) {
      var querystring = "userId=" + userId + "&circleId=" + circleId;
      xmlhttp.open("POST", `${circleId}/remove`, true);
      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     console.log(querystring);
      xmlhttp.send(querystring);
 
 }
