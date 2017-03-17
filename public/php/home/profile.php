@@ -15,6 +15,26 @@ function getUserIdFromUsername($username) {
         return $result->fetch_assoc()['userId'];
     }
 }
+
+
+function getNameFromUserId($userId) {
+    $connection = db_connect();
+    if ($connection === false) {
+        // oh dear...
+        return "";
+    } else {
+        $username = db_quote($username);
+        $result = db_query("SELECT * FROM users WHERE userId = $userId");
+        while ( $row = $results->fetch_assoc()){
+            $fName = $row['fName'];
+            $lName = $row['lName'];
+            $fullName = $fName." ".$lName;
+            return $fullName;
+
+        }
+    }
+}
+
 ?>
 
 <html>
@@ -38,7 +58,7 @@ function getUserIdFromUsername($username) {
                 ?>
             </figure>
 
-            <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3>
+            <br><h3 class="title is-3"><strong><?php getNameFromUserId($userId); ?></strong> </h3>
             <?php 
             echo "<a href=\"mutual?id=".$userId."\" >You have <b>".mutualFriends($userId)."</b> mutual friends!<hr></a>";
             
