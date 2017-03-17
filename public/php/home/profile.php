@@ -1,4 +1,4 @@
-<?php require_once("$_SERVER[DOCUMENT_ROOT]/php/home/session.php"); 
+<?php require_once("$_SERVER[DOCUMENT_ROOT]/php/home/session.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/add-friend-button.php");
@@ -30,13 +30,14 @@ function getUserIdFromUsername($username) {
         <div class="column is-one-quarter">
 
             <figure class="image is-250x250">
-                <?php 
+                <?php
                     $pathArray = explode('/', $_GET['uri']);
                     $userId = getUserIdFromUsername($pathArray[0]);
                     getProfilePic($userId);
 
                 ?>
             </figure>
+
             <br><h3 class="title is-3"><strong><?php echo $_GET['uri']; ?></strong> </h3>
             <?php 
             echo "<a href=\"mutual?id=".$userId."\" >You have <b>".mutualFriends($userId)."</b> mutual friends!<hr></a>";
@@ -46,7 +47,7 @@ function getUserIdFromUsername($username) {
             echo '<hr>';
             }
             ?>
-          
+
             <?php include ("circles.php") ?>
             <?php include ("albums.php") ?>
 
