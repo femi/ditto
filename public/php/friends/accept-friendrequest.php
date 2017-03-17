@@ -15,10 +15,9 @@ $connection = db_connect(); // the db connection
 // accept friend request and add accepted friend to users 'everyone' circle - for both users
 function accept_request($friendId) {
 
-	 
-    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
+    $result = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone'), ".db_quote($friendId).")");
 
-    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId from friendcircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
+    $result1 = db_query("INSERT INTO friendcircle_users (circleId, userId) VALUES ((SELECT circleId FROM friendcircles WHERE userId =".db_quote($friendId)." AND name='everyone'), ".$_SESSION['userId'].")");
 
     if($result === false OR $result1 === false) {
         echo mysqli_error(db_connect());
@@ -33,13 +32,13 @@ function accept_request($friendId) {
 
 // Deletes request from incoming friend requests
 function delete_request($friendId) {
-	
+
 
     $result = db_query("DELETE FROM friend_requests WHERE userId =".$_SESSION['userId']." AND friendId =". $friendId);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-      
+
         echo "request deleted";
 
     }
@@ -49,13 +48,13 @@ function delete_request($friendId) {
 
 // Deletes request from outgoing friend requests
 function retract_request($friendId) {
-    
+
 
     $result = db_query("DELETE FROM friend_requests WHERE userId =". $friendId." AND friendId =".$_SESSION['userId']);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-      
+
         echo "request retracted";
 
     }
@@ -65,14 +64,17 @@ function retract_request($friendId) {
 //to delete a friend for both users everyone circle.
 function delete_friend($friendId) {
 
+
     $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId IN (SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId'].")");
 
-    $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId from friendCircles WHERE userId =".$friendId." AND name='everyone')");
-    
+
+    $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$friendId." AND name='everyone')");
+
+
     if($result === false OR $result1 === false)  {
         echo mysqli_error(db_connect());
     } else {
-      
+
         echo "Friendship has sunk";
 
     }
@@ -104,7 +106,3 @@ if (isset($_POST['abolish'])) {
 }
 
 ?>
-<!-- <br>
-<form action="../friends" method="post">
-    <input type="submit" value="Back to friend-requests">
-</form> -->

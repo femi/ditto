@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <script src="/js/comments.js"></script>
-  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="/js/jquery-3.1.1.min.js"></script>
 </head>
 
 <!-- Fixed Header bar -->
@@ -18,8 +18,9 @@
     <div class="nav-left">
 
       <a class="nav-item" href="/">
-
-        <img src="http://placehold.it/40" alt="logo">
+        <span class="icon">
+          <i class="fa fa-circle-o fa-2x" aria-hidden="true"></i>
+        </span>
       </a>
 
       <div class="level-item">
@@ -27,7 +28,7 @@
           <input class="input" type="text" placeholder="Search" style="top: 6px;">
         </p>
 
-      <div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px"></div>
+      <div id="result" class="box" style="display: none; z-index: 100000000; position: absolute; top: 40px; left: 60px; text-align: left;"></div>
 
       </div>
         <a href= /<?php echo $_SESSION['username'] . "/friends"?> class="nav-item is-tab is-hidden-mobile">Friends</a>

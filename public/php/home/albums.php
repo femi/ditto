@@ -5,24 +5,18 @@
   <strong>Albums</strong>
 </h5><div class="level">
   <div class="level-item">
-  <figure class="image is-64x64 ">
-    <img class="img-circle" src="https://www.tensorflow.org/images/cropped_panda.jpg">
+  <figure class="image is-64x64">
+    <div class="circle button is-outlined is-info"><a href="/<?php echo $username ?>/circles">A</a></div>
   </figure>
 </div>
-
-  <div class="level-item">
-  <figure class="image is-64x64 ">
-    <img class="img-circle" src="https://www.tensorflow.org/images/cropped_panda.jpg">
-  </figure>
-  </div>
-
-  <div class="level-item">
-  <figure class="image is-64x64 ">
-    <img class="img-circle" src="https://www.tensorflow.org/images/cropped_panda.jpg">
+<div class="level-item">
+  <figure class="image is-64x64">
+    <div class="circle button is-outlined is-info"><a href="/<?php echo $username ?>/circles">B</a></div>
   </figure>
 </div>
+<div class="level-item">
+  <figure class="image is-64x64">
+    <div class="circle button is-outlined is-info"><a href="/<?php echo $username ?>/circles">C</a></div>
+  </figure>
 </div>
-
-<div class"level">
-  <p class="level-item has-text-centered"><a>More</a></p>
 </div>

@@ -11,9 +11,8 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
 function displayAllResults($tag) {
 	$connection = db_connect();
-	$query = "SELECT * FROM users";
-	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE name = '$tag');";
-	$result = db_query($query2);
+	$query = "SELECT * FROM users WHERE userId IN (SELECT userId FROM tags INNER JOIN tag_users ON tags.tagId = tag_users.tagId WHERE name = '$tag');";
+	$result = db_query($query);
 
 	if ($result === false) {
 			mysqli_error(db_connect());
@@ -34,7 +33,6 @@ function displayAllResults($tag) {
 }
 
 function displaySearchResult($user) {
-
 	$image = "";
 	$full_name = $user['fName'] .  " " . $user['lName'];
 	$biography = $user['description'];

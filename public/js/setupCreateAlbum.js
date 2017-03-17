@@ -46,7 +46,6 @@ function setupCreateAlbum(userId) {
   div1.appendChild(p1)
   div1.appendChild(input1);
   div1.appendChild(newButton);
-
   ajaxResult.replaceChild(div1, button);
   // document.body.getElementsByClassName('create-album-container')[0].innerHTML = '<p>Enter album name:</p><input type=\"text\">';
 };

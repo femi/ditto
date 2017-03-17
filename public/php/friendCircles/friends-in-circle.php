@@ -5,12 +5,13 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 require_once(__DIR__.'/get-all-users.php');
 
 
 $connection = db_connect(); // the db connection
 // session_start();
-$_SESSION['circleId'] = $_POST['circleId'];
+// $_SESSION['circleId'] = $_POST['circleId'];
 
 
 
@@ -35,8 +36,8 @@ $_SESSION['circleId'] = $_POST['circleId'];
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-        // Print circle info 
-        $row = $result->fetch_assoc();     
+        // Print circle info
+        $row = $result->fetch_assoc();
         echo  '<table border = "1px"><tr>
             <th>circleId</th>
             <th>userId</th>
@@ -63,7 +64,7 @@ $_SESSION['circleId'] = $_POST['circleId'];
 // Print all friends's in friend circles given a circleId
 function print_users_FC($circleId) {
     echo 'Friends from circle Id ='.$circleId.'<br>';
-  
+
 echo '<br>';
 
     echo '<table border = "1px">';
@@ -86,24 +87,24 @@ echo '<br>';
 	        	<td>'.$row['updatedAt'].'</td>
 	        </tr>
         	  ';
-       	
+
     }
     echo '</table>';
 }
 
 // retrieving a user's friend circles
-retrieve_friendcircle_name($_POST['circleId']);
-print_users_FC($_POST['circleId']);
+// retrieve_friendcircle_name($_POST['circleId']);
+// print_users_FC($_POST['circleId']);
 
 ?>
-
+<!--
 Add a friend to current circle:
 
 <form action="friends/add" method="post">
     <select name="userId">
                     <?php
                     all_noncircle_friends();
-                    ?>   
+                    ?>
     </select>
     <input type="submit" value="Add">
 </form>
@@ -113,7 +114,7 @@ Remove a friend from circle:
     <select name="userId">
         <?php
         all_circle_friends();
-        ?>   
+        ?>
     </select>
     <input type="submit" value="Remove">
 </form>
@@ -121,4 +122,4 @@ Remove a friend from circle:
 
 <form action="../circles" method="post">
     <input type="submit" value="Back to CRUD">
-</form>
+</form> -->

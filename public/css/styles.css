@@ -4,6 +4,11 @@
   margin: 3px;
 }
 
+.circle {
+	border-radius: 50%;
+	width: 64px;
+	height: 64px;
+
 
 /* The switch - the box around the slider */
 .switch {

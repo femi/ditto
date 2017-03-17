@@ -6,7 +6,7 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.ph
 $connection = db_connect(); // the db connection
 
 
-function validate_email($email) {
+function email_available($email) {
   $query = "SELECT * FROM `users` WHERE `email` = '$email'";
   $result = mysqli_num_rows(db_query($query));
 
@@ -17,7 +17,7 @@ function validate_email($email) {
   }
 }
 
-function validate_username($username) {
+function username_available($username) {
   $query = "SELECT * FROM `users` WHERE `username` = '$username'";
   $result = mysqli_num_rows(db_query($query));
 
@@ -46,8 +46,21 @@ function change_password($userId, $old_password, $new_password) {
 
 function update_details($fName, $lName, $username, $city, $mobileNumber, $email, $description) {
   $userId = $_SESSION['userId'];
-  $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`='$description' WHERE `userId` = $userId";
-  $result = db_query($query);
+
+  if ( clean($username) !== "" ) {
+      $username = clean($username);
+      $query = "UPDATE `users` SET `fName`='$fName', `lName`='$lName', `username`='$username', `email`='$email', `mobileNumber`='$mobileNumber', `city`='$city', `description`=" . db_quote($description) . " WHERE `userId` = $userId";
+      $result = db_query($query);
+  } else {
+    // dont complete query
+    // echo "Username cannot be empty or cantain symbols";
+  }
+
+
+
+
+
+
 }
 
 function add_tag($userId, $tag) {
@@ -62,6 +75,12 @@ function delete_tag($userId, $tag) {
   return $result = db_query($query);
 }
 
+function clean($string) {
+   $string = str_replace(' ', '', $string);
+   $string = strtolower($string);
+   return preg_replace('/[^A-Za-z]/', '', $string); // Removes special chars.
+}
+
 if( $_POST['updateDetails'] ) {
   update_details($_POST['fName'], $_POST['lName'], $_POST['username'], $_POST['city'], $_POST['mobileNumber'], $_POST['email'], $_POST['description']);
   header("Location: /settings");
@@ -74,7 +93,15 @@ else if( $_POST['changePassword'] ) {
 
 
 if (isset($_REQUEST['username'])) {
-  if (validate_username($_REQUEST['username']) === true) {
+  if (username_available($_REQUEST['username']) === true) {
+    echo "true";
+  } else {
+    echo "false";
+  }
+}
+
+if (isset($_REQUEST['email'])) {
+  if (email_available($_REQUEST['email']) === true) {
     echo "false";
   } else {
     echo "true";
@@ -97,11 +124,5 @@ if (isset($_REQUEST['deltag'])) {
   }
 }
 
-if (isset($_REQUEST['email'])) {
-  if (validate_email($_REQUEST['email']) === true) {
-    echo "false";
-  } else {
-    echo "true";
-  }
-}
+
 ?>

@@ -54,9 +54,6 @@ while ( $row = $usersblogs->fetch_assoc()){
           <form action\"\" method=\"POST\" id=\"$blogId\">
             <div class=\"control is-grouped\">
             <figure class=\"media-left\">
-              <p class=\"image is-24x24\">
-                <img src=\"http://bulma.io/images/placeholders/128x128.png\">
-              </p>
             </figure>
               <p class=\"control is-expanded\">
                 <input id=\"comment\" class=\"input\" type=\"text\" name=\"comment\" placeholder=\"What do you have to say $firstname?\" required>
@@ -98,9 +95,6 @@ function viewComments($blogId) {
       $comments_html ="
       <article id=\"c_$commentId\" class=\"media\">
         <figure class=\"media-left\">
-          <p class=\"image is-24x24\">
-            <img src=\"http://bulma.io/images/placeholders/128x128.png\">
-          </p>
         </figure>
         <div class=\"media-content\">
           <div class=\"content\">

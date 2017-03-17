@@ -3,7 +3,7 @@
     <?php include ("header.php"); ?>
     <body>
       <div class="container">
-      <br><br><h3 class="title is-3"><strong>Settings</strong></h3>
+      <br><h2 class="title is-2">Settings</h2>
       <hr>
       </div>
       <div class="container">
@@ -103,13 +103,7 @@
             <a class="button is-danger is-medium" onclick="alert('Ha, no!')">Deactivate</a>
 
           </div>
-
-          <div class="column is-one-quarter">
-            <figure class="image">
-              <img class="img-rounded" src="https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg">
-            </figure>
-            <br><a class="button is-outline is-medium">Change your photo</a>
-          </div>
+          <div class="column is-one-quarter"></div>
         </div>
       </div>
 
