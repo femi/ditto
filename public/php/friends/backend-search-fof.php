@@ -3,6 +3,9 @@
 //include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php";
 require (dirname(__FILE__) . '/../../../resources/db/db_connect.php');
 require (dirname(__FILE__) . '/../../../resources/db/db_query.php');
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/add-friend-button.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 
 
 /* Attempt MySQL server connection. Assuming you are running MySQL
@@ -10,7 +13,7 @@ server with default setting (user 'root' with no password) */
 $connection = db_connect();
 
 
-session_start();
+// session_start();
 
 $userId = $_SESSION['userId'];
 
@@ -54,7 +57,12 @@ HEREDOC
                                 $fName = $row['fName'];
                                 $lName = $row['lName'];
                                 $username = $row['username'];
-
+                                $userId = $row['userId'];
+                                $button = buttonSelector($userId);
+                                $biography = $row['description'];
+                                $location = $row['city'];
+                                $count = mutualFriends($userId);
+  
                                 $output = <<<HEREDOC
 
                                 <article class="media">
@@ -66,15 +74,15 @@ HEREDOC
                                   <div class="media-content">
                                     <div class="content">
                                       <p>
-                                        <a href="/$username"><strong>$fName $lName</strong></a><br><small>Location</small><br>
-                                        Biography goes here
+                                        <a href="/$username"><strong>$fName $lName</strong></a><br><small>$location</small><br>
+                                        $biography<br><small><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a></small>
                                       </p>
                                     </div>
                                   <div id="alltags">
                                   </div>
                                   </div>
                                   <div class="media-right">
-                                    <button class="button is-info">Add Friend</button>
+                                    $button
                                   </div>
                                 </article>
 
@@ -100,3 +108,6 @@ HEREDOC;
 // close connection
 mysqli_close($connection);
 ?>
+<head>
+<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
+</head>

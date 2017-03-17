@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 // REQUIRE THE DATABASE FUNCTIONS
@@ -12,25 +11,21 @@ $connection = db_connect(); // the db connection
 // -----------------------------------------------------------------------------
 // CUSTOM FUNCTIONS FOR THIS FILE
 
-// Create new friend circle for a given logged in user
-function make_request($userId) {
+// Deletes request from outgoing friend requests
+function retract_request($friendId) {
 
-    $result = db_query("INSERT INTO friend_requests (userId, friendId) VALUES (".$userId.", ".$_SESSION['userId'].")");
+
+    $result = db_query("DELETE FROM friend_requests WHERE userId =". $friendId." AND friendId =".$_SESSION['userId']);
     if($result === false) {
         echo mysqli_error(db_connect());
     } else {
-    	echo 'Friend request made';
+
+        echo "request retracted";
+
     }
 
 }
 
-make_request($_REQUEST['friendId']);
+retract_request($_REQUEST['friendId']);
 
 ?>
-<!-- 
-<form action="../friends" method="post">
-    <input type="submit" value="Back to friend-requests">
-</form> -->
-
-
-

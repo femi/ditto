@@ -103,10 +103,4 @@ if (isset($_POST['abolish'])) {
 }
 
 ?>
-<!-- <br>
-<form action="../friends" method="post">
-    <input type="submit" value="Back to friend-requests">
-<<<<<<< HEAD
-</form>
-=======
-</form> -->
+

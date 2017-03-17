@@ -213,4 +213,29 @@ function isUserUsersFriendofFriend($userId) {
     return false;
 }
 
+
+function isFriendRequestSent($userId){
+    $query = "SELECT * FROM friend_requests";
+    $result = db_query($query);
+
+if ($result === false) {
+            mysqli_error(db_connect());
+    }
+    else if (mysqli_num_rows($result) === 0) {
+            return false;
+    }
+    else {
+        while($row = $result->fetch_assoc()){
+            $uId=$row['userId'];
+            $fId=$row['friendId'];
+            if ($uId == $userId AND $fId == $_SESSION['userId']){
+                return true;
+            }else{
+                //continue loop
+            }
+
+        }
+    }
+}
+
 ?>
