@@ -1,6 +1,6 @@
 <?php
 require_once("$_SERVER[DOCUMENT_ROOT]/php/albums/getAlbumThumbnails.php");
-$photos = getAlbumThumbnails($_SESSION['userId']); // an array of photo thumbnails, maximum of length 3, minimum 0
+$photos = getAlbumThumbnails($userId); // an array of photo thumbnails, maximum of length 3, minimum 0
 ?>
 
 <h5 class="title is-5">
@@ -25,7 +25,11 @@ if (count($photos) !== 0 ) {
     ";
   }
 } else {
+  if ($userId != $_SESSION['userId']){
+    echo "<div class=\"content\" align=\"center\">This user doesn't currently have any albums :( <br> Check back later!</div>";
+  } else {
   echo "<div class=\"content\">You dont seem to have any photos at the moment, you can create some <a href=\"$username/albums\">here.</a></div>";
+  }
 
 }
 ?>
