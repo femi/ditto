@@ -90,8 +90,6 @@ HEREDOC;
 
                                 echo $output;
                             }
-                        } else {
-                            echo 'no results found';
                         }
 
 
