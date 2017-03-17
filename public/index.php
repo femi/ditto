@@ -520,10 +520,10 @@ else {
     // define API routes you can see while not logged in.
     $public_route = new Route();
 
-    $route->add("^404/?$", function() {
+    $public_route->add("^404/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/error/404.html");
     });
-    $route->add("^403/?$", function() {
+    $public_route->add("^403/?$", function() {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/error/403.html");
     });
 
