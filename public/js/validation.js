@@ -1,5 +1,7 @@
 $( "#emailInput" ).keyup(function() {
   var elem = document.getElementById("emailInput");
+  var label = document.getElementById("emailLabel");
+  label.innerHTML = "";
   // var button = document.getElementById("buttonSubmit");
   var email = elem.value;
   if (isValidEmailAddress(email)) {
@@ -11,6 +13,7 @@ $( "#emailInput" ).keyup(function() {
           // button.className = "button is-primary is-medium"
         } else {
           elem.className = "input is-medium is-danger animated shake";
+          label.innerHTML = "Sorry, that email address is already in use";
           // button.className = "button is-primary is-medium is-disabled"
         }
       }
@@ -29,15 +32,18 @@ $( "#emailInput" ).keyup(function() {
 
 $( "#usernameInput" ).keyup(function() {
   var elem = document.getElementById("usernameInput");
+  var label = document.getElementById("usernameLabel");
+  label.innerHTML = "";
   // var button = document.getElementById("buttonSubmit");
   var username = elem.value;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      if (this.responseText === "false") {
+      if (this.responseText === "true") {
         elem.className = "input is-medium is-success";
         // button.className = "button is-medium is-primary"
       } else {
+        label.innerHTML = "Sorry, that username is already in use 😭";
         elem.className = "input is-medium is-danger";
         elem.className = "input is-medium is-danger animated shake";
       }
@@ -60,7 +66,6 @@ function isValidEmailAddress(emailAddress) {
 $('#taginput').on('keyup keypress', function(e) {
   var keyCode = e.keyCode;
   if (keyCode === 32) {
-      console.log("heloo");
       var value = $( "#taginput" ).val();
       $("#alltags").append(`<span class=\"tag is-primary\">${value}</span>`);
   }

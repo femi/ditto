@@ -18,8 +18,9 @@
     <div class="nav-left">
 
       <a class="nav-item" href="/">
-
-        <img src="http://placehold.it/40" alt="logo">
+        <span class="icon">
+          <i class="fa fa-circle-o fa-2x" aria-hidden="true"></i>
+        </span>
       </a>
 
       <div class="level-item">

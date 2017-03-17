@@ -277,7 +277,8 @@ if (isset($_SESSION['userId'])) {
         $pathArray = explode('/', $_GET['uri']);
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+                // require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messages_layout.php");
             } else {
                 echo "403";
             }
@@ -368,8 +369,6 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/messageCircleSearch.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
     });
-
-
 
 
 // Routes for profile
