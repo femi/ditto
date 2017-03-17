@@ -7,12 +7,12 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
     
-    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
+    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
  
 function displayAllResults($userId) {
 	$connection = db_connect();
 
-	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$userId." AND name='everyone'))";
+	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE userId=".$userId." AND name='everyone'))";
 
 	$result = db_query($query2);
 

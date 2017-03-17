@@ -10,7 +10,7 @@ require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 
 function getMutualFriends($friendId) {
 	$connection = db_connect();
-	$query2 = "SELECT userId, COUNT(userId) as mutual FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$_SESSION['userId'].") OR circleId=(SELECT circleId from friendCircles WHERE name='everyone' AND userId=".$friendId.") GROUP BY userId having count(userId) > 1";
+	$query2 = "SELECT userId, COUNT(userId) as mutual FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE name='everyone' AND userId=".$_SESSION['userId'].") OR circleId=(SELECT circleId from friendcircles WHERE name='everyone' AND userId=".$friendId.") GROUP BY userId having count(userId) > 1";
 
 	$result = db_query($query2);
 
