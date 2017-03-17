@@ -1,7 +1,10 @@
+<?php 
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
+?>
 <article class="media">
   <figure class="media-left">
     <p class="image is-32x32">
-      <img src="http://bulma.io/images/placeholders/128x128.png">
+      <?php getProfilePic($_SESSION['userId'])?>
     </p>
   </figure>
   <div class="media-content">

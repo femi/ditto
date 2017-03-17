@@ -213,6 +213,123 @@ function isUserUsersFriendofFriend($userId) {
     return false;
 }
 
+function userOwnsBlog($userId, $blogId) {
+    $userId = db_quote($userId);
+    $blogId= db_quote($blogId);
+    $query = "SELECT blogId FROM blogs WHERE blogId = $blogId AND userId = $userId";
+    $result = db_query($query);
+
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function userOwnsComment($userId, $commentId) {
+    $userId = db_quote($userId);
+    $commentId = db_quote($commentId);
+    $query = "SELECT validator FROM comments WHERE commentId = $commentId AND userId = $userId";
+    $result = db_query($query);
+
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function userCanViewBlog($userId, $blogId) {
+    $userId = db_quote($userId);
+    $blogId = db_quote($blogId);
+    $query = "SELECT username FROM users INNER JOIN blogs ON blogs.userId = users.userId WHERE blogId = $blogId";
+    $result = db_query($query);
+    
+    $username = mysqli_fetch_assoc($result)['username'];
+
+    if (userCanViewProfile($username)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function userHasPhoto($userId, $filename) {
+    $userId = db_quote($userId);
+    $filename = db_quote($filename);
+    $query = "SELECT albums.userId FROM photos INNER JOIN albums ON albums.albumId = photos.albumId WHERE photos.filename = $filename";
+    $result = db_query($query);
+
+    $albumUserId = mysqli_fetch_array($result)['userId'];
+
+    if ($userId == $albumUserId) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isValidFilename($filename) {
+    $filename = db_quote($filename);
+    $query = "SELECT filename FROM photos WHERE filename = $filename";
+    $result = db_query($query);
+
+    if (mysqli_num_rows($result) > 0) {
+        return true; 
+    } else {
+        return false; 
+    }
+}
+
+function getAlbumFromFilename($filename) {
+    $filename = db_quote($filename);
+    $query = "SELECT albumId FROM photos WHERE filename = $filename";
+    $result = db_query($query);
+
+    $albumId = mysqli_fetch_assoc($result)['albumId'];
+    return $albumId;
+}
+
+function userHasAlbum($userId, $albumId) {
+    $userId = db_quote($userId);
+    $albumId = db_quote($albumId);
+
+    $query = "SELECT userId FROM albums WHERE albumId = $albumId";
+    $result = db_query($query);
+    $albumUserId = mysqli_fetch_assoc($result)['userId'];
+    if ($userId == $albumUserId) {
+        return true;
+    } else {
+        return false; 
+    }
+}
+
+function userHasCircle($userId, $circleId) {
+    $userId = db_quote($userId);
+    $circleId = db_quote($circleId);
+
+    $userId = (int) substr($userId, 1, strlen($userId) - 2);
+    $circleId = (int) substr($circleId, 1, strlen($circleId) - 2);
+
+    $query = "SELECT userId FROM friendcircles WHERE circleId = $circleId";
+    $result = db_query($query);
+    $circleUserId = mysqli_fetch_assoc($result)['userId'];
+    if ($userId == $circleUserId) {
+        return true;
+    } else {
+        return false; 
+    }
+
+}
+
+function isValidCircle($circleId) {
+    $circleId = db_quote($circleId);
+    $result = db_query("SELECT circleId FROM friendcircles WHERE circleId = $circleId");
+
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    } else {
+        return false; 
 
 function isFriendRequestSent($userId){
     $query = "SELECT * FROM friend_requests";

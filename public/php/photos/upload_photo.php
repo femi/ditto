@@ -10,6 +10,7 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 
 function upload_photo() {
   
@@ -23,6 +24,10 @@ function upload_photo() {
 	$albumId = db_quote($_POST['albumId']);
 
 	$albumId = (int) substr($albumId, 1, strlen($albumId) - 2);
+
+    // if (!userHasAlbum($userId, $albumId)) {
+    //     return "403";
+    // }
 
 	$target_dir = "../../../resources/album_content/$userId/$albumId/";
     $filename = db_quote($_FILES["file"]["name"]);

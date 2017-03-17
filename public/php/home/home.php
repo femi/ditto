@@ -1,4 +1,6 @@
-<?php include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php"; ?>
+<?php include "$_SERVER[DOCUMENT_ROOT]/php/home/session.php"; 
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
+?>
 
 <html>
   <body>
@@ -13,7 +15,9 @@
         <div class="column is-one-quarter">
 
             <figure class="image is-250x250">
-              <img class="img-rounded" src="https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg">
+              <?php 
+                getProfilePic($_SESSION['userId']);
+              ?>
             </figure>
             <br><h3 class="title is-3"><strong><?php echo $fullname ?></strong> </h3>
             <div class="content">

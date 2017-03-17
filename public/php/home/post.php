@@ -1,4 +1,5 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
+require_once("$_SERVER[DOCUMENT_ROOT]/php/photos/getProfilePic.php");
 
 $usersblogs = retrieve_blog_content(db_quote($userId));
 
@@ -11,9 +12,10 @@ while ( $row = $usersblogs->fetch_assoc()){
   $blog_user = $row['userId'];
 
     echo "<article id=\"b_$blogId\" class=\"media\">
-      <figure class=\"media-left\">
-        <p class=\"image is-32x32\">
-          <img class=\"img-rounded\" src=\"https://s-media-cache-ak0.pinimg.com/736x/de/28/7a/de287a2e93bbe57ef5d1ec0e77c8c6a0.jpg\">
+      <figure class=\"media-left image is-32x32\">
+        <p class=\"image is-32x32\">";
+    echo getProfilePic($blog_user);
+    echo "
         </p>
       </figure>
 
