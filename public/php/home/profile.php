@@ -23,12 +23,14 @@ function getNameFromUserId($userId) {
         // oh dear...
         return "";
     } else {
-        $username = db_quote($username);
-        $result = db_query("SELECT * FROM users WHERE userId = $userId");
-        while ( $row = $results->fetch_assoc()){
+
+        $results = db_query("SELECT * FROM users WHERE userId = $userId");
+        while ($row = $results->fetch_assoc()){
+
             $fName = $row['fName'];
             $lName = $row['lName'];
             $fullName = $fName." ".$lName;
+
             return $fullName;
 
         }
@@ -58,7 +60,7 @@ function getNameFromUserId($userId) {
                 ?>
             </figure>
 
-            <br><h3 class="title is-3"><strong><?php getNameFromUserId($userId); ?></strong> </h3>
+            <br><h3 class="title is-3"><strong><?php echo getNameFromUserId($userId); ?></strong> </h3>
             <?php 
             echo "<a href=\"mutual?id=".$userId."\" >You have <b>".mutualFriends($userId)."</b> mutual friends!<hr></a>";
             
