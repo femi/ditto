@@ -12,7 +12,7 @@
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $email = $_POST['email'];
-    $username = $_POST['username'];
+    $username = clean($_POST['username']);
     $mobileNumber = $_POST['mobileNumber'];
     $dob = $_POST['dob'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -27,6 +27,18 @@
       // echo "insert success.";
     }
   }
+
+
+  function clean($string) {
+     $string = str_replace(' ', '', $string);
+     $string = strtolower($string);
+     return preg_replace('/[^A-Za-z]/', '', $string); // Removes special chars.
+  }
+
+
+
+echo clean("");
+
 
   /*
    Given an email address this function checks to see if a user already exists,
@@ -48,8 +60,8 @@
   This function registers a new user given an email address and returns
   a boolean true if an attempt to create a user was made and false otherwise.
   */
-  function register($email) {
-    if (checkUser($email) === false) {
+  function register($email, $username) {
+    if (checkUser($email) === false && clean($username) !== "") {
       newUser();
       return true;
     } else {
@@ -114,7 +126,7 @@ function createFriendCircle($userId) {
 
 // If the submit button has been pressed
 if (isset($_POST['submit'])) {
-  if (register($_POST['email'])) {
+  if (register($_POST['email'], $_POST['username'])) {
 
     // get the user's id number
     $userId = getUserId($_POST['email']);
@@ -130,6 +142,8 @@ if (isset($_POST['submit'])) {
     // redirect to the homepage
     header("location: /");
 
+  } else if (clean($_POST['username']) === "") {
+    echo "Your username cannot be blank or contain symbols.";
   } else {
     echo "Email address already registered mate.";
   }

@@ -218,6 +218,12 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
     });
 
+// Routes for mutual friends
+    $route->add("mutual/?$", function() {
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual-friend-list.php");
+    });
+
+
 // Routes for circles
     $route->add("^(\w+)/circles/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
@@ -336,7 +342,7 @@ if (isset($_SESSION['userId'])) {
         } else {
             header('Location: /404');
         }
-        // old friends functionality here if you need it
+        // old friends functionality here if you need it for debug
         // require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/friend-requests.php");
     });
    $route->add("^(\w+)/friends/all/?$", function() {
@@ -365,12 +371,14 @@ if (isset($_SESSION['userId'])) {
         }
     });
 
+
 // Routes for messages
     $route->add("^(\w+)/messages/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+                // require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messageHome.php");
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/messages/messages_layout.php");
             } else {
             header('Location: /403');
             }
@@ -441,21 +449,21 @@ if (isset($_SESSION['userId'])) {
     });
 
 // Routes for tags
-    $route->add("^tags/recommendByTags/?$", function() {
-        require_once "$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php";
-    });
-    $route->add("^(\w+)/messageCircleSearch.php/?$", function() {
+    $route->add("^(\w+)/friends/recommendations/?$", function() {
+        $pathArray = explode('/', $_GET['uri']);
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
-                require_once "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
+                require_once("$_SERVER[DOCUMENT_ROOT]/php/tags/recommendByTags.php");
+                recommendByTags($_SESSION['userId'], 2);
             } else {
-            header('Location: /403');
-            }
+                header('Location: /403');
+            } 
         } else {
             header('Location: /404');
         }
+                
     });
-    $route->add("^tags/(\w+)/?$", function() {
+    $route->add("tags/(\w+)/?", function() {
         $pathArray = explode('/', $_GET['uri']);
         $tag = $pathArray[1]; //
         if (isValidTag($tag)) {
@@ -464,7 +472,6 @@ if (isset($_SESSION['userId'])) {
         } else {
             header('Location: /404');
         }
-
     });
     $route->add("^(\w+)/messageSingleUserSearch.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageSingleUserSearch.php";
@@ -472,8 +479,6 @@ if (isset($_SESSION['userId'])) {
     $route->add("^(\w+)/messageCircleSearch.php/?$", function() {
         include "$_SERVER[DOCUMENT_ROOT]/php/messages/messageCircleSearch.php";
     });
-
-
 
 
 // Routes for profile

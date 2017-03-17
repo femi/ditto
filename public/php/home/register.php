@@ -11,24 +11,6 @@
     <script src="js/typed.js"></script>
   </head>
 
-<!-- <nav class="nav has-shadow">
-  <div class="container">
-    <div class="nav-left">
-      <a class="nav-item">
-        <img src="http://placehold.it/100x30" alt="">
-      </a>
-    </div>
-    <span class="nav-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
-    <div class="nav-right nav-menu">
-      <a class="nav-item is-tab">Login</a>
-    </div>
-  </div>
-</nav> -->
-
   <section class="hero is-fullheight">
     <div class="hero-body">
       <div class="container">
@@ -59,9 +41,11 @@
                 <p class="control">
                   <input id="emailInput" class="input is-medium" type="text" name="email" placeholder="Email address" required>
                 </p>
+                  <p class="control" id="emailLabel"></p>
                 <p class="control">
                   <input id="usernameInput" class="input is-medium" type="text" name="username" placeholder="Username" required>
                 </p>
+                  <p class="control" id="usernameLabel"></p>
                 <p class="control">
                   <input class="input is-medium" type="number" name="mobileNumber" placeholder="Mobile number" required>
                 </p>
