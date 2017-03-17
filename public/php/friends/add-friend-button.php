@@ -23,7 +23,7 @@ BUTTON;
                <span class="icon">
                   <i class="fa fa-user"></i>
                 </span>
-                <span>Request Sent</span>
+                <span>Delete Request</span>
               </Button>
               </center>
 BUTTON;

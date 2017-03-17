@@ -3,6 +3,7 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/routing/permissions.php");
 
 
