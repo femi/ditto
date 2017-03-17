@@ -1,18 +1,13 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
 
-if (isset($_POST['comment']) && isset($_POST['submit'] )) {
-  $userId = $_SESSION['userId'];
-  $comment = addslashes($_POST['comment']);
-  $blogId = $_POST['blogId'];
-  db_query("INSERT INTO comments (message, userId, blogId) VALUES ('$comment', $userId, $blogId)");
-}
-
 $pathArray = explode('/', $_GET['uri']);
 $userIdFnameLname = getUserFromUsername($pathArray[0]); // override the userId;
 $userId = $userIdFnameLname['userId'];
 $userFname = $userIdFnameLname['fname'];
 $userLname = $userIdFnameLname['lName'];
 $usersblogs = retrieve_blog_content($userId);
+$loggedInUserId = $_SESSION['userId'];
+
 
 while ( $row = $usersblogs->fetch_assoc()){
 
@@ -51,8 +46,7 @@ while ( $row = $usersblogs->fetch_assoc()){
           <div class=\"level-item\">
 
           <div class=\"media-content\">
-          <form action\"\" method=\"POST\" id=\"$blogId\">
-            <div class=\"control is-grouped\">
+            <form id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $loggedInUserId, document.forms['bl_$blogId'].elements['comment'].value);\">            <div class=\"control is-grouped\">
             <figure class=\"media-left\">
             </figure>
               <p class=\"control is-expanded\">

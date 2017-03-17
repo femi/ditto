@@ -1,11 +1,5 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/php/blogs/userblogs.php";
 
-if (isset($_POST['comment']) && isset($_POST['submit'] )) {
-  $comment = addslashes($_POST['comment']);
-  $blogId = $_POST['blogId'];
-  db_query("INSERT INTO comments (message, userId, blogId) VALUES ('$comment', '$userId', $blogId)");
-}
-
 $usersblogs = retrieve_blog_content(db_quote($userId));
 
 while ( $row = $usersblogs->fetch_assoc()){
@@ -40,7 +34,7 @@ while ( $row = $usersblogs->fetch_assoc()){
         <nav class=\"level\">
           <div class=\"level-item\">
           <div class=\"media-content\">
-          <form action\"\" method=\"POST\" id=\"$blogId\">
+          <form id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $blog_user, document.forms['bl_$blogId'].elements['comment'].value);\">
             <div class=\"control is-grouped\">
             <figure class=\"media-left\">
             </figure>
@@ -49,7 +43,9 @@ while ( $row = $usersblogs->fetch_assoc()){
                 <input type=\"hidden\" name=\"blogId\" value=\"$blogId\"/>
               </p>
               <p class=\"control\">
-                <input class=\"button is-primary\" type=\"submit\" style=\"display: none;\" name=\"submit\" onclick=\"addComment($blogId, $blog_user, document.getElementById('comment').value)\" >
+                <input class=\"button is-primary\" type=\"submit\" style=\"display: none;\" name=\"submit\">
+              </p>
+              <p class=\"control\">
               </p>
             </div>
           </form>
