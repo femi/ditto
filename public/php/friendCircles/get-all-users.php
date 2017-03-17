@@ -80,6 +80,8 @@ function all_circle_friends() {
 
 }
 
+
+
 // gets all circles and echo's option for each circle
 function all_circles() {
     $result = db_query("SELECT circleId, name FROM friendcircles");
@@ -96,6 +98,21 @@ function all_circles() {
 
 }
 
+
+//get circle name from circle ID
+function getCircleNameFromId($circleId) {
+    $result = db_query("SELECT name FROM friendcircles WHERE circleId=$circleId");
+    if($result === false) {
+        echo mysqli_error(db_connect());
+    } else {
+
+        while($row = $result->fetch_assoc()){
+            $circleName = $row['name'];
+            return $circleName;
+        }
+    }
+
+}
 // gets user's circles and echo's option for each circle
 function users_circles() {
 
