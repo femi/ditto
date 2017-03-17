@@ -6,6 +6,7 @@
 
 <script src="/js/searchfof.js"></script>
 <script src="/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
 
 
 <div class="container">
@@ -110,4 +111,5 @@
 
 <script>
     $(document).ready(setupFofSearch());
+
 </script>

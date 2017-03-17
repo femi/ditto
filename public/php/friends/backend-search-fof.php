@@ -62,7 +62,7 @@ HEREDOC
                                 $biography = $row['description'];
                                 $location = $row['city'];
                                 $count = mutualFriends($userId);
-  
+
                                 $output = <<<HEREDOC
 
                                 <article class="media">
@@ -90,6 +90,8 @@ HEREDOC;
 
                                 echo $output;
                             }
+                        } else {
+                            echo 'no results found';
                         }
 
 
@@ -108,6 +110,3 @@ HEREDOC;
 // close connection
 mysqli_close($connection);
 ?>
-<head>
-<script type="text/javascript" src="/js/sendFriendRequest.js"></script>
-</head>

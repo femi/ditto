@@ -15,6 +15,7 @@ function setupFofSearch() {
         if(term.length){
             $.post("/php/friends/backend-search-fof.php", {query: term}).done(function(data){
                 // Display the returned data in browser
+                console.log("return of search: " + data);
                 if(data.length == 0) {
                     data = "No friends of friends found matching <b>" + term + "</b>";
                 }
