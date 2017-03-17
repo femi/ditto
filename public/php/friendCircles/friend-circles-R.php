@@ -14,7 +14,7 @@ $connection = db_connect(); // the db connection
 
 // Retrieve all friend circles for a given userId
 function retrieve_friend_circles($userId) {
-
+  
     $result = db_query("SELECT * FROM friendcircles WHERE userId = $userId ORDER BY circleId DESC");
 
     if($result === false) {
