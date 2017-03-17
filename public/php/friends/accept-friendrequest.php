@@ -64,9 +64,12 @@ function retract_request($friendId) {
 //to delete a friend for both users everyone circle.
 function delete_friend($friendId) {
 
-    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$_SESSION['userId']." AND name='everyone')");
+
+    $result = db_query("DELETE FROM friendcircle_users WHERE userId =".$friendId." AND circleId IN (SELECT circleId from friendCircles WHERE userId =".$_SESSION['userId'].")");
+
 
     $result1 = db_query("DELETE FROM friendcircle_users WHERE userId =".$_SESSION['userId']." AND circleId =(SELECT circleId FROM friendcircles WHERE userId =".$friendId." AND name='everyone')");
+
 
     if($result === false OR $result1 === false)  {
         echo mysqli_error(db_connect());
@@ -99,7 +102,7 @@ if (isset($_POST['retract'])) {
 if (isset($_POST['abolish'])) {
 
     delete_friend($_POST['friendId']);
-    header ("Location: /$username/friends");
+    header ("Location: /$username/friends/all");
 }
 
 ?>
