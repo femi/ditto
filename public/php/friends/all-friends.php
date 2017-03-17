@@ -55,7 +55,7 @@ function displaySearchResult($user) {
 					<div class=\"content\">
 						<p>
 							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br>
-							$biography<br><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a><br>
+							$biography<br><small><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a></small><br>
 						</p>
 					</div>
 				<div id=\"alltags\">

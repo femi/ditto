@@ -75,7 +75,7 @@ HEREDOC
                                     <div class="content">
                                       <p>
                                         <a href="/$username"><strong>$fName $lName</strong></a><br><small>$location</small><br>
-                                        $biography<br><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a>
+                                        $biography<br><small><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a></small>
                                       </p>
                                     </div>
                                   <div id="alltags">
