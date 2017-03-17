@@ -48,7 +48,6 @@
                 <div class=\"content\">
                   <p>
                     <a href=\"/$username/circles/$circle_id\"><strong>$circle_name</strong></a><br>
-                    Hello
                   </p>
                 </div>
               <div id=\"alltags\">
