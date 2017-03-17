@@ -30,7 +30,7 @@ function getProfilePic($userId) {
 	}
 
     if (mysqli_num_rows($qry_result) === 0) {
-        echo "<img src=\"/img/invalid.png\">";
+        echo "<img class=\"img-rounded\" src=\"/img/defaultProfilePic.png\">";
     } else {
         while($row = $qry_result->fetch_assoc()){
             $caption = $row['caption'];
