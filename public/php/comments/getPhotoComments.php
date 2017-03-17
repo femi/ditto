@@ -9,7 +9,6 @@ require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.ph
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
 
 function getPhotoComments() {
-    print_r($_REQUEST);
     // Get data from requests and escape it.
     $albumId = $_REQUEST['albumId'];
     $photoName = $_REQUEST['filename'];
