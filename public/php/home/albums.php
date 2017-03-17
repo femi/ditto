@@ -40,7 +40,7 @@ foreach ($photos as $photo) {
   "
   <div class=\"level-item\">
     <figure class=\"image is-64x64\">
-    <div class=\"circle button is-outlined is-info\">$photo</div>
+    <div class=\"is-info\">$photo</div>
     </figure>
   </div>
   ";

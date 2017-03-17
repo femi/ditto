@@ -45,7 +45,7 @@ function getAlbumThumbnails($userId) {
             continue;
         } else {
             $filename = mysqli_fetch_assoc($result)['filename'];
-            array_push($photos, "<a href=\"/$username/albums/$albumId\"><img src=\"/album_content/$userId/$albumId/$filename\"></a>");
+            array_push($photos, "<a href=\"/$username/albums/$albumId\"><img class=\"img-circle\" src=\"/album_content/$userId/$albumId/$filename\"></a>");
         }
     }
     return $photos;
