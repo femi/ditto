@@ -3,16 +3,16 @@
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_connect.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_query.php");
 require_once(realpath(dirname(__FILE__)) . "../../../../resources/db/db_quote.php");
-
+require_once("$_SERVER[DOCUMENT_ROOT]/php/friends/mutual.php");
 require_once("$_SERVER[DOCUMENT_ROOT]/php/home/header.php");
 
     
-    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
+    $friends = db_query("SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE userId=".$_SESSION['userId']." AND name='everyone'))");
  
 function displayAllResults($userId) {
 	$connection = db_connect();
 
-	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendCircles WHERE userId=".$userId." AND name='everyone'))";
+	$query2 = "SELECT * FROM users WHERE userId IN (SELECT userId FROM friendcircle_users WHERE circleId=(SELECT circleId from friendcircles WHERE userId=".$userId." AND name='everyone'))";
 
 	$result = db_query($query2);
 
@@ -45,6 +45,7 @@ function displaySearchResult($user) {
 	$userId = $user['userId'];
 	$username = $user['username'];
 	$tags = getTags($userId);
+	$count = mutualFriends($userId);
 
 	$search_result = "
 			<form action=\"accept\" method=\"post\">
@@ -58,7 +59,7 @@ function displaySearchResult($user) {
 					<div class=\"content\">
 						<p>
 							<a href=\"/$username\"><strong>$full_name</strong></a><br><small>$location</small><br>
-							$biography
+							$biography<br><small><a href=/mutual?id=$userId >You have <b> $count </b> mutual friends!</a></small><br>
 						</p>
 					</div>
 				<div id=\"alltags\">
