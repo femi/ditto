@@ -34,7 +34,7 @@ while ( $row = $usersblogs->fetch_assoc()){
         <nav class=\"level\">
           <div class=\"level-item\">
           <div class=\"media-content\">
-          <form action\"\" method=\"POST\" id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $blog_user, document.forms['bl_$blogId'].elements['comment'].value);\">
+          <form id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $blog_user, document.forms['bl_$blogId'].elements['comment'].value);\">
             <div class=\"control is-grouped\">
             <figure class=\"media-left\">
             </figure>

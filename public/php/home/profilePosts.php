@@ -6,6 +6,8 @@ $userId = $userIdFnameLname['userId'];
 $userFname = $userIdFnameLname['fname'];
 $userLname = $userIdFnameLname['lName'];
 $usersblogs = retrieve_blog_content($userId);
+$loggedInUserId = $_SESSION['userId'];
+
 
 while ( $row = $usersblogs->fetch_assoc()){
 
@@ -44,8 +46,7 @@ while ( $row = $usersblogs->fetch_assoc()){
           <div class=\"level-item\">
 
           <div class=\"media-content\">
-          <form action\"\" method=\"POST\" id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $blog_user, document.forms['bl_$blogId'].elements['comment'].value);\">
-            <div class=\"control is-grouped\">
+            <form id=\"$blogId\" name=\"bl_$blogId\" onsubmit=\"addComment($blogId, $loggedInUserId, document.forms['bl_$blogId'].elements['comment'].value);\">            <div class=\"control is-grouped\">
             <figure class=\"media-left\">
             </figure>
               <p class=\"control is-expanded\">
