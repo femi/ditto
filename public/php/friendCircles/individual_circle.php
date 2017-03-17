@@ -12,7 +12,7 @@ $currentCircle = $_SESSION['circleId'];
 
 
 <div class="container">
-  <br><h2 class="title is-2">Circle Name</h2><hr>
+<br><h2 class="title is-2"><?php echo $name ?></h2><hr>
   <div class="columns">
     <div class="column is-one-quarter">
       <h4 class="title is-4"><strong>Add member</strong></h4>

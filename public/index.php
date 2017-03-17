@@ -44,7 +44,7 @@ if (isset($_SESSION['userId'])) {
         require_once("$_SERVER[DOCUMENT_ROOT]/php/home/backend-search-blogs.php");
     });
     $route->add("^delete_comment.php/?$", function() {
-        if ($userOwnsComment($_SESSION['userId'], $_POST['commentId'])) {
+        if (userOwnsComment($_SESSION['userId'], $_POST['commentId'])) {
             require_once("$_SERVER[DOCUMENT_ROOT]/php/blogs/delete_comment.php");
         }
     });
@@ -284,6 +284,8 @@ if (isset($_SESSION['userId'])) {
     });
     $route->add("^(\w+)/circles/deleteCircle/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
+        print_r($pathArray);
+        require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-D.php");
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
                 require_once("$_SERVER[DOCUMENT_ROOT]/php/friendCircles/friend-circles-D.php");
@@ -335,7 +337,7 @@ if (isset($_SESSION['userId'])) {
             print_r($_GET['uri']);
         }
     });
-    $route->add("^(\w+)/circles/friends/remove/?$", function() {
+    $route->add("^(\w+)/circles/(\d+)/remove/?$", function() {
         $pathArray = explode('/', $_GET['uri']);
         if (isValidUsername($pathArray[0])) {
             if (userIdHasUsername($_SESSION['userId'], $pathArray[0])) {
