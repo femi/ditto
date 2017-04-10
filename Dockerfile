@@ -3,7 +3,7 @@ MAINTAINER John Dowell <John@Dowell.io>
 
 # Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container.
 RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install \
-apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur
+apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur vim
 
 # Enable apache mods.
 RUN a2enmod php7.0
@@ -24,10 +24,13 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 80
 
 # Copy this repo into place.
-ADD www /var/www/site
+ADD . /home/ditto
+# Add a simple vim config
+ADD docker/vimrc /root/.vimrc
 
-# Update the default apache site with the config we created.
-ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+# Update the default apache settings, pointing /var/www to the repo
+ADD docker/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+ADD docker/apache2.conf /etc/apache2/apache2.conf
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 CMD /usr/sbin/apache2ctl -D FOREGROUND
