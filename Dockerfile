@@ -3,7 +3,7 @@ MAINTAINER John Dowell <John@Dowell.io>
 
 # Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container.
 RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install \
-apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur vim mysql-server-5.7
+apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur vim mysql-server-5.7 supervisor
 
 # Enable apache mods.
 RUN a2enmod php7.0
@@ -23,8 +23,6 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 # Complete dodgy MySQL install so that the socket works
 RUN mkdir -p /var/run/mysqld && chown mysql:mysql /var/run/mysqld
 
-# Expose apache.
-EXPOSE 80
 
 # Copy this repo into place.
 ADD . /home/ditto
@@ -40,4 +38,13 @@ RUN mkdir /home/ditto/resources/album_content && chown $USERNAME:www-data /home/
 ADD docker/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 ADD docker/apache2.conf /etc/apache2/apache2.conf
 
-ENTRYPOINT sh /home/ditto/start.sh
+# Add supervisord config
+ADD docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Expose apache.
+EXPOSE 80
+
+# Expose MySQL and apache.
+#EXPOSE 80 3306
+
+CMD ["/usr/bin/supervisord"]
