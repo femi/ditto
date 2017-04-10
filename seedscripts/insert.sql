@@ -11,13 +11,13 @@ INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashe
       VALUES ('Arya', 'Stark', '1992/10/12', 'London', '07867665384', 'arya@got.com', 'Arya', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'F', '!');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Tyrian', 'Lannister', '1969/06/11', 'London', '07867667334', 'tyrian@got.com', 'Tyrian', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
-INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description) 
+INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Jaime', 'Lannister', '1992/06/05', 'London', '07867660384', 'jaime@got.com', 'King Slayer', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
-INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description) 
+INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Cersei', 'Lannister', '1977/03/04', 'London', '07867467384', 'cersei@got.com', 'Cersei', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'divorced', 'F', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Joffrey', 'Baratheon', '1989/09/09', 'London', '07999367384', 'joffrey@got.com', 'Joffrey', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'married', 'M', '');
-INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description) 
+INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Tywin', 'Lannister', '1988/12/25', 'London', '07867567384', 'tywin@got.com', 'Tywin', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'married', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Daenerys', 'Targareyn', '1989/09/09', 'London', '07999367384', 'joffrey@got.com', 'Joffrey', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'married', 'M', '');
@@ -50,43 +50,21 @@ INSERT INTO albums (userId, albumName) VALUES (10, "Profile Pictures");
 INSERT INTO albums (userId, albumName) VALUES (11, "Profile Pictures");
 
 -- seed profile photos
-INSERT INTO photos (albumId, caption) VALUES (1, "Pete's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (2, "Beth's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (3, "Isabel's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (4, "Thomas's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (5, "David's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (6, "Esther's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (7, "Kevin's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (8, "Gandalf's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (9, "Ovid's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (10, "Femi's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (11, "Femi's profile pic");
+INSERT INTO photos (albumId, caption, filename) VALUES (1, "Ned's profile pic", 'nedstark.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (2, "Jon's profile pic", 'jonsnow.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (3, "Robb's profile pic", 'robbstark.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (4, "Sansa's profile pic", 'sansastark.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (5, "Arya's profile pic", 'aryastark.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (6, "Tyrion's profile pic", 'tyrionlannister.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (7, "Jaime's profile pic", 'jaimelannister.png');
+INSERT INTO photos (albumId, caption, filename) VALUES (8, "Cersei's profile pic", 'cerseilannister.png');
+INSERT INTO photos (albumId, caption, filename) VALUES (9, "Joffrey's profile pic", 'joffreybaratheon.png');
+INSERT INTO photos (albumId, caption, filename) VALUES (10, "Tywin's profile pic", 'tywinlannister.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (11, "Daenerys's profile pic", 'daenerystargaryen.jpg');
 
+-- seed albums?
 
--- seed albums 
-INSERT INTO albums (userId, albumName) VALUES (1, "Pete's album");
-INSERT INTO albums (userId, albumName) VALUES (1, "Pete's second album");
-INSERT INTO albums (userId, albumName) VALUES (2, "Beth's album");
-INSERT INTO albums (userId, albumName) VALUES (3, "Isabel's album");
-INSERT INTO albums (userId, albumName) VALUES (4, "Thomas's album");
-INSERT INTO albums (userId, albumName) VALUES (5, "David's album");
-INSERT INTO albums (userId, albumName) VALUES (6, "Esther's album");
-INSERT INTO albums (userId, albumName) VALUES (7, "Kevin's album");
-INSERT INTO albums (userId, albumName) VALUES (8, "Gandalf's album");
-INSERT INTO albums (userId, albumName) VALUES (9, "Ovid's album");
-INSERT INTO albums (userId, albumName) VALUES (10, "Femi's album");
-
--- seed photos
-INSERT INTO photos (albumId, caption) VALUES (1, "Pete's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (2, "Beth's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (3, "Isabel's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (4, "Thomas's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (5, "David's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (6, "Esther's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (7, "Kevin's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (8, "Gandalf's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (9, "Ovid's profile pic");
-INSERT INTO photos (albumId, caption) VALUES (10, "Femi's profile pic");
+-- seed photos?
 
 -- seed blogs
 INSERT INTO blogs (userId, content) VALUES (1, "Pete's first blog");
@@ -220,6 +198,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrian
 
 -- seed friend requests table
 INSERT INTO friend_requests (userId, friendId) VALUES (11,1);
+
 
 
 
