@@ -67,16 +67,17 @@ INSERT INTO photos (albumId, caption, filename) VALUES (11, "Daenerys's profile 
 -- seed photos?
 
 -- seed blogs
-INSERT INTO blogs (userId, content) VALUES (1, "Pete's first blog");
-INSERT INTO blogs (userId, content) VALUES (2, "Beth's first blog");
-INSERT INTO blogs (userId, content) VALUES (3, "Isabel's first blog");
-INSERT INTO blogs (userId, content) VALUES (4, "Thomas's first blog");
-INSERT INTO blogs (userId, content) VALUES (5, "David's first blog");
-INSERT INTO blogs (userId, content) VALUES (6, "Esther's first blog");
-INSERT INTO blogs (userId, content) VALUES (7, "Kevin's first blog");
-INSERT INTO blogs (userId, content) VALUES (8, "Gandalf's first blog");
-INSERT INTO blogs (userId, content) VALUES (9, "Ovid's first blog");
-INSERT INTO blogs (userId, content) VALUES (10, "Femi's first blog");
+INSERT INTO blogs (userId, content) VALUES (1, "The man who passes the sentence should swing the sword.");
+INSERT INTO blogs (userId, content) VALUES (2, "I know nothing.");
+INSERT INTO blogs (userId, content) VALUES (3, "How am I supposed to sit here planning a war, when you're over there looking like that?");
+INSERT INTO blogs (userId, content) VALUES (4, "There are no heroes...in life, the monsters win.");
+INSERT INTO blogs (userId, content) VALUES (5, "I wasn't playing. And I don't want to be a lady.");
+INSERT INTO blogs (userId, content) VALUES (6, "We’ve had vicious kings and we’ve had idiot kings, but I don’t know if we’ve ever been cursed with a vicious idiot boy king!");
+INSERT INTO blogs (userId, content) VALUES (7, "People have been swinging at me for years and they always seem to miss.");
+INSERT INTO blogs (userId, content) VALUES (8, "Tears aren't a woman's only weapon. The best one's between your legs.");
+INSERT INTO blogs (userId, content) VALUES (9, "Everyone is mine to torment! You'd do well to remember that, you little monster.");
+INSERT INTO blogs (userId, content) VALUES (10, "Any man who must say, 'I am the king' is no true king.");
+INSERT INTO blogs (userId, content) VALUES (11, "I am Daenerys Stormborn of the House Targaryen. Daenerys Targaryen: The First of Her Name, the Unburnt, Queen of Meereen, Queen of the Andals and the Rhoynar and the First Men, Khalisee of the Great Grass Sea, Breaker of Chains and Mother of Dragons.");
 
 -- seed album users (deprecated)
 INSERT INTO album_friendcircles (albumId, circleId) VALUES (1, 1);
