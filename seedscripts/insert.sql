@@ -110,6 +110,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (1,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,5); -- arya
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,6); -- tyrian
 
 
 -- 2. Jon snow's friends
@@ -117,6 +118,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (2,1); -- ned
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,5); -- arya
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,6); -- tyrian
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,11); -- daenerys
 
 
@@ -127,81 +129,60 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (3,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (3,5); -- arya
 INSERT INTO friendcircle_users (circleId, userId) VALUES (3,6); -- tryian
 
--- 4. for friends circle 'everyone' contains every other user
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
+-- 4. Sansa's friends
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,1); -- ned
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,2); -- jon
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,3); -- robb
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,5); -- arya
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,8); -- cersei
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,9); -- joffrey
 
--- 5. for friends circle 'everyone' contains every other user
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
--- 6. for friends circle 'everyone' contains every other user
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
 
--- 7. has no friends
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
--- 8. has no friends
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
--- 9. has no friends
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
--- 10. has no friends
+
+-- 5. Arya Starks' friends
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,1); -- ned
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,2); -- jon
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,3); -- robb
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,4); -- sansa
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,6); -- tyrian
+
+
+-- 6. Tyrion's frineds (all users)
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,1); -- ned
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,2); -- jon
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,3); -- robb
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,4); -- sansa
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,5); -- arya
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,7); -- jaime
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,8); -- cersei
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,9); -- joffrey
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,10); -- tywin
+INSERT INTO friendcircle_users (circleId, userId) VALUES (6,11); -- Daenerys
+
+-- 7. Jaime's friends
+INSERT INTO friendcircle_users (circleId, userId) VALUES (7,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (7,8); -- cersei
+INSERT INTO friendcircle_users (circleId, userId) VALUES (7,9); -- joffrey
+INSERT INTO friendcircle_users (circleId, userId) VALUES (7,10); -- tywin
+
+
+-- 8. Cersei's Friends
+INSERT INTO friendcircle_users (circleId, userId) VALUES (8,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (8,7); -- jaime
+INSERT INTO friendcircle_users (circleId, userId) VALUES (8,9); -- joffrey
+INSERT INTO friendcircle_users (circleId, userId) VALUES (8,10); -- tywin
+
+
+-- 9. Joffrey's friends
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,4); -- sansa
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,7); -- jaime
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,8); -- cersei
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,10); -- tywin
+
+
+-- 10. Tywin's friends
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,5); -- arya
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,6); -- tyrian
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,7); -- jaime
@@ -209,7 +190,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (10,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,9); -- joffrey
 
 
--- 11. has no friends
+-- 11. Daenerys' friends
 INSERT INTO friendcircle_users (circleId, userId) VALUES (11,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrian
 
@@ -217,16 +198,8 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrian
 
 
 -- seed friend requests table
-INSERT INTO friend_requests (userId, friendId) VALUES (3,6);
-INSERT INTO friend_requests (userId, friendId) VALUES (7,8);
-INSERT INTO friend_requests (userId, friendId) VALUES (7,9);
-INSERT INTO friend_requests (userId, friendId) VALUES (7,10);
-INSERT INTO friend_requests (userId, friendId) VALUES (8,10);
-INSERT INTO friend_requests (userId, friendId) VALUES (8,9);
-INSERT INTO friend_requests (userId, friendId) VALUES (8,7);
-INSERT INTO friend_requests (userId, friendId) VALUES (8,6);
-INSERT INTO friend_requests (userId, friendId) VALUES (9,5);
-INSERT INTO friend_requests (userId, friendId) VALUES (9,4);
-INSERT INTO friend_requests (userId, friendId) VALUES (9,3);
-INSERT INTO friend_requests (userId, friendId) VALUES (9,2);
-INSERT INTO friend_requests (userId, friendId) VALUES (10,1);
+INSERT INTO friend_requests (userId, friendId) VALUES (11,1);
+
+
+
+
