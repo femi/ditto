@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 MAINTAINER John Dowell <John@Dowell.io>
-VOLUME /var/lib/mysql
+
 # Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container.
 RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install \
 apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur vim mysql-server-5.7
@@ -40,7 +40,4 @@ RUN mkdir /home/ditto/resources/album_content && chown $USERNAME:www-data /home/
 ADD docker/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 ADD docker/apache2.conf /etc/apache2/apache2.conf
 
-# By default start up apache in the foreground, override with /bin/bash for interative.
-#ENTRYPOINT service mysql restart && /bin/bash
-#CMD /usr/sbin/apache2ctl -D FOREGROUND
 ENTRYPOINT sh /home/ditto/start.sh
