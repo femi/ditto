@@ -1,4 +1,4 @@
 /usr/sbin/apache2ctl -D FOREGROUND &
 service mysql start &&
-mysql < /home/ditto/seedscripts/script.sql &
+bash /home/ditto/conditionalseed.sh &
 bin/bash
