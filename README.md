@@ -31,3 +31,13 @@
 - In the same section change `AllowOverride None` to `AllowOverride All`
 - Uncomment `LoadModule rewrite_module libexec/apache2/mod_rewrite.so`
 - Setup album_content permissions (must be owned by _www user group, and must have write permissions)
+
+## Docker
+- Build the site image (docker build -t mysite .)
+- First time: create a container (docker run --name ditto -i -v /var/lib/mysql -t -p 8080:80 mysite /bin/bash)
+	- This starts the container in interactive mode and forwards port 80 inside the container to port 8080 on the host.
+- Start an existing container to get persistent database data (docker start -i ditto)
+
+## Troubleshooting
+-Check that apachectl is running (apachectl restart)
+-Check that mysql is running (service mysql restart)
