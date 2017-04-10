@@ -129,25 +129,51 @@ INSERT INTO photos (albumId, caption, filename) VALUES (9, "Joffrey's profile pi
 INSERT INTO photos (albumId, caption, filename) VALUES (10, "Tywin's profile pic", 'tywinlannister.jpg');
 INSERT INTO photos (albumId, caption, filename) VALUES (11, "Daenerys's profile pic", 'daenerystargaryen.jpg');
 
--- seed albums?
-
--- seed photos?
+-- seed albums/photos
+INSERT INTO albums (userId, albumName) VALUES (8, "My Boy King");   -- Cersei, album number 12
+INSERT INTO albums (userId, albumName) VALUES (11, "My Favourite Dragons");   -- Daenerys, album number 13
+-- Cersei's photos of Joffrey
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy1.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy2.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy3.jpg');
+-- Daenerys' Dragon photos
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon1.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon2.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon3.jpg');
 
 -- seed blogs
-INSERT INTO blogs (userId, content) VALUES (1, "Pete's first blog");
-INSERT INTO blogs (userId, content) VALUES (2, "Beth's first blog");
-INSERT INTO blogs (userId, content) VALUES (3, "Isabel's first blog");
-INSERT INTO blogs (userId, content) VALUES (4, "Thomas's first blog");
-INSERT INTO blogs (userId, content) VALUES (5, "David's first blog");
-INSERT INTO blogs (userId, content) VALUES (6, "Esther's first blog");
-INSERT INTO blogs (userId, content) VALUES (7, "Kevin's first blog");
-INSERT INTO blogs (userId, content) VALUES (8, "Gandalf's first blog");
-INSERT INTO blogs (userId, content) VALUES (9, "Ovid's first blog");
-INSERT INTO blogs (userId, content) VALUES (10, "Femi's first blog");
+INSERT INTO blogs (userId, content) VALUES (1, "The man who passes the sentence should swing the sword.");
+INSERT INTO blogs (userId, content) VALUES (2, "I know nothing.");
+INSERT INTO blogs (userId, content) VALUES (3, "How am I supposed to sit here planning a war, when you're over there looking like that?");
+INSERT INTO blogs (userId, content) VALUES (4, "There are no heroes...in life, the monsters win.");
+INSERT INTO blogs (userId, content) VALUES (5, "I wasn't playing. And I don't want to be a lady.");
+INSERT INTO blogs (userId, content) VALUES (6, "We've had vicious kings and we've had idiot kings, but I don't know if we've ever been cursed with a vicious idiot boy king!");
+INSERT INTO blogs (userId, content) VALUES (7, "People have been swinging at me for years and they always seem to miss.");
+INSERT INTO blogs (userId, content) VALUES (8, "Tears aren't a woman's only weapon. The best one's between your legs.");
+INSERT INTO blogs (userId, content) VALUES (9, "Everyone is mine to torment! You'd do well to remember that, you little monster.");
+INSERT INTO blogs (userId, content) VALUES (10, "Any man who must say, 'I am the king' is no true king.");
+INSERT INTO blogs (userId, content) VALUES (11, "I am Daenerys Stormborn of the House Targaryen. Daenerys Targaryen: The First of Her Name, the Unburnt, Queen of Meereen, Queen of the Andals and the Rhoynar and the First Men, Khalisee of the Great Grass Sea, Breaker of Chains and Mother of Dragons.");
+
+
+-- seed comments
+-- ned stark
+INSERT INTO comments(userId, message, blogId) VALUES (1, "Brace yourself.", 7);
+INSERT INTO comments(userId, message, blogId) VALUES (1, "Brace yourself.", 11);
+-- joffrey
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I can't stand the wailing of women.", 11);
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I am the king. I will punish you!", 6);
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I'm telling mother!", 6);
+-- daenerys
+INSERT INTO comments(userId, message, blogId) VALUES (11, "When my dragons are grown, we will take back what was stolen from me and destroy those who wronged me! We will lay waste to armies and burn cities to the ground!", 7);
+INSERT INTO comments(userId, message, blogId) VALUES (11, "It seems to me that a queen who trusts no one is as foolish as a queen who trusts everyone.", 8);
+
+
+
 
 
 
 -- Friend temp
+
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
@@ -159,6 +185,7 @@ INSERT INTO blogs (userId, content) VALUES (10, "Femi's first blog");
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,10); -- tywin
 -- INSERT INTO friendcircle_users (circleId, userId) VALUES (,11); -- Daenerys
+
 
 
 -- 1. Ned stark's friends
@@ -255,6 +282,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrion
 
 
 -- seed friend requests table
+
 INSERT INTO friend_requests (userId, friendId) VALUES (1,11);
 INSERT INTO friend_requests (userId, friendId) VALUES (11,4);
 INSERT INTO friend_requests (userId, friendId) VALUES (11,5);
@@ -356,3 +384,4 @@ INSERT INTO messages (senderId, circleId, content) VALUES (7,17,'Helpful tip #2:
 INSERT INTO messages (senderId, circleId, content) VALUES (6,17,'If you’re going to be a cripple, it’s better to be a rich cripple.');
 INSERT INTO messages (senderId, circleId, content) VALUES (6,17,'To be fair, a rich anything is always a better alternative.');
 INSERT INTO messages (senderId, circleId, content) VALUES (7,18,'Meet me at the top of the tower');
+
