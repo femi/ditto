@@ -12,7 +12,7 @@ INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashe
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Tyrion', 'Lannister', '1969/06/11', 'London', '07867667334', 'tyrion@got.com', 'Tyrion', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Jaime', 'Lannister', '1992/06/05', 'London', '07867660384', 'jaime@got.com', 'King Slayer', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
+      VALUES ('Jaime', 'Lannister', '1992/06/05', 'London', '07867660384', 'jaime@got.com', 'KingSlayer', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Cersei', 'Lannister', '1977/03/04', 'London', '07867467384', 'cersei@got.com', 'Cersei', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'divorced', 'F', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
@@ -21,6 +21,73 @@ INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashe
       VALUES ('Tywin', 'Lannister', '1988/12/25', 'London', '07867567384', 'tywin@got.com', 'Tywin', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'married', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Daenerys', 'Targareyn', '1989/09/09', 'London', '07999357384', 'daenerys@got.com', 'daenerys', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'married', 'M', 'RIP Drogo');
+
+--seed tags
+INSERT INTO tag_users (tagId, userId) VALUES (1,1);
+INSERT INTO tag_users (tagId, userId) VALUES (1,2);
+INSERT INTO tag_users (tagId, userId) VALUES (1,3);
+INSERT INTO tag_users (tagId, userId) VALUES (1,4);
+INSERT INTO tag_users (tagId, userId) VALUES (1,5);
+INSERT INTO tag_users (tagId, userId) VALUES (1,6);
+INSERT INTO tag_users (tagId, userId) VALUES (1,7);
+INSERT INTO tag_users (tagId, userId) VALUES (2,1);
+INSERT INTO tag_users (tagId, userId) VALUES (2,3);
+INSERT INTO tag_users (tagId, userId) VALUES (2,4);
+INSERT INTO tag_users (tagId, userId) VALUES (2,5);
+INSERT INTO tag_users (tagId, userId) VALUES (2,6);
+INSERT INTO tag_users (tagId, userId) VALUES (2,9);
+INSERT INTO tag_users (tagId, userId) VALUES (3,1);
+INSERT INTO tag_users (tagId, userId) VALUES (3,2);
+INSERT INTO tag_users (tagId, userId) VALUES (3,4);
+INSERT INTO tag_users (tagId, userId) VALUES (3,5);
+INSERT INTO tag_users (tagId, userId) VALUES (3,6);
+INSERT INTO tag_users (tagId, userId) VALUES (3,11);
+INSERT INTO tag_users (tagId, userId) VALUES (3,14);
+INSERT INTO tag_users (tagId, userId) VALUES (3,12);
+INSERT INTO tag_users (tagId, userId) VALUES (4,4);
+INSERT INTO tag_users (tagId, userId) VALUES (4,6);
+INSERT INTO tag_users (tagId, userId) VALUES (4,8);
+INSERT INTO tag_users (tagId, userId) VALUES (4,10);
+INSERT INTO tag_users (tagId, userId) VALUES (4,12);
+INSERT INTO tag_users (tagId, userId) VALUES (4,14);
+INSERT INTO tag_users (tagId, userId) VALUES (5,2);
+INSERT INTO tag_users (tagId, userId) VALUES (5,4);
+INSERT INTO tag_users (tagId, userId) VALUES (5,6);
+INSERT INTO tag_users (tagId, userId) VALUES (5,8);
+INSERT INTO tag_users (tagId, userId) VALUES (5,9);
+INSERT INTO tag_users (tagId, userId) VALUES (5,3);
+INSERT INTO tag_users (tagId, userId) VALUES (6,1);
+INSERT INTO tag_users (tagId, userId) VALUES (6,3);
+INSERT INTO tag_users (tagId, userId) VALUES (6,5);
+INSERT INTO tag_users (tagId, userId) VALUES (6,7);
+INSERT INTO tag_users (tagId, userId) VALUES (6,9);
+INSERT INTO tag_users (tagId, userId) VALUES (6,14);
+INSERT INTO tag_users (tagId, userId) VALUES (7,7);
+INSERT INTO tag_users (tagId, userId) VALUES (7,9);
+INSERT INTO tag_users (tagId, userId) VALUES (7,8);
+INSERT INTO tag_users (tagId, userId) VALUES (7,1);
+INSERT INTO tag_users (tagId, userId) VALUES (7,2);
+INSERT INTO tag_users (tagId, userId) VALUES (7,5);
+INSERT INTO tag_users (tagId, userId) VALUES (8,7);
+INSERT INTO tag_users (tagId, userId) VALUES (8,9);
+INSERT INTO tag_users (tagId, userId) VALUES (8,8);
+INSERT INTO tag_users (tagId, userId) VALUES (8,1);
+INSERT INTO tag_users (tagId, userId) VALUES (8,2);
+INSERT INTO tag_users (tagId, userId) VALUES (8,5);
+INSERT INTO tag_users (tagId, userId) VALUES (9,7);
+INSERT INTO tag_users (tagId, userId) VALUES (9,9);
+INSERT INTO tag_users (tagId, userId) VALUES (9,8);
+INSERT INTO tag_users (tagId, userId) VALUES (9,1);
+INSERT INTO tag_users (tagId, userId) VALUES (9,2);
+INSERT INTO tag_users (tagId, userId) VALUES (9,5);
+INSERT INTO tag_users (tagId, userId) VALUES (10,7);
+INSERT INTO tag_users (tagId, userId) VALUES (10,9);
+INSERT INTO tag_users (tagId, userId) VALUES (10,8);
+INSERT INTO tag_users (tagId, userId) VALUES (10,1);
+INSERT INTO tag_users (tagId, userId) VALUES (10,2);
+INSERT INTO tag_users (tagId, userId) VALUES (10,5);
+INSERT INTO tag_users (tagId, userId) VALUES (11,5);
+
 
 
 -- seed everyone circle for all users
