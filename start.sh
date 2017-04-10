@@ -1,2 +1,3 @@
 /usr/sbin/apache2ctl -D FOREGROUND & 
-service mysql start
+service mysql start &
+/bin/bash

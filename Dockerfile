@@ -40,9 +40,7 @@ RUN mkdir /home/ditto/resources/album_content && chown $USERNAME:www-data /home/
 ADD docker/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 ADD docker/apache2.conf /etc/apache2/apache2.conf
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND ; /usr/bin/mysqld_safe
-
 # By default start up apache in the foreground, override with /bin/bash for interative.
-# CMD /usr/sbin/apache2ctl -D FOREGROUND ; service mysql start
-
-#ENTRYPOINT service mysql restart && /bin/bash && /usr/sbin/apache2ctl -D FOREGROUND
+#ENTRYPOINT service mysql restart && /bin/bash
+#CMD /usr/sbin/apache2ctl -D FOREGROUND
+ENTRYPOINT sh /home/ditto/start.sh
