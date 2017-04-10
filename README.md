@@ -1,8 +1,8 @@
-LOGO HERE
-
 <h1 align="center">ditto</h1>
 
 <h4 align="center">🌍 A social network just like every other social network</h4>
+
+<img width="1157" alt="image_one" src="https://cloud.githubusercontent.com/assets/7552626/24883278/23d42266-1e3c-11e7-815a-2f6da3d6254a.png">
 
 ## Features
 - Blogs
