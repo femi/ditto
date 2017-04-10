@@ -335,5 +335,24 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (21,7); -- jaime
 INSERT INTO friendcircle_users (circleId, userId) VALUES (21,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (21,9); -- joffrey
 
-
-
+-- Seed for messages
+INSERT INTO messages (senderId, circleId, content) VALUES (1,12,'The winters are hard but the Starks will endure. We always have!');
+INSERT INTO messages (senderId, circleId, content) VALUES (3,12,'I sent two thousand men to their graves today.');
+INSERT INTO messages (senderId, circleId, content) VALUES (2,12,'yeah, but you\'re both dead');
+INSERT INTO messages (senderId, circleId, content) VALUES (2,12,'lol j/k thanks for adding me to this circle, feel like a true stark');
+INSERT INTO messages (senderId, circleId, content) VALUES (11,13,'You know nothing... ');
+INSERT INTO messages (senderId, circleId, content) VALUES (2,13,':(');
+INSERT INTO messages (senderId, circleId, content) VALUES (4,14,'Why isn\'t Jon in here?');
+INSERT INTO messages (senderId, circleId, content) VALUES (2,14,'Because he knows nothing!');
+INSERT INTO messages (senderId, circleId, content) VALUES (5,14,'loooooool');
+INSERT INTO messages (senderId, circleId, content) VALUES (4,15,'Awkward silence');
+INSERT INTO messages (senderId, circleId, content) VALUES (5,16,'You know you dead...');
+INSERT INTO messages (senderId, circleId, content) VALUES (1,16,'...');
+INSERT INTO messages (senderId, circleId, content) VALUES (3,16,'...');
+INSERT INTO messages (senderId, circleId, content) VALUES (6,17,'Schemes and plots are the same thing.');
+INSERT INTO messages (senderId, circleId, content) VALUES (8,17,'Putting that thesaurus to good use.');
+INSERT INTO messages (senderId, circleId, content) VALUES (10,17,'Helpful tip #1: When committing murder, do not use your own blade.');
+INSERT INTO messages (senderId, circleId, content) VALUES (7,17,'Helpful tip #2: Always use the name ‘Lannister’ and you’ll never be rejected from anything');
+INSERT INTO messages (senderId, circleId, content) VALUES (6,17,'If you’re going to be a cripple, it’s better to be a rich cripple.');
+INSERT INTO messages (senderId, circleId, content) VALUES (6,17,'To be fair, a rich anything is always a better alternative.');
+INSERT INTO messages (senderId, circleId, content) VALUES (7,18,'Meet me at the top of the tower');
