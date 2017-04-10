@@ -10,7 +10,7 @@ INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashe
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Arya', 'Stark', '1992/10/12', 'London', '07867665384', 'arya@got.com', 'Arya', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'F', '!');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
-      VALUES ('Tyrian', 'Lannister', '1969/06/11', 'London', '07867667334', 'tyrian@got.com', 'Tyrian', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
+      VALUES ('Tyrion', 'Lannister', '1969/06/11', 'London', '07867667334', 'tyrion@got.com', 'tyrion', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
       VALUES ('Jaime', 'Lannister', '1992/06/05', 'London', '07867660384', 'jaime@got.com', 'King Slayer', '$2y$10$sR3feliw1PhLJKxU70pLAO4mYRLn7.v/5yaklJODT8kRnt99s17rW', 'single', 'M', '');
 INSERT INTO users (fName, lName, dob, city, mobileNumber, email, username, hashedPassword, maritalStatus, sex, description)
@@ -62,9 +62,17 @@ INSERT INTO photos (albumId, caption, filename) VALUES (9, "Joffrey's profile pi
 INSERT INTO photos (albumId, caption, filename) VALUES (10, "Tywin's profile pic", 'tywinlannister.jpg');
 INSERT INTO photos (albumId, caption, filename) VALUES (11, "Daenerys's profile pic", 'daenerystargaryen.jpg');
 
--- seed albums?
-
--- seed photos?
+-- seed albums/photos
+INSERT INTO albums (userId, albumName) VALUES (8, "My Boy King");   -- Cersei, album number 12
+INSERT INTO albums (userId, albumName) VALUES (11, "My Favourite Dragons");   -- Daenerys, album number 13
+-- Cersei's photos of Joffrey
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy1.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy2.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (12, "", 'boy3.jpg');
+-- Daenerys' Dragon photos
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon1.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon2.jpg');
+INSERT INTO photos (albumId, caption, filename) VALUES (13, "", 'dragon3.jpg');
 
 -- seed blogs
 INSERT INTO blogs (userId, content) VALUES (1, "The man who passes the sentence should swing the sword.");
@@ -72,24 +80,31 @@ INSERT INTO blogs (userId, content) VALUES (2, "I know nothing.");
 INSERT INTO blogs (userId, content) VALUES (3, "How am I supposed to sit here planning a war, when you're over there looking like that?");
 INSERT INTO blogs (userId, content) VALUES (4, "There are no heroes...in life, the monsters win.");
 INSERT INTO blogs (userId, content) VALUES (5, "I wasn't playing. And I don't want to be a lady.");
-INSERT INTO blogs (userId, content) VALUES (6, "We’ve had vicious kings and we’ve had idiot kings, but I don’t know if we’ve ever been cursed with a vicious idiot boy king!");
+INSERT INTO blogs (userId, content) VALUES (6, "We've had vicious kings and we've had idiot kings, but I don't know if we've ever been cursed with a vicious idiot boy king!");
 INSERT INTO blogs (userId, content) VALUES (7, "People have been swinging at me for years and they always seem to miss.");
 INSERT INTO blogs (userId, content) VALUES (8, "Tears aren't a woman's only weapon. The best one's between your legs.");
 INSERT INTO blogs (userId, content) VALUES (9, "Everyone is mine to torment! You'd do well to remember that, you little monster.");
 INSERT INTO blogs (userId, content) VALUES (10, "Any man who must say, 'I am the king' is no true king.");
 INSERT INTO blogs (userId, content) VALUES (11, "I am Daenerys Stormborn of the House Targaryen. Daenerys Targaryen: The First of Her Name, the Unburnt, Queen of Meereen, Queen of the Andals and the Rhoynar and the First Men, Khalisee of the Great Grass Sea, Breaker of Chains and Mother of Dragons.");
 
--- seed album users (deprecated)
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (1, 1);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (2, 1);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (3, 1);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (4, 1);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (5, 1);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (6, 4);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (7, 3);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (8, 9);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (9, 3);
-INSERT INTO album_friendcircles (albumId, circleId) VALUES (2, 2);
+
+-- seed comments
+-- ned stark
+INSERT INTO comments(userId, message, blogId) VALUES (1, "Brace yourself.", 7);
+INSERT INTO comments(userId, message, blogId) VALUES (1, "Brace yourself.", 11);
+-- joffrey
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I can't stand the wailing of women.", 11);
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I am the king. I will punish you!", 6);
+INSERT INTO comments(userId, message, blogId) VALUES (9, "I'm telling mother!", 6);
+-- daenerys
+INSERT INTO comments(userId, message, blogId) VALUES (11, "When my dragons are grown, we will take back what was stolen from me and destroy those who wronged me! We will lay waste to armies and burn cities to the ground!", 7);
+INSERT INTO comments(userId, message, blogId) VALUES (11, "It seems to me that a queen who trusts no one is as foolish as a queen who trusts everyone.", 8);
+
+
+
+
+
+
 
 -- Friend temp
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,1); -- ned
@@ -97,7 +112,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,7); -- jaime
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (,9); -- joffrey
@@ -110,7 +125,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (1,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (1,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (1,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (1,6); -- tyrion
 
 
 -- 2. Jon snow's friends
@@ -118,7 +133,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (2,1); -- ned
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,4); -- sansa
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (2,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (2,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (2,11); -- daenerys
 
 
@@ -134,7 +149,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (4,1); -- ned
 INSERT INTO friendcircle_users (circleId, userId) VALUES (4,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (4,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (4,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (4,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (4,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (4,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (4,9); -- joffrey
 
@@ -145,7 +160,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (5,1); -- ned
 INSERT INTO friendcircle_users (circleId, userId) VALUES (5,2); -- jon
 INSERT INTO friendcircle_users (circleId, userId) VALUES (5,3); -- robb
 INSERT INTO friendcircle_users (circleId, userId) VALUES (5,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (5,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (5,6); -- tyrion
 
 
 -- 6. Tyrion's frineds (all users)
@@ -161,14 +176,14 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (6,10); -- tywin
 INSERT INTO friendcircle_users (circleId, userId) VALUES (6,11); -- Daenerys
 
 -- 7. Jaime's friends
-INSERT INTO friendcircle_users (circleId, userId) VALUES (7,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (7,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (7,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (7,9); -- joffrey
 INSERT INTO friendcircle_users (circleId, userId) VALUES (7,10); -- tywin
 
 
 -- 8. Cersei's Friends
-INSERT INTO friendcircle_users (circleId, userId) VALUES (8,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (8,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (8,7); -- jaime
 INSERT INTO friendcircle_users (circleId, userId) VALUES (8,9); -- joffrey
 INSERT INTO friendcircle_users (circleId, userId) VALUES (8,10); -- tywin
@@ -176,7 +191,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (8,10); -- tywin
 
 -- 9. Joffrey's friends
 INSERT INTO friendcircle_users (circleId, userId) VALUES (9,4); -- sansa
-INSERT INTO friendcircle_users (circleId, userId) VALUES (9,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (9,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (9,7); -- jaime
 INSERT INTO friendcircle_users (circleId, userId) VALUES (9,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (9,10); -- tywin
@@ -184,7 +199,7 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (9,10); -- tywin
 
 -- 10. Tywin's friends
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,5); -- arya
-INSERT INTO friendcircle_users (circleId, userId) VALUES (10,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (10,6); -- tyrion
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,7); -- jaime
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,8); -- cersei
 INSERT INTO friendcircle_users (circleId, userId) VALUES (10,9); -- joffrey
@@ -192,14 +207,10 @@ INSERT INTO friendcircle_users (circleId, userId) VALUES (10,9); -- joffrey
 
 -- 11. Daenerys' friends
 INSERT INTO friendcircle_users (circleId, userId) VALUES (11,2); -- jon
-INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrian
+INSERT INTO friendcircle_users (circleId, userId) VALUES (11,6); -- tyrion
 
 
 
 
 -- seed friend requests table
 INSERT INTO friend_requests (userId, friendId) VALUES (11,1);
-
-
-
-
