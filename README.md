@@ -39,4 +39,4 @@ We recommend that you use Docker to setup ditto.  Instructions for custom builds
 If you encounter any problems, please checkout the [troubleshooting wiki page](https://github.com/FemiAw/ditto/wiki/Troubleshooting).  If that doesn't help, then please file an issue [here](https://github.com/FemiAw/ditto/issues/new)
 
 ## Contribute
-ditto comes with a ... licence, so can be used and distributed freely...
+ditto comes with a MIT licence, so can be used and distributed freely.  We would welcome any contributions to the project.
