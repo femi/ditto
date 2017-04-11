@@ -1,33 +1,42 @@
-# hatebook
+<h1 align="center">ditto</h1>
 
-- Install apache2 (sudo apt-get install apache2)
-- Update apt repositories (sudo apt-get update)
-- Install nodejs (sudo apt-get install nodejs)
-- Install npm (sudo apt-get install npm)
+<h4 align="center">🌍 A social network just like every other social network</h4>
 
-- To configure apache2's root from /var/www/:
-	- edit /etc/apache2/sites-available/000-default.conf, changing the "DocumentRoot /var/www" line to point at a custom folder
-	- In the same file, create an Alias to the /resources/album_content directory:
+<img width="1157" alt="image_one" src="https://cloud.githubusercontent.com/assets/7552626/24883278/23d42266-1e3c-11e7-815a-2f6da3d6254a.png">
 
-		Alias /album_content/ "/your/absolute/path/to/resources/album_content/"
-		<Directory "/your/absolute/path/to/resources/album_content/">
-	  	  Options FollowSymLinks
-	  	  AllowOverride None
-	  	  Require all granted
-		</Directory>
-    
-	- edit /etc/apache2/apache2.conf, changing "<Directory /var/www/ >" to the preferred directory
-	- In the same file, and in the same <Directory> tag, change AllowOverride None to AllowOverride All (to enable the .htaccess file)
-	- Ensure that mod_rewrite is enabled (type sudo a2enmod rewrite into terminal)
-	- Restart the server: sudo service restart apache2
+## Features
+- Blogs
+- Cicles
+- Messaging between circles
+- Albums
+- Comments
+- Album privacy settings
+- Interest tags
+- Search
 
-	- Ensure that album_content permissions are setup correctly (git needs write permissions, for example)
-		- album_content must be owned by the www-data user group
-	- sudo service restart apache2
+## Installation
 
-### Mac OSX
-- sudo vi /etc/apache2/httpd.conf
-- edit httpd.conf "DocumentRoot /Library/WebServer/Documents" line to point at a custom folder
-- In the same section change `AllowOverride None` to `AllowOverride All`
-- Uncomment `LoadModule rewrite_module libexec/apache2/mod_rewrite.so`
-- Setup album_content permissions (must be owned by _www user group, and must have write permissions)
+We recommend that you use Docker to setup ditto.  Instructions for custom builds can be found in the [wiki](http://github.com/FemiAw/ditto/wiki/Apache-Settings).
+
+1. Install docker (http://www.docker.com/community-edition)
+2. Build the docker image: `docker build --no-cache=true -t dittoimage .`
+3. Create a docker container: `docker run --name ditto -i -v /var/lib/mysql -t -p 8080:80 dittoimage /bin/bash`. This should take you inside the docker container.
+4. Change the password for the mysql root user: 
+	a.	Log in to MySQL: `mysql`
+	b.	`SET PASSWORD FOR root = newPassword`
+	c.	Exit MySQL: `exit`
+	d.	Change the ditto configuration file: `cd /home/ditto/resources/`
+		Edit line 3 of the config.ini file with your new password.
+5. Quit the initial docker session: `exit`
+
+
+## Usage
+1. Start an existing container to get persistent database data (docker start -i ditto)
+2. Head to `localhost:8080`
+3. When finished, quit the docker session from within the bash terminal: `exit`
+
+## Troubleshooting
+If you encounter any problems, please checkout the [troubleshooting wiki page](https://github.com/FemiAw/ditto/wiki/Troubleshooting).  If that doesn't help, then please file an issue [here](https://github.com/FemiAw/ditto/issues/new)
+
+## Contribute
+ditto comes with a MIT licence, so can be used and distributed freely.  We would welcome any contributions to the project.
