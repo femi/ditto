@@ -1,7 +1,7 @@
 -- Remove old database if it exists and rebuild
-DROP DATABASE IF EXISTS hatebook;
-CREATE DATABASE hatebook;
-USE hatebook;
+DROP DATABASE IF EXISTS ditto;
+CREATE DATABASE ditto;
+USE ditto;
 
 -- Create tables
 CREATE TABLE users (
@@ -16,7 +16,7 @@ username VARCHAR(30) NOT NULL UNIQUE,
 hashedPassword VARCHAR(100) NOT NULL,
 maritalStatus VARCHAR(25),
 sex VARCHAR (10),
-privacy INT(1) NOT NULL,
+privacy INT NOT NULL DEFAULT 0, -- defaults to public --
 description VARCHAR(1000),
 createdAt DATETIME NOT NULL DEFAULT NOW(),
 updatedAt DATETIME NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT NOW(),
