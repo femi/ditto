@@ -22,10 +22,10 @@ We recommend that you use Docker to setup ditto.  Instructions for custom builds
 2. Build the docker image: `docker build --no-cache=true -t dittoimage .`
 3. Create a docker container: `docker run --name ditto -i -v /var/lib/mysql -t -p 8080:80 dittoimage /bin/bash`. This should take you inside the docker container.
 4. Change the password for the mysql root user: 
-	a.	Log in to MySQL: `mysql`
-	b.	`SET PASSWORD FOR root = newPassword`
-	c.	Exit MySQL: `exit`
-	d.	Change the ditto configuration file: `cd /home/ditto/resources/`
+	- a.	Log in to MySQL: `mysql`
+	- b.	`SET PASSWORD FOR root = newPassword`
+	- c.	Exit MySQL: `exit`
+	- d.	Change the ditto configuration file: `cd /home/ditto/resources/`
 		Edit line 3 of the config.ini file with your new password.
 5. Quit the initial docker session: `exit`
 
