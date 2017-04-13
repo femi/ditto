@@ -6,7 +6,7 @@
 
 ## Features
 - Blogs
-- Cicles
+- Circles
 - Messaging between circles
 - Albums
 - Comments
