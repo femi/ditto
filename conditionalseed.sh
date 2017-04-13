@@ -1,5 +1,5 @@
 #!bin/bash
-if [ -d /var/lib/mysql/hatebook ];
+if [ -d /var/lib/mysql/ditto ];
 then 
 	echo "Database already seeded.  Press enter to continue.";
 else 

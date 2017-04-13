@@ -1,7 +1,7 @@
 -- Remove old database if it exists and rebuild
-DROP DATABASE IF EXISTS hatebook;
-CREATE DATABASE hatebook;
-USE hatebook;
+DROP DATABASE IF EXISTS ditto;
+CREATE DATABASE ditto;
+USE ditto;
 
 -- Create tables
 CREATE TABLE users (
